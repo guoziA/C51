@@ -1,0 +1,166 @@
+C51 COMPILER V9.52.0.0   SMARTDOOR                                                         04/09/2015 00:00:29 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SMARTDOOR
+OBJECT MODULE PLACED IN smartDoor.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE smartDoor.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <AT89x52.h>
+   2          //http://weidu.baidu.com/view/c353e8360b4c2e3f57276349.html?re=view
+   3          //红外收P3_3,(INT1)
+   4          #define IR P3_3
+   5          #define FRE 12000000//时钟频率12m
+   6          #define DIVI 12//分频
+   7          #define EVERY250US (250/(FRE/12/1000000))//50ms机器周期
+   8          sfr P4 = 0xE8;
+   9          sbit P4_6=P4^6;
+  10          
+  11          void DelayA();
+  12          void DelayB();
+  13          void Delayms(unsigned int xms);
+  14          unsigned int Temp;
+  15          
+  16          static int BEEP = 0;
+  17          int Counter = 0;
+  18          
+  19          
+  20          
+  21          
+  22          void main()
+  23          {
+  24   1              EA = 1; //允许 CPU 中断
+  25   1              IT1 = 1; //INT1 下降沿有效
+  26   1              EX1 = 1; //开 INT1 中断;
+  27   1              IT0 = 1;
+  28   1              EX0 = 1;
+  29   1              TMOD = 0x02;//???0????2,8?????
+  30   1              TH0=256-EVERY250US;//?TH0?TL0???,??250us???
+  31   1              TL0=256-EVERY250US;
+  32   1              ET0 = 1;//??T0??
+  33   1      
+  34   1              while(1){
+  35   2                      if(!P3_2){
+  36   3                              P0 = ~0X01;
+  37   3                              BEEP = 1;
+  38   3                              Delayms(5000);
+  39   3                              while(BEEP){
+  40   4                                      P0 = 0X00 ;
+  41   4                              }
+  42   3                      }else{
+  43   3                              if(!BEEP)
+  44   3                                      P0 = ~0X80;
+  45   3                      }
+  46   2              }
+  47   1      }
+  48          
+  49          
+  50          /***************************外部中断0，触发计时*****************************/
+  51          
+  52          
+  53          /***************************警报***************************************/
+  54          void timer() interrupt 1{
+  55   1              Counter++;
+C51 COMPILER V9.52.0.0   SMARTDOOR                                                         04/09/2015 00:00:29 PAGE 2   
+
+  56   1              
+  57   1      }
+  58          /*
+  59          *******************外部中断1，遥控器控制*****************************
+  60          */
+  61          //INT1 中断
+  62          
+  63          void INT1Fun(void) interrupt 2
+  64          {
+  65   1              unsigned char IRCode[2], IROK;
+  66   1              unsigned int TempCyc, TempCycB, TempCycA;
+  67   1              EX1 = 0; //外部中断 0 关闭
+  68   1              IROK = 0;
+  69   1              while(P3_3){
+  70   2                      DelayB();
+  71   2              }
+  72   1              if (!P3_3) //检验前半部是否过早结束，防干扰
+  73   1              {
+  74   2                      DelayA();
+  75   2                      for (TempCycA=0; TempCycA<2; TempCycA++)
+  76   2                      {
+  77   3                              DelayA();
+  78   3                              if (P3_3) //检验前半部是否过早结束，防干扰
+  79   3                              {
+  80   4                                      for (TempCyc=0; TempCyc<300; TempCyc++)
+  81   4                                              if (!P3_3) break; //等待第一个位,
+  82   4                                      if (TempCyc<300) //超时检验
+  83   4                                      {
+  84   5                                              for (TempCyc=0; TempCyc<8; TempCyc++)
+  85   5                                              {
+  86   6                                                      while(!P3_3); //等待 P3_2 拉高，开始位的下部分
+  87   6                                                      DelayB(); //这里没设超时，实际应用在多功能的设计时应设超时
+  88   6                                                      IRCode[TempCycA] = IRCode[TempCycA]>>1;
+  89   6                                                      if (P3_3) //当延时 750us 后 P3_2 仍为高则当前位为 1
+  90   6                                                      {
+  91   7                                                              IRCode[TempCycA] = IRCode[TempCycA] | 0x80;
+  92   7                                                              for (TempCycB=0; TempCycB<100; TempCycB++)
+  93   7                                                                      if (!P3_3) break; //等待下个位 当位 1 时高电平为 1.5ms,
+  94   7                                                              if (TempCycB>99)//之前已延时了 750us, 所以超时应大于 1.5ms-750us
+  95   7                                                                      goto endchk; //这里最大为 1ms
+  96   7                                                      }
+  97   6                                              }
+  98   5                                      }
+  99   4                                      else
+ 100   4                                              goto endchk; //超时
+ 101   4                              }       
+ 102   3                              else
+ 103   3                                      goto endchk;
+ 104   3                                      IROK++; //当自定码和数据码都完成时为 2
+ 105   3                      }       
+ 106   2              }
+ 107   1      endchk:
+ 108   1              if (IROK==2)
+ 109   1              {
+ 110   2                      if (IRCode[1]==0x61) {//1 号键 //只演示点亮 2 只 LED，读者可以自行扩展控制别的器件
+ 111   3                              BEEP = 0;
+ 112   3                              P0 = ~0x80;
+ 113   3                              TR0 = 0;
+ 114   3                              IRCode[1] = 0x00;
+ 115   3                      }
+ 116   2                      if (IRCode[1]==0x71) //2 号键
+ 117   2                      P0_6 = 0;
+C51 COMPILER V9.52.0.0   SMARTDOOR                                                         04/09/2015 00:00:29 PAGE 3   
+
+ 118   2      
+ 119   2                      for (TempCyc=0; TempCyc<300; TempCyc++)
+ 120   2                      DelayA(); //延时
+ 121   2              }
+ 122   1              EX1 = 1;
+ 123   1      }
+ 124          
+ 125          void DelayA()
+ 126          {
+ 127   1              unsigned int I;
+ 128   1              for (I=0; I<800; I++); //3.5                            650
+ 129   1      }
+ 130          void DelayB()
+ 131          {
+ 132   1              unsigned int i;
+ 133   1              for (i=0; i<93; i++); // 0.75ms         93
+ 134   1      }
+ 135          void Delayms(unsigned int xms){
+ 136   1              unsigned int i,j;
+ 137   1              for(i = xms; i > 0; i--)
+ 138   1                      for(j = 110; j > 0; j--);
+ 139   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    427    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

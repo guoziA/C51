@@ -1,0 +1,80 @@
+C51 COMPILER V9.52.0.0   STEPMOTOR                                                         03/19/2015 12:58:20 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE STEPMOTOR
+OBJECT MODULE PLACED IN stepMotor.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE stepMotor.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<regx52.h>
+   2          #define step1 P3_2//??IO?????
+   3          #define step2 P3_3
+   4          #define step3 P3_4
+   5          #define step4 P3_5
+   6          #define signal P3_0
+   7          #define DCstep P1_7
+   8          
+   9          
+  10          void delayms(int xms){
+  11   1              int i, j;
+  12   1              for(i = xms; i > 0; i--)
+  13   1                      for(j = 110; j > 0; j--);
+  14   1      }
+  15          void main()
+  16          {
+  17   1              
+  18   1              unsigned int i = 0;
+  19   1              unsigned char s = 0;
+  20   1              DCstep = 0;
+  21   1              while(1)
+  22   1              {
+  23   2                      s++;
+  24   2                      switch(s){//??IO???
+  25   3                              case 1:
+  26   3                                      step2 = 0;
+  27   3                                      step4 = 0;
+  28   3                                      step1 = 1;
+  29   3                                      step3 = 0;
+  30   3                                      break;
+  31   3                              case 2:
+  32   3                                      step1 = 0;
+  33   3                                      step3 = 0;
+  34   3                                      step4 = 0;
+  35   3                                      step2 = 1;
+  36   3                                      break;
+  37   3                              case 3:
+  38   3                                      step2 = 0;
+  39   3                                      step4 = 0;
+  40   3                                      step3 = 1;
+  41   3                                      step1 = 0;
+  42   3                                      break;
+  43   3                              case 4:
+  44   3                                      step1 = 0;
+  45   3                                      step3 = 0;
+  46   3                                      step2 = 0;
+  47   3                                      step4 = 1;
+  48   3                                      s = 0;
+  49   3                                      signal = !signal;
+  50   3                                      DCstep = !DCstep;
+  51   3                                      break;
+  52   3                      }
+  53   2                      delayms(200);
+  54   2              }
+  55   1      }
+C51 COMPILER V9.52.0.0   STEPMOTOR                                                         03/19/2015 12:58:20 PAGE 2   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    109    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

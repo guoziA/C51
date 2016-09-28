@@ -1,0 +1,110 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/16/2016  14:10:49  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE IndependentKey.obj TO independentKey
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  IndependentKey.obj (INDEPENDENTKEY)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  independentKey (INDEPENDENTKEY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0022H     UNIT         ?PR?LIGHT?INDEPENDENTKEY
+            CODE    0025H     0020H     UNIT         ?PR?_DELAYMS?INDEPENDENTKEY
+            CODE    0045H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0051H     0005H     UNIT         ?PR?MAIN?INDEPENDENTKEY
+
+
+
+OVERLAY MAP OF MODULE:   independentKey (INDEPENDENTKEY)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?INDEPENDENTKEY
+
+?PR?MAIN?INDEPENDENTKEY
+  +--> ?PR?LIGHT?INDEPENDENTKEY
+
+?PR?LIGHT?INDEPENDENTKEY
+  +--> ?PR?_DELAYMS?INDEPENDENTKEY
+
+
+
+SYMBOL TABLE OF MODULE:  independentKey (INDEPENDENTKEY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        INDEPENDENTKEY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:0080H.0       PUBLIC        P0_0
+  B:0090H.0       PUBLIC        P1_0
+  B:0080H.1       PUBLIC        P0_1
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/16/2016  14:10:49  PAGE 2
+
+
+  B:0080H.2       PUBLIC        P0_2
+  B:0090H.2       PUBLIC        P1_2
+  B:0080H.3       PUBLIC        P0_3
+  B:0090H.4       PUBLIC        P1_4
+  B:0090H.6       PUBLIC        P1_6
+  C:0051H         PUBLIC        main
+  C:0025H         PUBLIC        _delayms
+  C:0003H         PUBLIC        Light
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:0025H         LINE#         13
+  C:0025H         LINE#         15
+  C:0030H         LINE#         16
+  C:0044H         LINE#         17
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          LIGHT
+  C:0003H         LINE#         19
+  C:0003H         LINE#         20
+  C:0006H         LINE#         21
+  C:0008H         LINE#         22
+  C:0008H         LINE#         24
+  C:000DH         LINE#         25
+  C:000FH         LINE#         26
+  C:000FH         LINE#         28
+  C:0014H         LINE#         29
+  C:0016H         LINE#         30
+  C:0016H         LINE#         32
+  C:001BH         LINE#         33
+  C:001DH         LINE#         34
+  C:0024H         LINE#         35
+  C:0024H         LINE#         36
+  -------         ENDPROC       LIGHT
+  -------         PROC          MAIN
+  C:0051H         LINE#         38
+  C:0051H         LINE#         39
+  C:0051H         LINE#         40
+  C:0054H         LINE#         41
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        INDEPENDENTKEY
+
+Program Size: data=9.0 xdata=0 code=86
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

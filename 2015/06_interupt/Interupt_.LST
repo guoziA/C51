@@ -1,0 +1,48 @@
+C51 COMPILER V9.52.0.0   INTERUPT_                                                         04/03/2015 00:02:10 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE INTERUPT_
+OBJECT MODULE PLACED IN Interupt_.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE Interupt_.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<regx52.h>
+   2          
+   3          unsigned char i = 0;
+   4          unsigned char j = 0;
+   5          
+   6          void main(){
+   7   1              IT0 = 1;//外部中断0，下降沿触发（=0则为低电平触发）
+   8   1              EX0 = 1;//使能外部中断0 enable
+   9   1              IT1 = 0;
+  10   1              EX1 = 1;
+  11   1      
+  12   1              EA = 1;//使总能中断 enable always
+  13   1      
+  14   1              while(1);
+  15   1      }
+  16          
+  17          void int0() interrupt 0{
+  18   1              P0 = ~(0x01<<(i%8));
+  19   1              i++;
+  20   1      }
+  21          
+  22          void int1() interrupt 2{
+  23   1              P1 = ~(0x80 >> ( j % 8));
+  24   1              j++;
+  25   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     94    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

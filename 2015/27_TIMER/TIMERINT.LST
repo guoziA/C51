@@ -1,0 +1,215 @@
+A51 MACRO ASSEMBLER  TIMERINT                                                             12/30/2015 10:24:44 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN TIMERINT.OBJ
+ASSEMBLER INVOKED BY: E:\keil\C51\BIN\A51.EXE TIMERINT.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+  E101                 3             OUTBIT  EQU     0E101H
+  E102                 4             CLK164  EQU     0E102H
+  E102                 5             DAT164  EQU     0E102H
+  0000                 6             FLAG    EQU     20H.0
+                       7             
+  0060                 8             LEDBUF  EQU     60H
+                       9             
+                      10     
+0000                  11             ORG     0000H
+0000 020100           12             LJMP    MAIN    ;Ö÷³ÌÐò
+000B                  13             ORG     0BH
+000B 020129           14             LJMP    TIMER0INTERUPT  ;¶¨Ê±Æ÷0ÓÃÓÚ¼ÆÊ
+                      15                                                                                             ;OR
+                             G    01BH
+                      16                                                                                             ;LJ
+                             MP   TIMER1INTERUPT  ;¶¨Ê±Æ÷1ÓÃÓÚÏÔÊ¾
+                      17             
+0100                  18             ORG     0100H
+0100                  19     MAIN:
+0100 D200             20             SETB    FLAG    
+0102 7D00             21             MOV     R5,     #00H    ;Çå¿Õ¼ÆÊ
+0104 758901           22             MOV     TMOD,   #01H    ;¶¨Ê±Æ÷0ÓÃÄ£Ê½1
+                      23             
+0107 758C3C           24             MOV     TH0,    #3CH    ;³õÖµ15536
+010A 758AB0           25             MOV     TL0,    #0B0H
+                      26             
+                      27                                                                                             ;MO
+                             V    TH1,    #0C3H   ;³õÖµ50000
+                      28                                                                                             ;MO
+                             V    TL1,    #50H
+                      29             
+010D D2AF             30             SETB    EA      ;ÔÊÐí×ÜÖÐ¶Ï
+010F D2A9             31             SETB    ET0     ;¶¨Ê±Æ÷0ÔÊÐíÖÐ¶Ï
+                      32                                                                                             ;SE
+                             TB   ET1     ;¶¨Ê±Æ÷1ÔÊÐíÖÐ¶Ï
+0111 D28C             33             SETB    TR0     ;¿ª¶¨Ê±Æ÷0
+                      34                                                                                             ;CL
+                             R    TR1     ;¶¨Ê±Æ÷1ÏÈ²»¿ª
+                      35             
+0113                  36     LOOPM:  
+0113 BD1404           37             CJNE    R5,     #14H,   CHECKFLAG;¼ì²éflag                                         
+                                  $       ;R5ÓÃÓÚ¼ÆÊ£¬µ±R5=14H¸Ä±ä×´Ì¬
+0116 7D00             38             MOV     R5,     #00H    ;¼ÆÊÆ÷ÇåÁã
+0118 B200             39             CPL     FLAG    ;È¡·´
+011A                  40     CHECKFLAG:
+011A 200006           41             JB      FLAG,   CALLDIS ;Ìø×ªµ½µãÁÁ
+011D 120131           42             LCALL   LEDOFF  ;·ñÔòÌø×ªµ½Ï¨Ãð
+0120 020113           43             LJMP    LOOPM
+                      44             
+0123                  45     CALLDIS:
+0123 120138           46             LCALL   DISPLAYLED;µãÁÁÊÂë¹Ü                                                    SET
+                             B    TR1     ;¿ª¶¨Ê±Æ÷1£¬µãÁÁÊÂë¹Ü
+0126 020113           47             LJMP    LOOPM
+                      48             
+0129                  49     TIMER0INTERUPT: ;¶¨Ê±Æ÷0ÓÃÓÚ¼ÆÊ
+0129 758C3C           50             MOV     TH0,    #3CH    ;ÖØ×°³õÖµ
+A51 MACRO ASSEMBLER  TIMERINT                                                             12/30/2015 10:24:44 PAGE     2
+
+012C 758AB0           51             MOV     TL0,    #0B0H
+012F 0D               52             INC     R5      ;¼ÆÊÆ÷+1
+0130 32               53             RETI
+                      54             
+                      55                                                                                             ;TI
+                             MER1INTERUPT:        ;¶¨Ê±Æ÷1ÓÃÓÚÏÔÊ¾
+                      56                                                                                                
+                                  ;MOV    TH1,    #0C3H   ;ÖØ×°³õÖµ
+                      57                                                                                                
+                                  ;MOV    TL1,    #50H
+                      58                                                                                                
+                                  ;CLR    TR1     ;¹Ø¶¨Ê±Æ÷1
+                      59                                                                                                
+                                  ;LCALL  DISPLAYLED      ;ÏÔÊ¾
+                      60                                                                                                
+                                  ;SETB   TR1     ;¿ª¶¨Ê±Æ÷
+                      61                                                                                                
+                                  ;RETI
+                      62             
+0131                  63     LEDOFF:         ;Ï¨ÃðÈ«²¿ÊÂë¹Ü
+                      64                                                                                             ;CL
+                             R    TR1     ;¹Ø¶¨Ê±Æ÷1Í£Ö¹Ë¢ÐÂÏÔÊ¾
+0131 7400             65             MOV     A,      #00H    
+0133 90E101           66             MOV     DPTR,   #OUTBIT
+0136 F0               67             MOVX    @ DPTR, A       ;¹ØÈ«²¿ÊÂë¹Ü
+0137 22               68             RET
+                      69             
+0138                  70     DISPLAYLED:     ;ÊÂë¹ÜÏÔÊ¾º¯Ê
+0138 7860             71             MOV     R0,     #LEDBUF ;È¡»º³åÆ÷µÚÒ»¸öÊµ½R0
+013A 7906             72             MOV     R1,     #6      ;6Î»ÊÂë¹Ü
+013C 7A20             73             MOV     R2,     #20H    ;µÚÒ»Î»ÊÂë¹Ü0010000
+013E                  74     LOOP:
+013E 90E101           75             MOV     DPTR,   #OUTBIT ;¹ØÏÔÊ¾
+0141 7400             76             MOV     A,      #00H
+0143 F0               77             MOVX    @ DPTR, A
+0144 E6               78             MOV     A,      @ R0
+                      79             
+                      80             ;ÏÔÊ¾ÂëËÍ164
+0145 75F008           81             MOV     B,      #8      ;8¶Î
+0148                  82     DLP:    
+                      83             ;È¡C
+0148 33               84             RLC     A
+0149 FB               85             MOV     R3,     A
+014A 92E0             86             MOV     ACC.0,  C
+                      87             
+                      88             ;ÆÁ±ÎÊ±ÖÓÎ»
+014C 54FD             89             ANL     A,      #0FDH
+014E 90E102           90             MOV     DPTR,   #DAT164 ;ËÍÊ¾Ý
+0151 F0               91             MOVX    @ DPTR, A
+                      92             
+                      93             ;¸øÊ±ÖÓÎ»Ò»¸öÂö³å£¬Ëø´æ1¶ÎÊ¾Ý
+0152 90E102           94             MOV     DPTR,   #CLK164
+0155 4402             95             ORL     A,      #02H
+0157 F0               96             MOVX    @ DPTR, A
+0158 54FD             97             ANL     A,      #0FDH
+015A F0               98             MOVX    @ DPTR, A
+                      99             
+                     100             ;È¡»ØR3
+015B EB              101             MOV     A,      R3
+015C D5F0E9          102             DJNZ    B,      DLP     ;¹²Ëø´æ8¶ÎÊ¾Ý
+                     103             
+015F 90E101          104             MOV     DPTR,   #OUTBIT ;ÏÔÊ¾1Î»ÊÂë¹Ü
+0162 EA              105             MOV     A,      R2
+0163 F0              106             MOVX    @ DPTR, A
+                     107             
+0164 7E00            108             MOV     R6,     #0
+A51 MACRO ASSEMBLER  TIMERINT                                                             12/30/2015 10:24:44 PAGE     3
+
+0166 120176          109             LCALL   DELAY
+                     110             
+0169 EA              111             MOV     A,      R2      ;ÏÔÊ¾ÏÂ1Î»
+016A 03              112             RR      A
+016B FA              113             MOV     R2,     A
+                     114             
+016C 08              115             INC     R0
+                     116             
+016D D9CF            117             DJNZ    R1,     LOOP    ;¹²6Î»
+                     118             
+016F 90E101          119             MOV     DPTR,   #OUTBIT ;¹ØÏÔÊ¾
+0172 7400            120             MOV     A,      #0
+0174 F0              121             MOVX    @ DPTR, A
+0175 22              122             RET
+                     123             
+0176                 124     DELAY:  ;ÑÓÊ±º¯Ê
+0176 7F64            125             MOV     R7,     #64H    ;100£¬Èç¹û·¢ÏÖÊÂë¹ÜÒ»ÉÁÒ»ÉÁµÄ£¬¼õÐ¡Õâ¸öÊÊÔÊÔ
+0178                 126     DELAYLOOP:
+0178 DFFE            127             DJNZ    R7,     DELAYLOOP
+017A DEFC            128             DJNZ    R6,     DELAYLOOP
+017C 22              129             RET
+                     130             
+0060                 131             ORG     60H     ;ÏÔÊ¾Âë±í       abcdef
+0060 5F7C585E        132             DB      5FH,    7CH,    58H,    5EH,    7BH,    71H
+0064 7B71                    
+                     133             
+                     134     ;FILLBUF:
+                     135             ;MOV    R0,     #LEDBUF
+                     136             ;MOV    A,      #1
+                     137             ;MOV    B,      A
+                     138     ;FILLLP:
+                     139             ;MOV    DPTR,   #LEDMAP
+                     140             ;MOVC   A,      @ DPTR+A
+                     141             ;MOV    @R0,    A
+                     142             ;INC    B
+                     143             ;MOV    A,      B
+                     144             ;CJNE   R0,     #LEDBUF+6,      FILLLP
+                     145             ;RET
+                     146             
+                     147             END
+A51 MACRO ASSEMBLER  TIMERINT                                                             12/30/2015 10:24:44 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+CALLDIS. . . . . .  C ADDR   0123H   A   
+CHECKFLAG. . . . .  C ADDR   011AH   A   
+CLK164 . . . . . .  N NUMB   E102H   A   
+DAT164 . . . . . .  N NUMB   E102H   A   
+DELAY. . . . . . .  C ADDR   0176H   A   
+DELAYLOOP. . . . .  C ADDR   0178H   A   
+DISPLAYLED . . . .  C ADDR   0138H   A   
+DLP. . . . . . . .  C ADDR   0148H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+FLAG . . . . . . .  B ADDR   0020H.0 A   
+LEDBUF . . . . . .  N NUMB   0060H   A   
+LEDOFF . . . . . .  C ADDR   0131H   A   
+LOOP . . . . . . .  C ADDR   013EH   A   
+LOOPM. . . . . . .  C ADDR   0113H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+OUTBIT . . . . . .  N NUMB   E101H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0INTERUPT . .  C ADDR   0129H   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

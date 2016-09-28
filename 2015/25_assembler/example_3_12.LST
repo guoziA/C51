@@ -1,0 +1,36 @@
+A51 MACRO ASSEMBLER  EXAMPLE_3_12                                                         11/27/2015 11:33:00 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN example_3_12.OBJ
+ASSEMBLER INVOKED BY: E:\keil\C51\BIN\A51.EXE example_3_12.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                     ORG 0000H
+0000 900008            2                     MOV DPTR, #TABEL
+0003 7401              3                     MOV A, #01H
+0005 93                4                     MOVC A, @ A+DPTR
+0006 F590              5                     MOV P1, A
+                       6     
+                       7     
+0008 30313233          8     TABEL:  DB 30h, 31h, 32h, 33h, 34h, 35h, 36h, 37h, 38h, 39h
+000C 34353637                
+0010 3839                    
+*** WARNING #A41 IN 8 (example_3_12.a51, LINE 8): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  EXAMPLE_3_12                                                         11/27/2015 11:33:00 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+P1 . . . . . . . .  D ADDR   0090H   A   
+TABEL. . . . . . .  C ADDR   0008H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 0 ERROR(S)

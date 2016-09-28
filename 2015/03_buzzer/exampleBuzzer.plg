@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\keil\project\C51\2015\03_buzzer\exampleBuzzer.uvproj
+Project File Date:  02/21/2015
+
+<h2>Output:</h2>
+Build target 'Target exampleBuzzer'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYMS?EXAMPLEBUZZER
+Program Size: data=20.0 xdata=0 code=474
+creating hex file from "exampleBuzzer"...
+"exampleBuzzer" - 0 Error(s), 1 Warning(s).

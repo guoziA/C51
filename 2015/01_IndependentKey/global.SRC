@@ -1,0 +1,52 @@
+; .\global.SRC generated from: global.c
+; COMPILER INVOKED BY:
+;        E:\keil\C51\BIN\C51.EXE global.c BROWSE DEBUG OBJECTEXTEND SRC(.\global.SRC)
+
+
+NAME	GLOBAL
+
+?PR?_?func4?GLOBAL   SEGMENT CODE 
+?DT?GLOBAL           SEGMENT DATA 
+?ID?GLOBAL           SEGMENT IDATA 
+	EXTRN	DATA (?C_IBP)
+	PUBLIC	test_char2
+	PUBLIC	test_char1
+	PUBLIC	GLOBAL_CAHR
+	PUBLIC	GLOBAL_CHAR
+	PUBLIC	_?func4
+
+	RSEG  ?DT?GLOBAL
+    GLOBAL_CHAR:   DS   1
+    GLOBAL_CAHR:   DS   1
+
+	RSEG  ?ID?GLOBAL
+     test_char1:   DS   1
+     test_char2:   DS   1
+; #include "global.h"
+; 
+; char GLOBAL_CHAR;
+; idata char test_char1;
+; idata char test_char2;
+; 
+; void func4(char r) reentrant{
+
+	RSEG  ?PR?_?func4?GLOBAL
+_?func4:
+	USING	0
+			; SOURCE LINE # 7
+	DEC  	?C_IBP
+	MOV  	R0,?C_IBP
+	MOV  	@R0,AR7
+; 	GLOBAL_CHAR = 1;
+			; SOURCE LINE # 8
+	MOV  	GLOBAL_CHAR,#01H
+; 	test_char1 = 1;
+			; SOURCE LINE # 9
+	MOV  	R0,#LOW (test_char1)
+	MOV  	@R0,#01H
+; }			; SOURCE LINE # 10
+	INC  	?C_IBP
+	RET  	
+; END OF _?func4
+
+	END

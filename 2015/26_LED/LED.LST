@@ -1,0 +1,48 @@
+A51 MACRO ASSEMBLER  LED                                                                  12/17/2015 10:47:01 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN LED.OBJ
+ASSEMBLER INVOKED BY: E:\keil\C51\BIN\A51.EXE LED.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1                                     ;ÎÒµÄ×¢ÊÍ¶¼ÊÇ¸öÈËÀí½â£¬²»ÒªÌÎÒºúËµ°ËµÀ
+  0080                 2             LEDS    EQU     P0
+0000                   3             ORG     0000H                   ;PC¸´Î»µ½0000H
+                       4                     
+0000 74FE              5             MOV     A ,     #0FEH           ;½«Ê¾ÝF8H·ÅÈëÀÛ¼ÓÆ÷A
+0002 F580              6     LOOP:   MOV     LEDS,   A               ;½«ÀÛ¼ÓÆ÷AµÄÊ¾ÝF8H·Åµ½P0 IO¿Ú
+0004 12000A            7             LCALL   DELAY                   ;µ÷ÓÃÑÓÊ±×Óº¯Ê
+0007 23                8             RL      A                       ;AÖÐµÄÊ¾Ý×óÒÆ£¬Ó¦¸ÃÊÇ×óÒÆ
+0008 80F8              9             SJMP    LOOP                    ;Ìø×ªµ½LOOPÐÐ
+                      10             
+                      11             
+000A 79FF             12     DELAY:  MOV     R1,     #0FFH           ;ÑÓÊ±º¯Ê£¬½«Ê¾ÝFFH·ÅÈëR1
+000C 7A80             13     LP:     MOV     R2,     #80H            ;½«Ê¾Ý80H·ÅÈëR2
+000E 00               14     LP1:    NOP                             ;ÑÓÊ±Ò»¶ÎÊ±¼ä£¬¾ßÌå¶à¾Ã²»¼ÇµÃÁË
+000F 00               15             NOP                                                     
+0010 DAFC             16             DJNZ    R2,     LP1             ;R2ÖÐÊ¾Ý×Ô¼õ1£¬Èç¹û²»Îª0£¬Ìø×ªµ½LP1
+0012 D9F8             17             DJNZ    R1,     LP              ;R1ÖÐÊ¾Ý×Ô¼õ1£¬Èç¹û²»Îª0£¬Ìø×ªµ½LP
+0014 22               18             RET                             ;×Óº¯Ê·µ»Ø return
+                      19             END                             ;³ÌÐò½áÊø±êÖ¾                           
+A51 MACRO ASSEMBLER  LED                                                                  12/17/2015 10:47:01 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   000AH   A   
+LEDS . . . . . . .  D ADDR   0080H   A   
+LOOP . . . . . . .  C ADDR   0002H   A   
+LP . . . . . . . .  C ADDR   000CH   A   
+LP1. . . . . . . .  C ADDR   000EH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

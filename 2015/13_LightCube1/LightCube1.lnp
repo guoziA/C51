@@ -1,0 +1,6 @@
+"LightCube1.obj",
+"scanNagative.obj",
+"scan_layer.obj",
+"constants.obj" 
+TO "LightCube1" 
+RAMSIZE(256) 

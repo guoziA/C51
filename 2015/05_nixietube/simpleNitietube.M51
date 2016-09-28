@@ -1,0 +1,116 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        02/20/2015  12:45:39  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE simple.obj TO simpleNitietube
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  simple.obj (SIMPLE)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?ULDIV)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  simpleNitietube (SIMPLE)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000BH     UNIT         ?DT?SIMPLE
+            DATA    0013H     0009H     UNIT         _DATA_GROUP_
+            IDATA   001CH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0123H     UNIT         ?C?LIB_CODE
+            CODE    0126H     0090H     UNIT         ?PR?MAIN?SIMPLE
+            CODE    01B6H     008CH     UNIT         ?C_C51STARTUP
+            CODE    0242H     0038H     UNIT         ?PR?_SHOWNUM?SIMPLE
+            CODE    027AH     000EH     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   simpleNitietube (SIMPLE)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?SIMPLE
+  +--> ?C_INITSEG
+
+?PR?MAIN?SIMPLE                0013H    0009H
+  +--> ?PR?_SHOWNUM?SIMPLE
+
+
+
+SYMBOL TABLE OF MODULE:  simpleNitietube (SIMPLE)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        SIMPLE
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/20/2015  12:45:39  PAGE 2
+
+
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  C:0126H         PUBLIC        main
+  D:0008H         PUBLIC        num
+  C:0242H         PUBLIC        _showNum
+  -------         PROC          _SHOWNUM
+  D:0082H         SYMBOL        position
+  D:0002H         SYMBOL        number
+  C:0242H         LINE#         8
+  C:024AH         LINE#         9
+  C:024AH         LINE#         11
+  C:0250H         LINE#         12
+  C:025FH         LINE#         13
+  C:0262H         LINE#         14
+  C:0272H         LINE#         15
+  C:0279H         LINE#         16
+  -------         ENDPROC       _SHOWNUM
+  -------         PROC          MAIN
+  -------         DO            
+  D:0013H         SYMBOL        position
+  D:0014H         SYMBOL        j
+  D:0018H         SYMBOL        m
+  -------         ENDDO         
+  C:0126H         LINE#         18
+  C:0126H         LINE#         19
+  C:0126H         LINE#         20
+  C:0129H         LINE#         21
+  C:0131H         LINE#         22
+  C:0139H         LINE#         23
+  C:0139H         LINE#         24
+  C:0139H         LINE#         25
+  C:0152H         LINE#         26
+  C:0155H         LINE#         27
+  C:0155H         LINE#         28
+  C:017DH         LINE#         29
+  C:0196H         LINE#         30
+  C:019FH         LINE#         31
+  C:01B4H         LINE#         32
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        SIMPLE
+
+  -------         MODULE        ?C?UIDIV
+  C:0003H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+  -------         MODULE        ?C?ULDIV
+  C:0094H         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+Program Size: data=29.0 xdata=0 code=648
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

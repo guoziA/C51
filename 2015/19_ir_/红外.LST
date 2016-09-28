@@ -1,0 +1,145 @@
+C51 COMPILER V9.52.0.0   ____                                                              04/08/2015 19:31:54 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE ____
+OBJECT MODULE PLACED IN 红外.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE 红外.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <AT89x52.h>
+   2          //http://weidu.baidu.com/view/c353e8360b4c2e3f57276349.html?re=view
+   3          //红外收P3_3,(INT1)
+   4          sfr P4 = 0xE8;
+   5          sbit P4_6=P4^6;
+   6          void InitCom(void);
+   7          void ComOutChar(unsigned char OutData);
+   8          void DelayA(void);
+   9          void DelayB(void);
+  10          void Delayms(unsigned int xms);
+  11          void main(void)
+  12          {
+  13   1              InitCom(); //初始化串口
+  14   1              EA = 1; //允许 CPU 中断
+  15   1              IT1 = 1; //INT1 下降沿有效
+  16   1              EX1 = 1; //开 INT1 中断;
+  17   1      
+  18   1              while(1)        
+  19   1              {
+  20   2      
+  21   2                      P0_0 = 0; //工作指示 LED
+  22   2              }
+  23   1      }
+  24          //INT1 中断
+  25          unsigned char IRCode[2], IROK;
+  26          unsigned int TempCyc, TempCycB, TempCycA;
+  27          void INT1Fun(void) interrupt 1
+  28          {
+  29   1              EX1 = 0; //外部中断 0 关闭
+  30   1              IROK = 0;
+  31   1              while(P3_3){
+  32   2                      DelayB();
+  33   2              }
+  34   1              if (!P3_3) //检验前半部是否过早结束，防干扰
+  35   1              {
+  36   2                      DelayA();
+  37   2                      for (TempCycA=0; TempCycA<2; TempCycA++)
+  38   2                      {
+  39   3                              DelayA();
+  40   3                              if (P3_3) //检验前半部是否过早结束，防干扰
+  41   3                              {
+  42   4                                      for (TempCyc=0; TempCyc<300; TempCyc++)
+  43   4                                              if (!P3_3) break; //等待第一个位,
+  44   4                                      if (TempCyc<300) //超时检验
+  45   4                                      {
+  46   5                                              for (TempCyc=0; TempCyc<8; TempCyc++)
+  47   5                                              {
+  48   6                                                      while(!P3_3); //等待 P3_2 拉高，开始位的下部分
+  49   6                                                      DelayB(); //这里没设超时，实际应用在多功能的设计时应设超时
+  50   6                                                      IRCode[TempCycA] = IRCode[TempCycA]>>1;
+  51   6                                                      if (P3_3) //当延时 750us 后 P3_2 仍为高则当前位为 1
+  52   6                                                      {
+  53   7                                                              IRCode[TempCycA] = IRCode[TempCycA] | 0x80;
+  54   7                                                              for (TempCycB=0; TempCycB<100; TempCycB++)
+  55   7                                                                      if (!P3_3) break; //等待下个位 当位 1 时高电平为 1.5ms,
+C51 COMPILER V9.52.0.0   ____                                                              04/08/2015 19:31:54 PAGE 2   
+
+  56   7                                                              if (TempCycB>99)//之前已延时了 750us, 所以超时应大于 1.5ms-750us
+  57   7                                                                      goto endchk; //这里最大为 1ms
+  58   7                                                      }
+  59   6                                              }
+  60   5                                      }
+  61   4                                      else
+  62   4                                              goto endchk; //超时
+  63   4                              }       
+  64   3                              else
+  65   3                                      goto endchk;
+  66   3                                      IROK++; //当自定码和数据码都完成时为 2
+  67   3                      }       
+  68   2              }
+  69   1      endchk:
+  70   1              if (IROK==2)
+  71   1              {
+  72   2                      ComOutChar(IRCode[0]);
+  73   2                      ComOutChar(IRCode[1]); //连接 PC 串口查看自定义码和数据码
+  74   2                      if (IRCode[1]==0x61) //1 号键 //只演示点亮 2 只 LED，读者可以自行扩展控制别的器件
+  75   2                      P0_7 = 0;
+  76   2                      if (IRCode[1]==0x71) //2 号键
+  77   2                      P0_6 = 0;
+  78   2      
+  79   2                      for (TempCyc=0; TempCyc<300; TempCyc++)
+  80   2                      DelayA(); //延时
+  81   2              }
+  82   1              EX1 = 1;
+  83   1      }
+  84          //向串口输出一个字符（非中断方式）
+  85          void ComOutChar(unsigned char OutData)
+  86          {
+  87   1              SBUF = OutData; //输出字符
+  88   1              while(!TI); //空语句判断字符是否发完
+  89   1              TI = 0; //清 TI
+  90   1      }
+  91          //串口初始化 晶振为 12M 方式 1 波特率 4800
+  92          void InitCom(void)
+  93          {
+  94   1              SCON = 0x50; //串口方式 1,允许接收
+  95   1              TMOD = 0x21; //定时器 1 定时方式 2,定时 0 为模式 1，16 位模式
+  96   1              TCON = 0x40; //设定时器 1 开始计数
+  97   1              TH1 = 0xF3; //设波特率为 4800
+  98   1              TL1 = 0xF3;
+  99   1              PCON = 0x80; //波特率加倍控制,SMOD 位
+ 100   1              RI = 0; //清收发标志
+ 101   1              TI = 0;
+ 102   1              TR1 = 1; //启动定时器
+ 103   1      }
+ 104          void DelayA(void)
+ 105          {
+ 106   1              unsigned int TempCyc;
+ 107   1              for (TempCyc=0; TempCyc<800; TempCyc++); //3.5                          650
+ 108   1      }
+ 109          void DelayB(void)
+ 110          {
+ 111   1              unsigned int TempCyc;
+ 112   1              for (TempCyc=0; TempCyc<93; TempCyc++); // 0.75ms
+ 113   1      }
+ 114          void Delayms(unsigned int xms){
+ 115   1              unsigned int i,j;
+ 116   1              for(i = xms; i > 0; i--)
+ 117   1                      for(j = 110; j > 0; j--);
+C51 COMPILER V9.52.0.0   ____                                                              04/08/2015 19:31:54 PAGE 3   
+
+ 118   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    404    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

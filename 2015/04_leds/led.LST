@@ -1,0 +1,118 @@
+C51 COMPILER V9.52.0.0   LED                                                               09/16/2015 13:08:48 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<regx52.h>
+   2          #include "frams.h"
+   3          
+   4          
+   5          sbit SPEED = P3^1;
+   6          sbit MODE  = P3^0;
+   7          
+   8          void InitINT0();
+   9          void SystemInit();
+  10          
+  11          enum FLASH_SPEED{SLOWEST = 600, SLOWER = 500, NORMAL = 400, FAST = 300, FASTER = 200, FASTEST = 100
+  12          }flashSpeed;
+  13          
+  14          enum FLASH_MODE{NUMBER, ANIMATION1, ANIMATION2 
+  15          }flashMode;
+  16          
+  17          int speed;
+  18          void main(){
+  19   1              SystemInit();
+  20   1              InitINT0();
+  21   1              while(1){
+  22   2                      if(flashMode == NUMBER){
+  23   3                              
+  24   3                      }else if(flashMode == ANIMATION1){
+  25   3                              
+  26   3                      }else if(flashMode == ANIMATION2){
+  27   3                              
+  28   3                      }
+  29   2              }
+  30   1      }
+  31          
+  32          //显示图案
+  33          //形状数组，帧数，加速或减速
+  34          void ShowFrame(char LS_code[], unsigned int frameNum, int delayFrameOffset){
+  35   1              char graph;
+  36   1              unsigned int i = 0, j = 0, k1 = 0, k2 = 0;
+  37   1              //不允许speed<0
+  38   1              if(delayFrameOffset >= flashSpeed){
+  39   2                      delayFrameOffset = flashSpeed - 20;
+  40   2              }
+  41   1              for(i = 0; i < frameNum;){
+  42   2                      if(k1 % 20 == 0){       //*************改变20可控制速度************
+  43   3                              k1 = 0;
+  44   3                              k2++;
+  45   3                              if(k2 >= speed){
+  46   4                                      k2 = 0;
+  47   4                                      i++;
+  48   4                                      if(delayFrameOffset != 0){
+  49   5                                              //使用变速
+  50   5                                              speed = speed - delayFrameOffset;
+  51   5                                      }else{
+  52   5                                              //每帧之间检测速度
+  53   5                                              speed = flashSpeed;
+  54   5                                      }
+  55   4                              }
+C51 COMPILER V9.52.0.0   LED                                                               09/16/2015 13:08:48 PAGE 2   
+
+  56   3                      }
+  57   2                      for(j = 0; j < 4; j++){
+  58   3                              graph = ((0xef << j) & 0xf0) + LS_code[i * 4 + j];
+  59   3                              P2 = graph;
+  60   3                      }
+  61   2                      k1++;
+  62   2              }
+  63   1      }
+  64          
+  65          void Break0() interrupt 0{
+  66   1              if(MODE == 0){
+  67   2                      if(flashMode == ANIMATION2){
+  68   3                              flashMode = NUMBER;
+  69   3                      }else{
+  70   3                              flashMode++;
+  71   3                      }
+  72   2              }
+  73   1              else if(SPEED == 0){
+  74   2                      if(flashSpeed == FASTEST){
+  75   3                              flashSpeed = SLOWEST;
+  76   3                      }else{
+  77   3                              flashSpeed++;
+  78   3                      }
+  79   2              }
+  80   1      }
+  81          
+  82          void SystemInit(){
+  83   1              flashSpeed = SLOWEST;
+  84   1      }
+  85          
+  86          void InitINT0(){
+  87   1              IT0 = 1;//外部中断0，下降沿触发（=0则为低电平触发）
+  88   1              EX0 = 1;//使能外部中断0 enable
+  89   1              IT1 = 0;
+  90   1              EX1 = 1;
+  91   1      
+  92   1              EA = 1;//使总能中断 enable always
+  93   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    327    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5      15
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

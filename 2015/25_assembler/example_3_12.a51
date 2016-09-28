@@ -1,0 +1,8 @@
+		ORG 0000H
+		MOV DPTR, #TABEL
+		MOV A, #01H
+		MOVC A, @ A+DPTR
+		MOV P1, A
+		END
+
+TABEL:	DB 30h, 31h, 32h, 33h, 34h, 35h, 36h, 37h, 38h, 39h

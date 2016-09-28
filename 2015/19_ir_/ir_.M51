@@ -1,0 +1,236 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/08/2015  19:31:54  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE ºìÍâ.obj TO ir_
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  ºìÍâ.obj (____)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  ir_ (____)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0009H     UNIT         ?DT?____
+            IDATA   0011H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0008H     UNIT         ?PR?_COMOUTCHAR?____
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     012AH     UNIT         ?PR?INT1FUN?____
+            CODE    0138H     001EH     UNIT         ?PR?_DELAYMS?____
+            CODE    0156H     0019H     UNIT         ?PR?INITCOM?____
+            CODE    016FH     000FH     UNIT         ?PR?DELAYA?____
+            CODE    017EH     000FH     UNIT         ?PR?DELAYB?____
+            CODE    018DH     000DH     UNIT         ?PR?MAIN?____
+            CODE    019AH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   ir_ (____)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?PR?INT1FUN?____
+  +--> ?PR?DELAYB?____
+  +--> ?PR?DELAYA?____
+  +--> ?PR?_COMOUTCHAR?____
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?____
+
+?PR?MAIN?____
+  +--> ?PR?INITCOM?____
+
+
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/08/2015  19:31:54  PAGE 2
+
+
+SYMBOL TABLE OF MODULE:  ir_ (____)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ____
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00E8H         PUBLIC        P4
+  B:00A8H.7       PUBLIC        EA
+  B:0080H.0       PUBLIC        P0_0
+  B:00B0H.3       PUBLIC        P3_3
+  B:0080H.6       PUBLIC        P0_6
+  B:0080H.7       PUBLIC        P0_7
+  D:0008H         PUBLIC        IRCode
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  C:018DH         PUBLIC        main
+  D:0099H         PUBLIC        SBUF
+  D:0087H         PUBLIC        PCON
+  C:016FH         PUBLIC        DelayA
+  C:017EH         PUBLIC        DelayB
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:000AH         PUBLIC        IROK
+  C:0156H         PUBLIC        InitCom
+  D:000BH         PUBLIC        TempCyc
+  C:000EH         PUBLIC        INT1Fun
+  D:008DH         PUBLIC        TH1
+  B:00A8H.2       PUBLIC        EX1
+  B:0088H.2       PUBLIC        IT1
+  D:008BH         PUBLIC        TL1
+  C:0138H         PUBLIC        _Delayms
+  B:0088H.6       PUBLIC        TR1
+  C:0003H         PUBLIC        _ComOutChar
+  D:000DH         PUBLIC        TempCycA
+  D:000FH         PUBLIC        TempCycB
+  -------         PROC          MAIN
+  C:018DH         LINE#         11
+  C:018DH         LINE#         12
+  C:018DH         LINE#         13
+  C:0190H         LINE#         14
+  C:0192H         LINE#         15
+  C:0194H         LINE#         16
+  C:0196H         LINE#         18
+  C:0196H         LINE#         19
+  C:0196H         LINE#         21
+  C:0198H         LINE#         22
+  -------         ENDPROC       MAIN
+  -------         PROC          INT1FUN
+  -------         DO            
+  C:00E3H         SYMBOL        endchk
+  -------         ENDDO         
+  C:000EH         LINE#         27
+  C:002BH         LINE#         29
+  C:002DH         LINE#         30
+  C:0030H         LINE#         31
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/08/2015  19:31:54  PAGE 3
+
+
+  C:0033H         LINE#         32
+  C:0036H         LINE#         33
+  C:0038H         LINE#         34
+  C:003EH         LINE#         35
+  C:003EH         LINE#         36
+  C:0041H         LINE#         37
+  C:0047H         LINE#         38
+  C:0047H         LINE#         39
+  C:004AH         LINE#         40
+  C:0050H         LINE#         41
+  C:0050H         LINE#         42
+  C:0056H         LINE#         43
+  C:0069H         LINE#         44
+  C:0074H         LINE#         45
+  C:0074H         LINE#         46
+  C:007AH         LINE#         47
+  C:007AH         LINE#         48
+  C:007DH         LINE#         49
+  C:0080H         LINE#         50
+  C:008FH         LINE#         51
+  C:0092H         LINE#         52
+  C:0092H         LINE#         53
+  C:009AH         LINE#         54
+  C:00A0H         LINE#         55
+  C:00B1H         LINE#         56
+  C:00BCH         LINE#         57
+  C:00BCH         LINE#         58
+  C:00BCH         LINE#         59
+  C:00CDH         LINE#         60
+  C:00CDH         LINE#         62
+  C:00CDH         LINE#         63
+  C:00CDH         LINE#         65
+  C:00CDH         LINE#         66
+  C:00CFH         LINE#         67
+  C:00E3H         LINE#         68
+  C:00E3H         LINE#         69
+  C:00E3H         LINE#         70
+  C:00E9H         LINE#         71
+  C:00E9H         LINE#         72
+  C:00EEH         LINE#         73
+  C:00F3H         LINE#         74
+  C:00F8H         LINE#         75
+  C:00FAH         LINE#         76
+  C:00FFH         LINE#         77
+  C:0101H         LINE#         79
+  C:0107H         LINE#         80
+  C:011BH         LINE#         81
+  C:011BH         LINE#         82
+  C:011DH         LINE#         83
+  -------         ENDPROC       INT1FUN
+  -------         PROC          _COMOUTCHAR
+  D:0007H         SYMBOL        OutData
+  C:0003H         LINE#         85
+  C:0003H         LINE#         86
+  C:0003H         LINE#         87
+  C:0005H         LINE#         88
+  C:0008H         LINE#         89
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/08/2015  19:31:54  PAGE 4
+
+
+  C:000AH         LINE#         90
+  -------         ENDPROC       _COMOUTCHAR
+  -------         PROC          INITCOM
+  C:0156H         LINE#         92
+  C:0156H         LINE#         93
+  C:0156H         LINE#         94
+  C:0159H         LINE#         95
+  C:015CH         LINE#         96
+  C:015FH         LINE#         97
+  C:0162H         LINE#         98
+  C:0165H         LINE#         99
+  C:0168H         LINE#         100
+  C:016AH         LINE#         101
+  C:016CH         LINE#         102
+  C:016EH         LINE#         103
+  -------         ENDPROC       INITCOM
+  -------         PROC          DELAYA
+  -------         DO            
+  D:0006H         SYMBOL        TempCyc
+  -------         ENDDO         
+  C:016FH         LINE#         104
+  C:016FH         LINE#         105
+  C:016FH         LINE#         107
+  C:017DH         LINE#         108
+  -------         ENDPROC       DELAYA
+  -------         PROC          DELAYB
+  -------         DO            
+  D:0006H         SYMBOL        TempCyc
+  -------         ENDDO         
+  C:017EH         LINE#         109
+  C:017EH         LINE#         110
+  C:017EH         LINE#         112
+  C:018CH         LINE#         113
+  -------         ENDPROC       DELAYB
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:0138H         LINE#         114
+  C:0138H         LINE#         116
+  C:0141H         LINE#         117
+  C:0155H         LINE#         118
+  -------         ENDPROC       _DELAYMS
+  -------         ENDMOD        ____
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYMS?____
+
+Program Size: data=18.0 xdata=0 code=422
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

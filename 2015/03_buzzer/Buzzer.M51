@@ -1,0 +1,153 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        02/21/2015  10:49:05  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE Buzzer.obj TO Buzzer
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  Buzzer.obj (BUZZER)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?ULCMP)
+
+
+LINK MAP OF MODULE:  Buzzer (BUZZER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0008H     UNIT         _DATA_GROUP_
+            DATA    0010H     0003H     UNIT         ?DT?BUZZER
+            IDATA   0013H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0065H     UNIT         ?CO?BUZZER
+            CODE    0073H     0048H     UNIT         ?PR?_DELAY?BUZZER
+            CODE    00BBH     0043H     UNIT         ?PR?MAIN?BUZZER
+            CODE    00FEH     0011H     UNIT         ?C?LIB_CODE
+            CODE    010FH     000DH     UNIT         ?PR?T0INT?BUZZER
+            CODE    011CH     000DH     UNIT         ?PR?SONG?BUZZER
+            CODE    0129H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   Buzzer (BUZZER)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?BUZZER
+
+?PR?MAIN?BUZZER                0008H    0002H
+  +--> ?CO?BUZZER
+  +--> ?PR?SONG?BUZZER
+
+?PR?SONG?BUZZER                -----    -----
+  +--> ?PR?_DELAY?BUZZER
+
+?PR?_DELAY?BUZZER              000AH    0006H
+
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/21/2015  10:49:05  PAGE 2
+
+
+
+SYMBOL TABLE OF MODULE:  Buzzer (BUZZER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        BUZZER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00E8H         PUBLIC        P4
+  B:00A8H.7       PUBLIC        EA
+  C:0073H         PUBLIC        _delay
+  C:00BBH         PUBLIC        main
+  D:0010H         PUBLIC        time
+  D:0089H         PUBLIC        TMOD
+  C:011CH         PUBLIC        song
+  D:0011H         PUBLIC        timer0h
+  D:0012H         PUBLIC        timer0l
+  B:00A8H.1       PUBLIC        ET0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  C:0046H         PUBLIC        thank_you
+  B:00E8H.4       PUBLIC        BUZZER
+  C:010FH         PUBLIC        t0int
+  C:000EH         PUBLIC        FREQH
+  C:002AH         PUBLIC        FREQL
+  -------         PROC          T0INT
+  C:010FH         LINE#         37
+  C:010FH         LINE#         41
+  C:0111H         LINE#         43
+  C:0113H         LINE#         45
+  C:0116H         LINE#         47
+  C:0119H         LINE#         49
+  C:011BH         LINE#         51
+  -------         ENDPROC       T0INT
+  -------         PROC          _DELAY
+  D:000AH         SYMBOL        t
+  -------         DO            
+  D:000BH         SYMBOL        t1
+  D:000CH         SYMBOL        t2
+  -------         ENDDO         
+  C:0073H         LINE#         55
+  C:0075H         LINE#         57
+  C:0075H         LINE#         63
+  C:007FH         LINE#         65
+  C:00B8H         LINE#         67
+  C:00BAH         LINE#         69
+  -------         ENDPROC       _DELAY
+  -------         PROC          SONG
+  C:011CH         LINE#         73
+  C:011CH         LINE#         75
+  C:011CH         LINE#         77
+  C:011FH         LINE#         79
+  C:0122H         LINE#         81
+  C:0124H         LINE#         83
+  -------         ENDPROC       SONG
+  -------         PROC          MAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/21/2015  10:49:05  PAGE 3
+
+
+  -------         DO            
+  D:0008H         SYMBOL        k
+  D:0009H         SYMBOL        i
+  -------         ENDDO         
+  C:00BBH         LINE#         89
+  C:00BBH         LINE#         91
+  C:00BBH         LINE#         95
+  C:00BEH         LINE#         97
+  C:00C0H         LINE#         99
+  C:00C2H         LINE#         101
+  C:00C2H         LINE#         103
+  C:00C5H         LINE#         105
+  C:00C8H         LINE#         107
+  C:00C8H         LINE#         109
+  C:00DDH         LINE#         111
+  C:00E3H         LINE#         113
+  C:00EBH         LINE#         115
+  C:00F3H         LINE#         117
+  C:00F9H         LINE#         119
+  C:00FCH         LINE#         121
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        BUZZER
+
+  -------         MODULE        ?C?ULCMP
+  C:00FEH         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+Program Size: data=20.0 xdata=0 code=301
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

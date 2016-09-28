@@ -1,0 +1,565 @@
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE CALCULATOR
+OBJECT MODULE PLACED IN calculator.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE calculator.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<regx52.h>
+   2          #include<math.h>
+   3          
+   4          //扫描键盘，等号用外中断P33/INIT1
+   5          #define ROW_0 P2_7
+   6          #define ROW_1 P2_6
+   7          #define ROW_2 P2_5
+   8          #define ROW_3 P2_4
+   9          #define COL_0 P2_3
+  10          #define COL_1 P2_2
+  11          #define COL_2 P2_1
+  12          #define COL_3 P2_0
+  13          
+  14          //LCD1602各口
+  15          #define LCD_RS P3_0
+  16          #define LCD_RW P3_1
+  17          #define LCD_E P3_2
+  18          #define LCD_Data P1
+  19          #define LCD_Busy P1_7
+  20          
+  21          //用double存放键盘得到的运算符
+  22          #define PLUS 1.051
+  23          #define SUBSTRACT 1.052
+  24          #define MULTIPLY 1.053
+  25          #define DIVIDE 1.054
+  26          #define EMPTY_KEY_DATA '$'
+  27          #define EMPTY_VAL 1.055
+  28          #define AFTER_OPERATOR '~'
+  29          
+  30          #define EVERY50MS 50000
+  31          
+  32          //结果
+  33          double result = 0;
+  34          unsigned char strLength;
+  35          unsigned char keyData_i;
+  36          //存放输入的数据
+  37          char xdata keyData[30];
+  38          //存放解码keyData得到的数据
+  39          double xdata Val[30];
+  40          char resultToShow[] = "                ";
+  41          char inputToShow[] = "                ";
+  42          char hasEqual;
+  43          unsigned char timer0_count, show_input, show_x;
+  44          
+  45          void equalInit();
+  46          void keyData_Init();
+  47          void fill_keyData();
+  48          char getKey();
+  49          void translate_keyData();
+  50          void comput();
+  51          void delay(unsigned char);
+  52          void delayms(unsigned int);
+  53          char *doubleToString(double);
+  54          
+  55          void LCD_busy();//LCD忙检测
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 2   
+
+  56          void LCD_WriteCode(unsigned char cmd);//向LCD写命令
+  57          void LCD_WriteData(unsigned char dat);//向LCD写数据
+  58          void LCD_GoToXY(unsigned char x,unsigned char y);//定位到点(x,y)
+  59          void LCD_ShowString(unsigned char x,unsigned char y, char *str);//从（x，y）写字符串str
+  60          void LCD_Init();//LCD初始化
+  61          void LCD_Clear();//清屏
+  62          void resultToShowInit();
+  63          void fill_inputToShow();
+  64          void system_reset();
+  65          void timer0Init();
+  66          
+  67          void main(){
+  68   1              system_reset();//系统复位
+  69   1              while(1){
+  70   2                      fill_keyData();
+  71   2      //              comput();
+  72   2      //              doubleToString(result);
+  73   2              }
+  74   1      }
+  75          
+  76          //void fill_inputToShow(){
+  77          //      unsigned char keyData_i, show_i = 0;
+  78          //      char temp = EMPTY_KEY_DATA;
+  79          //      for(keyData_i = 0; keyData_i < 30; keyData_i++){
+  80          //              if(keyData[keyData_i] == EMPTY_KEY_DATA) break;
+  81          //              if(show_i < 15){
+  82          //                      inputToShow[show_i] = keyData[keyData_i];
+  83          //                      show_i++;
+  84          //                      if(inputToShow[show_i] == AFTER_OPERATOR)
+  85          //                              show_i--;
+  86          //              }else{
+  87          //                      if(keyData[keyData_i] != AFTER_OPERATOR){
+  88          //                              temp = keyData[keyData_i];//第16个
+  89          //                      }
+  90          //                      if(temp != EMPTY_KEY_DATA){
+  91          //                              for(show_i = 0; show_i < 14; show_i++){
+  92          //                                      inputToShow[show_i] = inputToShow[show_i + 1];
+  93          //                              }
+  94          //                              inputToShow[15] = temp;
+  95          //                      }
+  96          //                      show_i = 15;
+  97          //              }
+  98          //      }
+  99          //      show_x = show_i;
+ 100          //}
+ 101          
+ 102          void timer0() interrupt 1{
+ 103   1              TH0 = (65536 -EVERY50MS) / 256;
+ 104   1              TL0 = (65536 - EVERY50MS) % 256;
+ 105   1              timer0_count++;
+ 106   1      //      fill_inputToShow();
+ 107   1              LCD_ShowString(0,0,keyData);
+ 108   1              if(timer0_count == 15){
+ 109   2                      P0_7 = !P0_7;
+ 110   2                      timer0_count = 0;
+ 111   2                      show_input = !show_input;
+ 112   2                      if(!show_input){
+ 113   3                              LCD_ShowString(show_input,0,"_");
+ 114   3                      }else{
+ 115   3                              LCD_ShowString(show_input,0," ");
+ 116   3                      }
+ 117   2              }
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 3   
+
+ 118   1      }
+ 119          
+ 120          void system_reset(){
+ 121   1              //初始化keyData为$
+ 122   1              keyData_Init();
+ 123   1              //初始化等键，外中断1
+ 124   1              equalInit();
+ 125   1              //初始化定时器0，用于显示
+ 126   1              timer0Init();
+ 127   1              //初始化屏幕
+ 128   1              LCD_Init();
+ 129   1              //初始化显示结果的数组为空格
+ 130   1              resultToShowInit();
+ 131   1              //判断=是否已经按下
+ 132   1              hasEqual = 0;
+ 133   1              //用于记录按键的变量
+ 134   1              keyData_i = 0;
+ 135   1              timer0_count = 0;
+ 136   1              show_input = 0;
+ 137   1              show_x = 0;
+ 138   1      }
+ 139          
+ 140          void timer0Init(){
+ 141   1              TMOD = 0X01;//定时器1工作方式1
+ 142   1              TH0 = (65536 - EVERY50MS) / 256;
+ 143   1              TL0 = (65536 - EVERY50MS) % 256;
+ 144   1              ET0 = 1;
+ 145   1              EA = 1;
+ 146   1              TR0 = 1;
+ 147   1      }
+ 148          
+ 149          //初始化显示数组
+ 150          void resultToShowInit(){
+ 151   1              unsigned char rts_i;
+ 152   1              for(rts_i = 0; rts_i < 16; rts_i++){
+ 153   2                      resultToShow[rts_i] = ' ';
+ 154   2              }
+ 155   1      }
+ 156          //把double型的结果转变为可以显示的字符串
+ 157          char *doubleToString (double myDouble){
+ 158   1              unsigned char i_s = 0;
+ 159   1              //得到整数部分
+ 160   1              int myInt = myDouble;
+ 161   1              //得到小数部分
+ 162   1              double myDecimals = myDouble - myInt;
+ 163   1              //取小数部分的4位
+ 164   1              int my4Decimals = myDecimals * 10000;
+ 165   1              int my3Decimals;
+ 166   1              int a = 0;//进位
+ 167   1              if(my4Decimals % 10 > 4) a = 1;
+ 168   1              my3Decimals = my4Decimals / 10 + a;
+ 169   1              //进到个位
+ 170   1              if(my3Decimals % 1000 == 0) {
+ 171   2                      myInt = myInt + 1;
+ 172   2                      my3Decimals = 0;
+ 173   2              }
+ 174   1              //放入resultToShow
+ 175   1              if(my3Decimals != 0){
+ 176   2                      for(;i_s < 3; i_s++){
+ 177   3                              resultToShow[15-i_s] = (char)(my3Decimals % 10) + '0';
+ 178   3                              my3Decimals = my3Decimals / 10;
+ 179   3                      }
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 4   
+
+ 180   2                      //小数点
+ 181   2              resultToShow[12] = '.';
+ 182   2              i_s = 4;
+ 183   2              }
+ 184   1              
+ 185   1              //整数部分
+ 186   1              if(myInt != 0){
+ 187   2                      while(myInt){
+ 188   3                              resultToShow[15-i_s] = (char)(myInt % 10) + '0';
+ 189   3                              myInt = myInt / 10;
+ 190   3                              i_s++;
+ 191   3                      }
+ 192   2              }else{
+ 193   2                      if(myDecimals == 0){
+ 194   3                              resultToShow[15] = '0';
+ 195   3                      }else{
+ 196   3                              resultToShow[10] = '0';
+ 197   3                      }
+ 198   2                      i_s++;
+ 199   2              }
+ 200   1              return resultToShow;
+ 201   1      }
+ 202          
+ 203          
+ 204          /*外中断0，等号*/
+ 205          void equal() interrupt 2{
+ 206   1              if(!hasEqual){
+ 207   2                      comput();
+ 208   2                      doubleToString(result);
+ 209   2                      LCD_ShowString(0,1,resultToShow);
+ 210   2                      hasEqual = 1;
+ 211   2              }
+ 212   1      }
+ 213          
+ 214          /*解读从键盘得到是数据，装入到Val[]中，得到val的格式：num operator num operator num...全部以double表示*/
+ 215          void translate_keyData(){
+ 216   1              int i, j, k;
+ 217   1      //      keyData[0] = 1;
+ 218   1      //      keyData[1] = 1;
+ 219   1      //      keyData[2] = '+';
+ 220   1      //      keyData[3] = AFTER_OPERATOR;
+ 221   1      //      keyData[4] = 1;
+ 222   1      //      keyData[5] = 1;
+ 223   1      //      keyData[6] = 1;
+ 224   1              for(i = 0; i < 50; i++){
+ 225   2                      //如果keyData是EMPTU_KEY_DATA说明前一个就是最后一个
+ 226   2                      if(keyData[i] == EMPTY_KEY_DATA){
+ 227   3                              for(j = i-1; keyData[j] != AFTER_OPERATOR && j > 0; j--){
+ 228   4                                      if(Val[k] == EMPTY_VAL) Val[k] = 0;
+ 229   4                                      Val[k] = Val[k] + keyData[j] *pow(10,i-j-1);
+ 230   4                              }
+ 231   3                              break;
+ 232   3                      }
+ 233   2                      //遇到符号的处理keyData的格式为：num(1 2 3...) operator AFTER_OPERATOR num(1 2 3 ...) operator AFTER_OPE
+             -RATOR num(1 2 3) ...
+ 234   2                      if((keyData[i] == '+') || (keyData[i] == '-') || (keyData[i] == '*') || (keyData[i] == '/')){
+ 235   3                              //把数字的个位、十位、百位。。。转变为一个数，并放入Val中
+ 236   3                              for(j = i; keyData[j] != AFTER_OPERATOR && j > 0; j--){
+ 237   4                                      if(Val[k] == EMPTY_VAL) Val[k] = 0;
+ 238   4                                      Val[k] = Val[k] + keyData[j-1] *pow(10,i-j);
+ 239   4                              }
+ 240   3                              k++;
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 5   
+
+ 241   3                              //把相应的符号也通过编辑好的常数放入val中
+ 242   3                              switch(keyData[i]){
+ 243   4                                      case '+' :
+ 244   4                                              Val[k] = PLUS;
+ 245   4                                              k++;
+ 246   4                                              break;
+ 247   4                                      case '-' :
+ 248   4                                              Val[k] = SUBSTRACT;
+ 249   4                                              k++;
+ 250   4                                              break;
+ 251   4                                      case '*' :
+ 252   4                                              Val[k] = MULTIPLY;
+ 253   4                                              k++;
+ 254   4                                              break;
+ 255   4                                      case '/' :
+ 256   4                                              Val[k] = DIVIDE;
+ 257   4                                              k++;
+ 258   4                                              break;
+ 259   4                                      default:
+ 260   4                                              break;
+ 261   4                              }
+ 262   3                      }
+ 263   2              }
+ 264   1      }
+ 265          
+ 266          /*计算*/
+ 267          void comput(){
+ 268   1              char i_c;
+ 269   1              //翻译keyData得到Val
+ 270   1              translate_keyData();
+ 271   1              //首先计算乘法和除法
+ 272   1              
+ 273   1      //      Val[0] = 1;
+ 274   1      //      Val[1] = PLUS;
+ 275   1      //      Val[2] = 3;
+ 276   1      //      Val[3] = MULTIPLY;
+ 277   1      //      Val[4] = 2;
+ 278   1      //      Val[5] = SUBSTRACT;
+ 279   1      //      Val[6] = 1;
+ 280   1      //      Val[7] = DIVIDE;
+ 281   1      //      Val[8] = 2;
+ 282   1      //      Val[9] = MULTIPLY;
+ 283   1      //      Val[10] = 4;
+ 284   1              for(i_c = 0; i_c < 30; i_c++){
+ 285   2                      if(Val[i_c] == EMPTY_VAL) break;
+ 286   2                      //乘号，将乘号前后的数相乘，返回给这两个数的后一个，前一个赋0
+ 287   2                      //比如Val[0] + Val[2] - Val[4] * Val[6] + Val[8] / Val[10] * Val[12]
+ 288   2                      if(Val[i_c] == MULTIPLY){
+ 289   3                              Val[i_c+1] = Val[i_c-1] * Val[i_c+1];
+ 290   3                              Val[i_c-1] = 0;
+ 291   3                              //第一次进入Val[0] + Val[2] - 0 + Val[6] * Val[8] + ...
+ 292   3                              if(i_c - 2 > 0){
+ 293   4                                      if(Val[i_c-2] == SUBSTRACT){
+ 294   5                                              Val[i_c+1] = -Val[i_c+1];
+ 295   5                                              //Val[0] + Val[2] - 0 - Val[6] * Val[8] ...
+ 296   5                                      }
+ 297   4                              }
+ 298   3                              //除号
+ 299   3                      }else if(Val[i_c] == DIVIDE){
+ 300   3                              Val[i_c+1] = Val[i_c-1]/Val[i_c+1];//divide(Val[i-1], Val[i+1]);
+ 301   3                              Val[i_c-1] = 0;
+ 302   3                              if(i_c - 2 > 0){
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 6   
+
+ 303   4                                      if(Val[i_c-2] == SUBSTRACT){
+ 304   5                                              Val[i_c+1] = -Val[i_c+1];
+ 305   5                                      }
+ 306   4                              }
+ 307   3                      }
+ 308   2              }
+ 309   1              i_c = 0;//i返回0
+ 310   1              //计算减法,减号后面的数变为负数就行
+ 311   1              while(Val[i_c] != EMPTY_VAL){
+ 312   2                      if(Val[i_c] == SUBSTRACT){
+ 313   3                              Val[i_c+1] = -Val[i_c +1];
+ 314   3                      }
+ 315   2                      i_c++;
+ 316   2              }
+ 317   1              i_c = 0;
+ 318   1              //把不是符号的Val全相加
+ 319   1              while(Val[i_c] != EMPTY_VAL){
+ 320   2                      if((Val[i_c] != PLUS) && (Val[i_c] != SUBSTRACT) && (Val[i_c] != MULTIPLY) && (Val[i_c] != DIVIDE)){
+ 321   3                              result = result + Val[i_c];
+ 322   3                      }
+ 323   2                      i_c++;
+ 324   2              }
+ 325   1      }
+ 326          /*初始化外中断0*/
+ 327          void equalInit(){
+ 328   1              IT1 = 1;//外中断1下降沿触发
+ 329   1              EX1 = 1;//使能外中断1
+ 330   1              EA = 1;//总能中断
+ 331   1      }
+ 332          
+ 333          /*初始化存放输入数据的char数组，用于判断总输入长度*/
+ 334          void keyData_Init(){
+ 335   1              unsigned char i;
+ 336   1              for(i = 0; i < 30; i++){
+ 337   2                      keyData[i] = EMPTY_KEY_DATA;
+ 338   2                      Val[i] = EMPTY_VAL;
+ 339   2              }
+ 340   1      }
+ 341          
+ 342          
+ 343          
+ 344          /*键盘扫描*/
+ 345          char getKey(){
+ 346   1              P2 = 0xFF;
+ 347   1              ROW_0 = 0;
+ 348   1              if(0==COL_0){
+ 349   2                      while(!COL_0);
+ 350   2                      return 7;
+ 351   2              }else if(0==COL_1){
+ 352   2                      while(!COL_1);
+ 353   2                      return 8;
+ 354   2              }else if(0==COL_2){
+ 355   2                      while(!COL_2);
+ 356   2                      return 9;
+ 357   2              }else if(0==COL_3){
+ 358   2                      while(!COL_3);
+ 359   2                      return '/';
+ 360   2              }
+ 361   1              P2 = 0xFF;
+ 362   1              ROW_1 = 0;
+ 363   1              if(0==COL_0){
+ 364   2                      while(!COL_0);
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 7   
+
+ 365   2                      return 4;
+ 366   2              }else if(0==COL_1){
+ 367   2                      while(!COL_1);
+ 368   2                      return 5;
+ 369   2              }else if(0==COL_2){
+ 370   2                      while(!COL_2);
+ 371   2                      return 6;
+ 372   2              }else if(0==COL_3){
+ 373   2                      while(!COL_3);
+ 374   2                      return '*';
+ 375   2              }
+ 376   1              P2 = 0xFF;
+ 377   1              ROW_2 = 0;
+ 378   1              if(0==COL_0){
+ 379   2                      while(!COL_0);
+ 380   2                      return 1;
+ 381   2              }else if(0==COL_1){
+ 382   2                      while(!COL_1);
+ 383   2                      return 2;
+ 384   2              }else if(0==COL_2){
+ 385   2                      while(!COL_2);
+ 386   2                      return 3;
+ 387   2              }else if(0==COL_3){
+ 388   2                      while(!COL_3);
+ 389   2                      return '-';
+ 390   2              }
+ 391   1              P2 = 0xFF;
+ 392   1              ROW_3 = 0;
+ 393   1              if(0==COL_0){
+ 394   2                      while(!COL_0);
+ 395   2                      return 'c';//清屏复位
+ 396   2              }else if(0==COL_1){
+ 397   2                      while(!COL_1);
+ 398   2                      return 0;
+ 399   2              }else if(0==COL_2){
+ 400   2                      while(!COL_2);
+ 401   2                      return '+';
+ 402   2              }else if(0==COL_3){
+ 403   2                      while(!COL_3);
+ 404   2                      return 's';//副功能
+ 405   2              }
+ 406   1              return 10;//没有按键
+ 407   1      }
+ 408          
+ 409          //把通过键盘得到的数据填入到keyData 
+ 410          void fill_keyData(){
+ 411   1              char KeyVal = 10;
+ 412   1      //      KeyVal = '+';
+ 413   1              KeyVal = getKey();
+ 414   1              //有键被按下,给keyData赋值
+ 415   1              if(KeyVal != 10){
+ 416   2      //              inputToShow[show_input] = KeyVal + '0';
+ 417   2      //              LCD_WriteData(KeyVal = '0');
+ 418   2      //              show_input++;
+ 419   2                      keyData[keyData_i] = KeyVal;
+ 420   2                      keyData_i++;
+ 421   2                      //按下的键是符号键，在后面加上符号键标志AFTER_OPERATOR
+ 422   2                      if((KeyVal == '+') || (KeyVal == '-') || (KeyVal == '*') || (KeyVal == '/')){
+ 423   3                              keyData[keyData_i] = AFTER_OPERATOR;
+ 424   3                              keyData_i++;
+ 425   3                      }
+ 426   2              }
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 8   
+
+ 427   1      }
+ 428          
+ 429          
+ 430          void delay(unsigned char x){//约60us
+ 431   1              unsigned char i;
+ 432   1              for(i = x*5; i > 0; i--);
+ 433   1      }
+ 434          
+ 435          void delayms(unsigned int xms){
+ 436   1              unsigned int i_d, j_d;
+ 437   1              for(i_d = xms; i_d > 0; i_d--)
+ 438   1                      for(j_d = 110; j_d > 0; j_d--);
+ 439   1      }
+ 440          
+ 441          /*LCD忙检测*/
+ 442          void LCD_busy(){
+ 443   1              bit busy;
+ 444   1              LCD_E = 0;
+ 445   1          LCD_RS = 0;//选择指令寄存器
+ 446   1          LCD_RW = 1;  //读信号线
+ 447   1          do{
+ 448   2                      //先将LCD_Busy置高
+ 449   2                 LCD_Busy = 1;
+ 450   2                      //使能
+ 451   2                 LCD_E = 1;
+ 452   2                 delay(1);
+ 453   2                      //检测忙信号
+ 454   2                 busy = LCD_Busy;
+ 455   2                 LCD_E = 0;
+ 456   2                 }while(busy);//不忙才退出
+ 457   1      }
+ 458          
+ 459          //写命令
+ 460          void LCD_WriteCode(unsigned char cmd){
+ 461   1              //判忙
+ 462   1         LCD_busy();
+ 463   1              //写操作，下降沿使能
+ 464   1         LCD_E = 0;
+ 465   1              //选择命令寄存器
+ 466   1         LCD_RS = 0;
+ 467   1              //写入操作
+ 468   1         LCD_RW = 0;
+ 469   1              //cmd写入LCD_Data
+ 470   1         LCD_Data = cmd; 
+ 471   1         LCD_E = 1;
+ 472   1               delay(1);
+ 473   1         LCD_E = 0;   
+ 474   1              //从1到0产生一个下降沿使命令写入
+ 475   1      }
+ 476          
+ 477          //光标移动到xy位置
+ 478          void LCD_GoToXY(unsigned char x,unsigned char y)
+ 479          {
+ 480   1         if(y == 0){
+ 481   2                LCD_WriteCode(0x80 | x);
+ 482   2         }else{
+ 483   2            LCD_WriteCode(0xC0 | x);
+ 484   2         }
+ 485   1      }
+ 486          
+ 487          //写数据
+ 488          void LCD_WriteData(unsigned char dat){
+C51 COMPILER V9.52.0.0   CALCULATOR                                                        05/18/2015 17:30:25 PAGE 9   
+
+ 489   1              //判忙
+ 490   1         LCD_busy();
+ 491   1              //寄存器选择控制，写入数据寄存器
+ 492   1         LCD_RS = 1;    
+ 493   1         LCD_RW = 0;
+ 494   1              //写入数据
+ 495   1         LCD_Data = dat;
+ 496   1              //下降沿使能
+ 497   1         LCD_E = 1;
+ 498   1              delay(1);
+ 499   1         LCD_E = 0;
+ 500   1      }
+ 501          
+ 502          //初始化屏幕
+ 503          void LCD_Init(){
+ 504   1         LCD_E = 0;
+ 505   1         LCD_WriteCode(0x08);
+ 506   1         LCD_Clear(); 
+ 507   1         LCD_WriteCode(0x38);
+ 508   1         LCD_WriteCode(0x06);
+ 509   1         LCD_WriteCode(0x0c);
+ 510   1      
+ 511   1      }
+ 512          
+ 513          //清屏
+ 514          void LCD_Clear(){
+ 515   1         LCD_WriteCode(0x01);
+ 516   1      }
+ 517          
+ 518          //显示字符str
+ 519          void LCD_ShowString(unsigned char x,unsigned char y,char *str){
+ 520   1              LCD_GoToXY(x,y);
+ 521   1              while(*str){
+ 522   2                      LCD_WriteData(*str);
+ 523   2                      str++;
+ 524   2              }
+ 525   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   3154    ----
+   CONSTANT SIZE    =      4    ----
+   XDATA SIZE       =    150    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     44      18
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

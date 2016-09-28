@@ -1,0 +1,177 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/19/2016  14:21:11  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE exampleBuzzer.obj TO exampleBuzzer
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  exampleBuzzer.obj (EXAMPLEBUZZER)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?ULCMP)
+
+
+LINK MAP OF MODULE:  exampleBuzzer (EXAMPLEBUZZER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0008H     UNIT         _DATA_GROUP_
+            DATA    0010H     0003H     UNIT         ?DT?EXAMPLEBUZZER
+            IDATA   0013H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     00F2H     UNIT         ?CO?EXAMPLEBUZZER
+            CODE    0100H     0048H     UNIT         ?PR?_DELAY?EXAMPLEBUZZER
+            CODE    0148H     0043H     UNIT         ?PR?MAIN?EXAMPLEBUZZER
+            CODE    018BH     0020H     UNIT         ?PR?_DELAYMS?EXAMPLEBUZZER
+            CODE    01ABH     0011H     UNIT         ?C?LIB_CODE
+            CODE    01BCH     000DH     UNIT         ?PR?T0INT?EXAMPLEBUZZER
+            CODE    01C9H     000DH     UNIT         ?PR?SONG?EXAMPLEBUZZER
+            CODE    01D6H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   exampleBuzzer (EXAMPLEBUZZER)
+
+
+SEGMENT                              DATA_GROUP 
+  +--> CALLED SEGMENT              START    LENGTH
+--------------------------------------------------
+?C_C51STARTUP                      -----    -----
+  +--> ?PR?MAIN?EXAMPLEBUZZER
+
+?PR?MAIN?EXAMPLEBUZZER             0008H    0002H
+  +--> ?CO?EXAMPLEBUZZER
+  +--> ?PR?SONG?EXAMPLEBUZZER
+
+?PR?SONG?EXAMPLEBUZZER             -----    -----
+  +--> ?PR?_DELAY?EXAMPLEBUZZER
+
+?PR?_DELAY?EXAMPLEBUZZER           000AH    0006H
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/19/2016  14:21:11  PAGE 2
+
+
+
+
+SYMBOL TABLE OF MODULE:  exampleBuzzer (EXAMPLEBUZZER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        EXAMPLEBUZZER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:00A8H         PUBLIC        IE
+  C:0100H         PUBLIC        _delay
+  D:00B8H         PUBLIC        IP
+  C:0046H         PUBLIC        sszymmh
+  C:0148H         PUBLIC        main
+  D:0010H         PUBLIC        time
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:01C9H         PUBLIC        song
+  D:0011H         PUBLIC        timer0h
+  D:0012H         PUBLIC        timer0l
+  C:00ACH         PUBLIC        test
+  B:00A8H.1       PUBLIC        ET0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  B:0090H.0       PUBLIC        speaker
+  C:01BCH         PUBLIC        t0int
+  C:018BH         PUBLIC        _delayms
+  C:000EH         PUBLIC        FREQH
+  D:00D0H         PUBLIC        PSW
+  C:002AH         PUBLIC        FREQL
+  -------         PROC          T0INT
+  C:01BCH         LINE#         56
+  C:01BCH         LINE#         60
+  C:01BEH         LINE#         62
+  C:01C0H         LINE#         64
+  C:01C3H         LINE#         66
+  C:01C6H         LINE#         68
+  C:01C8H         LINE#         70
+  -------         ENDPROC       T0INT
+  -------         PROC          _DELAY
+  D:000AH         SYMBOL        t
+  -------         DO            
+  D:000BH         SYMBOL        t1
+  D:000CH         SYMBOL        t2
+  -------         ENDDO         
+  C:0100H         LINE#         74
+  C:0102H         LINE#         76
+  C:0102H         LINE#         82
+  C:010CH         LINE#         84
+  C:0145H         LINE#         86
+  C:0147H         LINE#         88
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/19/2016  14:21:11  PAGE 3
+
+
+  -------         ENDPROC       _DELAY
+  -------         PROC          SONG
+  C:01C9H         LINE#         92
+  C:01C9H         LINE#         94
+  C:01C9H         LINE#         96
+  C:01CCH         LINE#         98
+  C:01CFH         LINE#         100
+  C:01D1H         LINE#         102
+  -------         ENDPROC       SONG
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        time
+  -------         ENDDO         
+  C:018BH         LINE#         107
+  C:018BH         LINE#         109
+  C:0196H         LINE#         110
+  C:01AAH         LINE#         111
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        k
+  D:0009H         SYMBOL        i
+  -------         ENDDO         
+  C:0148H         LINE#         112
+  C:0148H         LINE#         114
+  C:0148H         LINE#         118
+  C:014BH         LINE#         120
+  C:014DH         LINE#         122
+  C:014FH         LINE#         124
+  C:014FH         LINE#         126
+  C:0152H         LINE#         128
+  C:0155H         LINE#         130
+  C:0155H         LINE#         132
+  C:016AH         LINE#         133
+  C:0170H         LINE#         134
+  C:0178H         LINE#         135
+  C:0180H         LINE#         136
+  C:0186H         LINE#         137
+  C:0189H         LINE#         139
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        EXAMPLEBUZZER
+
+  -------         MODULE        ?C?ULCMP
+  C:01ABH         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYMS?EXAMPLEBUZZER
+
+Program Size: data=20.0 xdata=0 code=474
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

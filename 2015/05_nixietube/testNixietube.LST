@@ -1,0 +1,60 @@
+C51 COMPILER V9.52.0.0   TESTNIXIETUBE                                                     02/27/2015 14:16:42 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE TESTNIXIETUBE
+OBJECT MODULE PLACED IN testNixietube.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE testNixietube.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<regx52.h>
+   2          
+   3          #define CONTROL P1 //数码管显示控制端口
+   4          #define SHOW P0 //数码管显示端口
+   5          
+   6          const unsigned char leter[]={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80}; //用00000001，00000010，,00000100，
+             -00001000，00010000，00100000，01000000，10000000检验数码管灯的位置
+   7          
+   8          void delayms(int xms){
+   9   1              int i = 0;
+  10   1              int j = 0;
+  11   1              for(i = xms; i > 0; i--)
+  12   1                      for(j = 110; j > 0; j--);
+  13   1      }
+  14          
+  15          void showNum(unsigned int position)//第pos个数码管显示数字number
+  16          {
+  17   1              
+  18   1              position = position%8;//防止传入的参数position大于7
+  19   1              SHOW = 0x00;//此时数码管不显示
+  20   1              CONTROL = ~(0x01<<position);//将第position个数码管通电
+  21   1              SHOW = ~leter[position];//显示leter数组第position个元素
+  22   1              delayms(500);
+  23   1      }
+  24          
+  25          
+  26          void main()
+  27          {
+  28   1              unsigned char position=0;
+  29   1              while(1)
+  30   1              {
+  31   2                      for(position=0; position<8; position++)//扫描显示8个数码管
+  32   2                      {
+  33   3                              showNum(position);//显示每个位置相应的字母
+  34   3                      }
+  35   2              }
+  36   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     89    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

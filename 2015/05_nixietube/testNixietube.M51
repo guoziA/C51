@@ -1,0 +1,112 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        02/27/2015  14:16:42  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE testNixietube.obj TO testNixietube
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  testNixietube.obj (TESTNIXIETUBE)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  testNixietube (TESTNIXIETUBE)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0008H     UNIT         ?DT?TESTNIXIETUBE
+            IDATA   0010H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     0026H     UNIT         ?PR?_SHOWNUM?TESTNIXIETUBE
+            CODE    00B5H     0024H     UNIT         ?PR?_DELAYMS?TESTNIXIETUBE
+            CODE    00D9H     000FH     UNIT         ?PR?MAIN?TESTNIXIETUBE
+            CODE    00E8H     000BH     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   testNixietube (TESTNIXIETUBE)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TESTNIXIETUBE
+  +--> ?C_INITSEG
+
+?PR?MAIN?TESTNIXIETUBE
+  +--> ?PR?_SHOWNUM?TESTNIXIETUBE
+
+?PR?_SHOWNUM?TESTNIXIETUBE
+  +--> ?PR?_DELAYMS?TESTNIXIETUBE
+
+
+
+SYMBOL TABLE OF MODULE:  testNixietube (TESTNIXIETUBE)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TESTNIXIETUBE
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/27/2015  14:16:42  PAGE 2
+
+
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:0008H         PUBLIC        leter
+  C:00D9H         PUBLIC        main
+  C:00B5H         PUBLIC        _delayms
+  C:008FH         PUBLIC        _showNum
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:00B5H         LINE#         8
+  C:00B5H         LINE#         9
+  C:00B5H         LINE#         10
+  C:00B5H         LINE#         11
+  C:00C4H         LINE#         12
+  C:00D8H         LINE#         13
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          _SHOWNUM
+  D:0006H         SYMBOL        position
+  C:008FH         LINE#         15
+  C:008FH         LINE#         16
+  C:008FH         LINE#         18
+  C:0094H         LINE#         19
+  C:0097H         LINE#         20
+  C:00A6H         LINE#         21
+  C:00AEH         LINE#         22
+  -------         ENDPROC       _SHOWNUM
+  -------         PROC          MAIN
+  -------         DO            
+  D:0001H         SYMBOL        position
+  -------         ENDDO         
+  C:00D9H         LINE#         26
+  C:00D9H         LINE#         27
+  C:00D9H         LINE#         28
+  C:00D9H         LINE#         29
+  C:00D9H         LINE#         30
+  C:00D9H         LINE#         31
+  C:00DBH         LINE#         32
+  C:00DBH         LINE#         33
+  C:00E2H         LINE#         34
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TESTNIXIETUBE
+
+Program Size: data=17.0 xdata=0 code=243
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

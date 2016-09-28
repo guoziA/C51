@@ -1,0 +1,18 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\keil\project\C51\2015\08_serialPort\serialPort.uvproj
+Project File Date:  05/27/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?UARTTIMER1INIT?UART
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?RECEIVEMSG?UART
+Program Size: data=49.0 xdata=0 code=464
+creating hex file from "serialPort"...
+"serialPort" - 0 Error(s), 2 Warning(s).

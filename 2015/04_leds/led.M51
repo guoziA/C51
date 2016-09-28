@@ -1,0 +1,191 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        09/16/2015  13:08:48  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE led.obj, frams.obj TO led RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  led.obj (LED)
+  frams.obj (FRAMS)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  led (LED)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000FH     UNIT         ?DT?_SHOWFRAME?LED
+            DATA    0017H     0005H     UNIT         ?DT?LED
+            IDATA   001CH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+            CODE    0006H     00E9H     UNIT         ?PR?_SHOWFRAME?LED
+            CODE    00EFH     0082H     UNIT         ?C?LIB_CODE
+            CODE    0171H     0035H     UNIT         ?PR?BREAK0?LED
+            CODE    01A6H     0017H     UNIT         ?PR?MAIN?LED
+            CODE    01BDH     000CH     UNIT         ?C_C51STARTUP
+            CODE    01C9H     000BH     UNIT         ?PR?INITINT0?LED
+            CODE    01D4H     0007H     UNIT         ?PR?SYSTEMINIT?LED
+
+
+
+OVERLAY MAP OF MODULE:   led (LED)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?LED
+
+?PR?MAIN?LED
+  +--> ?PR?SYSTEMINIT?LED
+  +--> ?PR?INITINT0?LED
+
+
+
+SYMBOL TABLE OF MODULE:  led (LED)
+
+  VALUE           TYPE          NAME
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/16/2015  13:08:48  PAGE 2
+
+
+  ----------------------------------
+
+  -------         MODULE        LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:0017H         PUBLIC        flashSpeed
+  B:00A8H.7       PUBLIC        EA
+  C:0006H         PUBLIC        _ShowFrame
+  D:0019H         PUBLIC        speed
+  C:0171H         PUBLIC        Break0
+  D:001BH         PUBLIC        flashMode
+  C:01D4H         PUBLIC        SystemInit
+  B:00B0H.0       PUBLIC        MODE
+  C:01A6H         PUBLIC        main
+  C:01C9H         PUBLIC        InitINT0
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  B:00A8H.2       PUBLIC        EX1
+  B:0088H.2       PUBLIC        IT1
+  B:00B0H.1       PUBLIC        SPEED
+  -------         PROC          MAIN
+  C:01A6H         LINE#         18
+  C:01A6H         LINE#         19
+  C:01A9H         LINE#         20
+  C:01ACH         LINE#         21
+  C:01ACH         LINE#         22
+  C:01B0H         LINE#         24
+  C:01B6H         LINE#         26
+  C:01BBH         LINE#         28
+  C:01BBH         LINE#         29
+  -------         ENDPROC       MAIN
+  -------         PROC          _SHOWFRAME
+  D:0008H         SYMBOL        LS_code
+  D:000BH         SYMBOL        frameNum
+  D:000DH         SYMBOL        delayFrameOffset
+  -------         DO            
+  D:0007H         SYMBOL        graph
+  D:000FH         SYMBOL        i
+  D:0011H         SYMBOL        j
+  D:0013H         SYMBOL        k1
+  D:0015H         SYMBOL        k2
+  -------         ENDDO         
+  C:0006H         LINE#         34
+  C:0010H         LINE#         36
+  C:0021H         LINE#         38
+  C:0032H         LINE#         39
+  C:003EH         LINE#         40
+  C:003EH         LINE#         41
+  C:0051H         LINE#         42
+  C:0060H         LINE#         43
+  C:0064H         LINE#         44
+  C:006CH         LINE#         45
+  C:0075H         LINE#         46
+  C:007AH         LINE#         47
+  C:0082H         LINE#         48
+  C:0088H         LINE#         50
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/16/2015  13:08:48  PAGE 3
+
+
+  C:0094H         LINE#         51
+  C:0096H         LINE#         53
+  C:009CH         LINE#         54
+  C:009CH         LINE#         55
+  C:009CH         LINE#         56
+  C:009CH         LINE#         57
+  C:00A1H         LINE#         58
+  C:00D3H         LINE#         59
+  C:00D5H         LINE#         60
+  C:00E3H         LINE#         61
+  C:00EBH         LINE#         62
+  C:00EEH         LINE#         63
+  -------         ENDPROC       _SHOWFRAME
+  -------         PROC          BREAK0
+  C:0171H         LINE#         65
+  C:0175H         LINE#         66
+  C:0178H         LINE#         67
+  C:017DH         LINE#         68
+  C:0180H         LINE#         69
+  C:0182H         LINE#         70
+  C:0184H         LINE#         71
+  C:0184H         LINE#         72
+  C:0186H         LINE#         73
+  C:0189H         LINE#         74
+  C:0191H         LINE#         75
+  C:0197H         LINE#         76
+  C:0199H         LINE#         77
+  C:01A1H         LINE#         78
+  C:01A1H         LINE#         79
+  C:01A1H         LINE#         80
+  -------         ENDPROC       BREAK0
+  -------         PROC          SYSTEMINIT
+  C:01D4H         LINE#         82
+  C:01D4H         LINE#         83
+  C:01DAH         LINE#         84
+  -------         ENDPROC       SYSTEMINIT
+  -------         PROC          INITINT0
+  C:01C9H         LINE#         86
+  C:01C9H         LINE#         87
+  C:01CBH         LINE#         88
+  C:01CDH         LINE#         89
+  C:01CFH         LINE#         90
+  C:01D1H         LINE#         92
+  C:01D3H         LINE#         93
+  -------         ENDPROC       INITINT0
+  -------         ENDMOD        LED
+
+  -------         MODULE        FRAMS
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  -------         ENDMOD        FRAMS
+
+  -------         MODULE        ?C?CLDOPTR
+  C:00EFH         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?UIDIV
+  C:011CH         PUBLIC        ?C?UIDIV
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/16/2015  13:08:48  PAGE 4
+
+
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SHOWFRAME?LED
+
+Program Size: data=29.0 xdata=0 code=475
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

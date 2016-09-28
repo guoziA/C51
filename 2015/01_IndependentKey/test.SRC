@@ -1,0 +1,116 @@
+; .\test.SRC generated from: test.c
+; COMPILER INVOKED BY:
+;        E:\keil\C51\BIN\C51.EXE test.c BROWSE DEBUG OBJECTEXTEND SRC(.\test.SRC)
+
+
+NAME	TEST
+
+?PR?fun1?TEST        SEGMENT CODE 
+?PR?func2?TEST       SEGMENT CODE 
+?PR?_func3?TEST      SEGMENT CODE 
+?DT?_func3?TEST      SEGMENT DATA OVERLAYABLE 
+?DT?TEST             SEGMENT DATA 
+?ID?TEST             SEGMENT IDATA 
+	EXTRN	DATA (GLOBAL_CHAR)
+	EXTRN	CODE (_?func4)
+	EXTRN	CODE (?C?CLDPTR)
+	PUBLIC	test_char4
+	PUBLIC	test_char3
+	PUBLIC	test_char2
+	PUBLIC	test_char1
+	PUBLIC	GLOBAL_CAHR
+	PUBLIC	_func3
+	PUBLIC	func2
+	PUBLIC	fun1
+
+	RSEG  ?DT?_func3?TEST
+?_func3?BYTE:
+          i?240:   DS   1
+
+	RSEG  ?DT?TEST
+    GLOBAL_CAHR:   DS   1
+     test_char4:   DS   3
+
+	RSEG  ?ID?TEST
+     test_char1:   DS   1
+     test_char2:   DS   1
+     test_char3:   DS   1
+; #include "global.h"
+; #include "other.h"
+; 
+; extern char GLOBAL_CHAR;
+; extern idata char test_char1;
+; extern idata char test_char3;
+; 
+; void fun1(){
+
+	RSEG  ?PR?fun1?TEST
+fun1:
+	USING	0
+			; SOURCE LINE # 8
+; 	GLOBAL_CHAR = 1;
+			; SOURCE LINE # 9
+	MOV  	GLOBAL_CHAR,#01H
+; 	test_char3 = 1;
+			; SOURCE LINE # 10
+	MOV  	R0,#LOW (test_char3)
+	MOV  	@R0,#01H
+; 	
+; 	test_char4 = &test_char3;
+			; SOURCE LINE # 12
+	MOV  	R3,#00H
+	MOV  	R2,#HIGH (test_char3)
+	MOV  	R1,#LOW (test_char3)
+	MOV  	test_char4,R3
+	MOV  	test_char4+01H,R2
+	MOV  	test_char4+02H,R1
+; 	
+; 	GLOBAL_CHAR = *test_char4;
+			; SOURCE LINE # 14
+	LCALL	?C?CLDPTR
+	MOV  	GLOBAL_CHAR,A
+; }
+			; SOURCE LINE # 15
+	RET  	
+; END OF fun1
+
+; 
+; char func2(){
+
+	RSEG  ?PR?func2?TEST
+func2:
+	USING	0
+			; SOURCE LINE # 17
+; 	return 1;
+			; SOURCE LINE # 18
+	MOV  	R7,#01H
+; }
+			; SOURCE LINE # 19
+?C0002:
+	RET  	
+; END OF func2
+
+; 
+; char func3(char i){
+
+	RSEG  ?PR?_func3?TEST
+_func3:
+	USING	0
+			; SOURCE LINE # 21
+	MOV  	i?240,R7
+; 	i = 1;
+			; SOURCE LINE # 22
+	MOV  	i?240,#01H
+; 	func4(1);
+			; SOURCE LINE # 23
+	MOV  	R7,#01H
+	LCALL	_?func4
+; 	return i;
+			; SOURCE LINE # 24
+	MOV  	R7,i?240
+; }			; SOURCE LINE # 25
+?C0003:
+	RET  	
+; END OF _func3
+
+	END

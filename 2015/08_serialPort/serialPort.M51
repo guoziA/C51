@@ -1,0 +1,181 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/19/2016  22:38:34  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE uart.obj TO serialPort RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  uart.obj (UART)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?COPY)
+
+
+LINK MAP OF MODULE:  serialPort (UART)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0028H     UNIT         _DATA_GROUP_
+            IDATA   0030H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0016H     UNIT         ?PR?UARTTIMER2INIT?UART
+            CODE    0019H     0009H     UNIT         ?PR?RECEIVE?UART
+                    0022H     0001H                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     00F6H     UNIT         ?C?LIB_CODE
+            CODE    011CH     005FH     UNIT         ?PR?MAIN?UART
+            CODE    017BH     0028H     UNIT         ?CO?UART
+            CODE    01A3H     0012H     UNIT         ?PR?UARTTIMER1INIT?UART
+            CODE    01B5H     000CH     UNIT         ?C_C51STARTUP
+            CODE    01C1H     0008H     UNIT         ?PR?_SENDCHAR?UART
+            CODE    01C9H     0008H     UNIT         ?PR?RECEIVEMSG?UART
+
+
+
+OVERLAY MAP OF MODULE:   serialPort (UART)
+
+
+SEGMENT                           DATA_GROUP 
+  +--> CALLED SEGMENT           START    LENGTH
+-----------------------------------------------
+?C_C51STARTUP                   -----    -----
+  +--> ?PR?MAIN?UART
+
+?PR?MAIN?UART                   0008H    0028H
+  +--> ?CO?UART
+  +--> ?PR?UARTTIMER2INIT?UART
+  +--> ?PR?_SENDCHAR?UART
+
+
+
+SYMBOL TABLE OF MODULE:  serialPort (UART)
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/19/2016  22:38:34  PAGE 2
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        UART
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  C:01A3H         PUBLIC        uartTimer1Init
+  C:01C9H         PUBLIC        receiveMsg
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  D:00CBH         PUBLIC        RCAP2H
+  D:00CAH         PUBLIC        RCAP2L
+  C:011CH         PUBLIC        main
+  C:01C1H         PUBLIC        _sendChar
+  D:0099H         PUBLIC        SBUF
+  D:0087H         PUBLIC        PCON
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  C:017BH         SYMBOL        _?ix1000
+  C:0195H         SYMBOL        _?ix1001
+  D:008DH         PUBLIC        TH1
+  D:00CDH         PUBLIC        TH2
+  D:008BH         PUBLIC        TL1
+  D:00CCH         PUBLIC        TL2
+  B:0088H.6       PUBLIC        TR1
+  C:0019H         PUBLIC        receive
+  D:00C9H         PUBLIC        T2MOD
+  D:00C8H         PUBLIC        T2CON
+  C:0003H         PUBLIC        UartTimer2Init
+  -------         PROC          UARTTIMER2INIT
+  C:0003H         LINE#         4
+  C:0003H         LINE#         5
+  C:0003H         LINE#         6
+  C:0006H         LINE#         7
+  C:000CH         LINE#         8
+  C:0012H         LINE#         9
+  C:0015H         LINE#         10
+  C:0018H         LINE#         11
+  -------         ENDPROC       UARTTIMER2INIT
+  -------         PROC          UARTTIMER1INIT
+  C:01A3H         LINE#         13
+  C:01A3H         LINE#         14
+  C:01A6H         LINE#         15
+  C:01A9H         LINE#         16
+  C:01ACH         LINE#         17
+  C:01AFH         LINE#         18
+  C:01B2H         LINE#         19
+  C:01B4H         LINE#         20
+  -------         ENDPROC       UARTTIMER1INIT
+  -------         PROC          _SENDCHAR
+  D:0007H         SYMBOL        dat
+  C:01C1H         LINE#         23
+  C:01C1H         LINE#         24
+  C:01C3H         LINE#         25
+  C:01C6H         LINE#         26
+  C:01C8H         LINE#         27
+  -------         ENDPROC       _SENDCHAR
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/19/2016  22:38:34  PAGE 3
+
+
+  -------         PROC          RECEIVEMSG
+  C:01C9H         LINE#         30
+  C:01C9H         LINE#         31
+  C:01CCH         LINE#         32
+  C:01CEH         LINE#         33
+  C:01D0H         LINE#         34
+  -------         ENDPROC       RECEIVEMSG
+  -------         PROC          RECEIVE
+  C:0019H         LINE#         37
+  C:0019H         LINE#         38
+  C:001CH         LINE#         39
+  C:001EH         LINE#         40
+  C:0021H         LINE#         41
+  C:0021H         LINE#         42
+  -------         ENDPROC       RECEIVE
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        inf
+  D:0022H         SYMBOL        hello
+  D:0005H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:011CH         LINE#         45
+  C:011CH         LINE#         46
+  C:012FH         LINE#         47
+  C:0142H         LINE#         49
+  C:0144H         LINE#         53
+  C:0147H         LINE#         54
+  C:0147H         LINE#         55
+  C:0149H         LINE#         56
+  C:0152H         LINE#         57
+  C:0156H         LINE#         58
+  C:0158H         LINE#         59
+  C:0161H         LINE#         60
+  C:0165H         LINE#         61
+  C:016CH         LINE#         62
+  C:016DH         LINE#         63
+  C:0173H         LINE#         64
+  C:0173H         LINE#         65
+  C:0174H         LINE#         66
+  C:0174H         LINE#         67
+  C:0179H         LINE#         70
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        UART
+
+  -------         MODULE        ?C?COPY
+  C:00F6H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?UARTTIMER1INIT?UART
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?RECEIVEMSG?UART
+
+Program Size: data=49.0 xdata=0 code=464
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

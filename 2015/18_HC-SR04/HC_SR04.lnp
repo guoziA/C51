@@ -1,0 +1,3 @@
+"HC_SR04_ultrasound.obj" 
+TO "HC_SR04" 
+RAMSIZE(256) 

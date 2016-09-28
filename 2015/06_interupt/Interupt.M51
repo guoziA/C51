@@ -1,0 +1,99 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/03/2015  00:02:10  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE Interupt_.obj TO Interupt
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  Interupt_.obj (INTERUPT_)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  Interupt (INTERUPT_)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         ?DT?INTERUPT_
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+            CODE    0006H     000CH     UNIT         ?PR?MAIN?INTERUPT_
+                    0012H     0001H                  *** GAP ***
+            CODE    0013H     0003H     ABSOLUTE     
+            CODE    0016H     008CH     UNIT         ?C_C51STARTUP
+            CODE    00A2H     0029H     UNIT         ?PR?INT0?INTERUPT_
+            CODE    00CBH     0029H     UNIT         ?PR?INT1?INTERUPT_
+            CODE    00F4H     0007H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   Interupt (INTERUPT_)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?INTERUPT_
+  +--> ?C_INITSEG
+
+
+
+SYMBOL TABLE OF MODULE:  Interupt (INTERUPT_)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        INTERUPT_
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/03/2015  00:02:10  PAGE 2
+
+
+  B:00A8H.7       PUBLIC        EA
+  C:0006H         PUBLIC        main
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  B:00A8H.2       PUBLIC        EX1
+  B:0088H.2       PUBLIC        IT1
+  D:0008H         PUBLIC        i
+  D:0009H         PUBLIC        j
+  C:00A2H         PUBLIC        int0
+  C:00CBH         PUBLIC        int1
+  -------         PROC          MAIN
+  C:0006H         LINE#         6
+  C:0006H         LINE#         7
+  C:0008H         LINE#         8
+  C:000AH         LINE#         9
+  C:000CH         LINE#         10
+  C:000EH         LINE#         12
+  C:0010H         LINE#         14
+  -------         ENDPROC       MAIN
+  -------         PROC          INT0
+  C:00A2H         LINE#         17
+  C:00ADH         LINE#         18
+  C:00C0H         LINE#         19
+  C:00C2H         LINE#         20
+  -------         ENDPROC       INT0
+  -------         PROC          INT1
+  C:00CBH         LINE#         22
+  C:00D6H         LINE#         23
+  C:00E9H         LINE#         24
+  C:00EBH         LINE#         25
+  -------         ENDPROC       INT1
+  -------         ENDMOD        INTERUPT_
+
+Program Size: data=11.0 xdata=0 code=250
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,92 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/11/2015  18:50:39  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE moto1.obj TO moto
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  moto1.obj (MOTO1)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  moto (MOTO1)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     001EH     UNIT         ?PR?_DELAYMS?MOTO1
+            CODE    0021H     001AH     UNIT         ?PR?MAIN?MOTO1
+            CODE    003BH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   moto (MOTO1)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MOTO1
+
+?PR?MAIN?MOTO1
+  +--> ?PR?_DELAYMS?MOTO1
+
+
+
+SYMBOL TABLE OF MODULE:  moto (MOTO1)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MOTO1
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:00A0H         PUBLIC        P2
+  B:0080H.1       PUBLIC        moto_
+  B:0080H.0       PUBLIC        Moto
+  C:0021H         PUBLIC        main
+  B:00A0H.1       PUBLIC        moto1
+  B:00A0H.2       PUBLIC        moto2
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/11/2015  18:50:39  PAGE 2
+
+
+  C:0003H         PUBLIC        _delayms
+  -------         PROC          MAIN
+  C:0021H         LINE#         10
+  C:0021H         LINE#         11
+  C:0023H         LINE#         12
+  C:0025H         LINE#         13
+  C:0027H         LINE#         14
+  C:0027H         LINE#         15
+  C:0029H         LINE#         16
+  C:0030H         LINE#         17
+  C:0032H         LINE#         18
+  C:0039H         LINE#         19
+  -------         ENDPROC       MAIN
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:0003H         LINE#         22
+  C:0003H         LINE#         24
+  C:000CH         LINE#         25
+  C:0020H         LINE#         26
+  -------         ENDPROC       _DELAYMS
+  -------         ENDMOD        MOTO1
+
+Program Size: data=9.0 xdata=0 code=71
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

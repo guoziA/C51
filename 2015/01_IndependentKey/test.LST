@@ -1,0 +1,48 @@
+C51 COMPILER V9.52.0.0   TEST                                                              08/16/2016 14:10:46 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE TEST
+NO OBJECT MODULE REQUESTED
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE test.c BROWSE DEBUG OBJECTEXTEND SRC(.\test.SRC)
+
+line level    source
+
+   1          #include "global.h"
+   2          #include "other.h"
+   3          
+   4          extern char GLOBAL_CHAR;
+   5          extern idata char test_char1;
+   6          extern idata char test_char3;
+   7          
+   8          void fun1(){
+   9   1              GLOBAL_CHAR = 1;
+  10   1              test_char3 = 1;
+  11   1              
+  12   1              test_char4 = &test_char3;
+  13   1              
+  14   1              GLOBAL_CHAR = *test_char4;
+  15   1      }
+  16          
+  17          char func2(){
+  18   1              return 1;
+  19   1      }
+  20          
+  21          char func3(char i){
+  22   1              i = 1;
+  23   1              func4(1);
+  24   1              return i;
+  25   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     41    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       1
+   IDATA SIZE       =      3    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

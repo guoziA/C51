@@ -1,0 +1,49 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\keil\project\clock\clock.uvproj
+Project File Date:  04/06/2015
+
+<h2>Output:</h2>
+Build target 'Target c'
+compiling ∫ÏÕ‚“£øÿ.c...
+E:\My Documents\other\÷«øÿ\∫ÏÕ‚“£øÿ.c(77): error C141: syntax error near 'int'
+E:\My Documents\other\÷«øÿ\∫ÏÕ‚“£øÿ.c(77): error C202: 'i': undefined identifier
+E:\My Documents\other\÷«øÿ\∫ÏÕ‚“£øÿ.c(77): error C202: 'i': undefined identifier
+E:\My Documents\other\÷«øÿ\∫ÏÕ‚“£øÿ.c(77): error C202: 'i': undefined identifier
+E:\My Documents\other\÷«øÿ\∫ÏÕ‚“£øÿ.c(77): error C141: syntax error near ')'
+Target not created
+Build target 'Target c'
+compiling ∫ÏÕ‚“£øÿ.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?________
+Program Size: data=21.0 xdata=0 code=342
+creating hex file from "clock"...
+"clock" - 0 Error(s), 1 Warning(s).
+Build target 'Target c'
+compiling ∫ÏÕ‚“£øÿ.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?________
+Program Size: data=21.0 xdata=0 code=342
+creating hex file from "clock"...
+"clock" - 0 Error(s), 1 Warning(s).
+Build target 'Target c'
+compiling ∫ÏÕ‚“£øÿ.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?________
+Program Size: data=21.0 xdata=0 code=342
+creating hex file from "clock"...
+"clock" - 0 Error(s), 1 Warning(s).
+Build target 'Target c'
+compiling ∫ÏÕ‚“£øÿ.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?________
+Program Size: data=21.0 xdata=0 code=342
+creating hex file from "clock"...
+"clock" - 0 Error(s), 1 Warning(s).

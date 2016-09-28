@@ -1,0 +1,141 @@
+C51 COMPILER V9.52.0.0   HC_SR04_ULTRASOUND                                                08/23/2015 00:45:07 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE HC_SR04_ULTRASOUND
+OBJECT MODULE PLACED IN HC_SR04_ultrasound.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE HC_SR04_ultrasound.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          
+   2          /*********************************************************************************************************
+             -**/            
+   3                               #include <AT89x51.H>               
+   4                                   #include <intrins.h>
+   5                                   #define  RX  P3_1
+   6                                   #define  TX  P3_2
+   7                                   unsigned int  time=0;
+   8                                   unsigned int  timer=0;
+   9                                   unsigned char posit=0;
+  10                                   unsigned long S=0;
+  11                                   bit      flag =0;
+  12                                   unsigned char const discode[] ={ 0x50,0x5f,0x38,0x19,0x17,0x91,0x90,0x5d,0x10,0x11,0xef/*-*/};//数字0~
+             -9
+  13                                   unsigned char const positon[3]={ 0xdf,0xef,0xf7};//3个数码管开关
+  14                                   unsigned char disbuff[4]          ={ 0,0,0,0,};
+  15          /********************************************************/
+  16              void Display(void)                           
+  17                  {
+  18   1               if(posit==0)
+  19   1               {P0=(discode[disbuff[posit]])&0x7f;}
+  20   1               else
+  21   1               {P0=discode[disbuff[posit]];}
+  22   1                P1=positon[posit];
+  23   1                if(++posit>=3)
+  24   1                posit=0;
+  25   1              }
+  26          /********************************************************/
+  27              void Conut(void)
+  28                  {
+  29   1               time=TH0*256+TL0;
+  30   1               TH0=0;
+  31   1               TL0=0;
+  32   1              
+  33   1               S=(time*1.7)/100;     //时间换成CM
+  34   1               if((S>=700)||flag==1) //超出测量范围
+  35   1               {       
+  36   2                flag=0;
+  37   2                disbuff[0]=10;           //“-”
+  38   2                disbuff[1]=10;           //“-”
+  39   2                disbuff[2]=10;           //“-”
+  40   2               }
+  41   1               else
+  42   1               {
+  43   2                disbuff[0]=S%1000/100;
+  44   2                disbuff[1]=S%1000%100/10;
+  45   2                disbuff[2]=S%1000%10 %10;
+  46   2               }
+  47   1              }
+  48          /********************************************************/
+  49               void zd0() interrupt 1              //T0装满溢出，超过测量范围
+  50            {
+  51   1          flag=1;                                                      //超出测量范围标识
+  52   1        }
+  53          /********************************************************/
+C51 COMPILER V9.52.0.0   HC_SR04_ULTRASOUND                                                08/23/2015 00:45:07 PAGE 2   
+
+  54             void  zd3()  interrupt 3              //T1刷新显示，800ms启动一次模块
+  55            {
+  56   1               TH1=0xf8;
+  57   1               TL1=0x30;
+  58   1               Display();
+  59   1               timer++;
+  60   1               if(timer>=400)//
+  61   1               {
+  62   2                timer=0;
+  63   2                TX=1;                 //echo高电平10us启动模块
+  64   2                _nop_(); 
+  65   2                _nop_(); 
+  66   2                _nop_(); 
+  67   2                _nop_(); 
+  68   2                _nop_(); 
+  69   2                _nop_(); 
+  70   2                _nop_(); 
+  71   2                _nop_(); 
+  72   2                _nop_(); 
+  73   2                _nop_(); 
+  74   2                _nop_(); 
+  75   2                _nop_(); 
+  76   2                _nop_(); 
+  77   2                _nop_(); 
+  78   2                _nop_(); 
+  79   2                _nop_(); 
+  80   2                _nop_();
+  81   2                _nop_(); 
+  82   2                _nop_(); 
+  83   2                _nop_(); 
+  84   2                _nop_();
+  85   2                TX=0;
+  86   2               } 
+  87   1        }
+  88          /*********************************************************/
+  89          
+  90                  void  main(  void  )
+  91          
+  92            {  
+  93   1          TMOD=0x11;             //T0方式1
+  94   1              TH0=0;
+  95   1              TL0=0;          
+  96   1              TH1=0xf8;                  //2ms
+  97   1              TL1=0x30;
+  98   1              ET0=1;             //T0允许中断
+  99   1              ET1=1;                     //T1允许中断
+ 100   1              TR1=1;                     //开定时器
+ 101   1              EA=1;                      //总允许中断
+ 102   1      
+ 103   1              while(1)
+ 104   1              {
+ 105   2               while(!RX);            //等待接收高信号
+ 106   2               TR0=1;                     //出现接收端高电平开始计时
+ 107   2               while(RX);                     //等待高电平结束
+ 108   2               TR0=0;                         //停止计时
+ 109   2           Conut();                   //计算距离
+ 110   2              }
+ 111   1      
+ 112   1        }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.52.0.0   HC_SR04_ULTRASOUND                                                08/23/2015 00:45:07 PAGE 3   
+
+   CODE SIZE        =    410    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     27    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

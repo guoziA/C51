@@ -1,0 +1,4 @@
+"led.obj",
+"frams.obj" 
+TO "led" 
+RAMSIZE(256) 

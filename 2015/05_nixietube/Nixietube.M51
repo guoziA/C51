@@ -1,0 +1,167 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/04/2015  21:41:04  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE Nixietube.obj TO Nixietube
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  Nixietube.obj (NIXIETUBE)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?SIDIV)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?ULDIV)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?SLDIV)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?SLCMP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  Nixietube (NIXIETUBE)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000EH     UNIT         ?DT?NIXIETUBE
+            DATA    0016H     000AH     UNIT         _DATA_GROUP_
+            IDATA   0020H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     016FH     UNIT         ?C?LIB_CODE
+            CODE    0172H     00CFH     UNIT         ?PR?MAIN?NIXIETUBE
+            CODE    0241H     008CH     UNIT         ?C_C51STARTUP
+            CODE    02CDH     0044H     UNIT         ?C?LDIV
+            CODE    0311H     003AH     UNIT         ?PR?_SHOWNUMBER?NIXIETUBE
+            CODE    034BH     0020H     UNIT         ?PR?_DELAYMS?NIXIETUBE
+            CODE    036BH     001FH     UNIT         ?PR?_FLASH?NIXIETUBE
+            CODE    038AH     0013H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   Nixietube (NIXIETUBE)
+
+
+SEGMENT                             DATA_GROUP 
+  +--> CALLED SEGMENT             START    LENGTH
+-------------------------------------------------
+?C_C51STARTUP                     -----    -----
+  +--> ?PR?MAIN?NIXIETUBE
+  +--> ?C_INITSEG
+
+?PR?MAIN?NIXIETUBE                0016H    000AH
+  +--> ?PR?_FLASH?NIXIETUBE
+  +--> ?PR?_SHOWNUMBER?NIXIETUBE
+
+?PR?_FLASH?NIXIETUBE              -----    -----
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/04/2015  21:41:04  PAGE 2
+
+
+  +--> ?PR?_DELAYMS?NIXIETUBE
+
+
+
+SYMBOL TABLE OF MODULE:  Nixietube (NIXIETUBE)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        NIXIETUBE
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:0008H         PUBLIC        number
+  C:036BH         PUBLIC        _flash
+  C:0172H         PUBLIC        main
+  C:0311H         PUBLIC        _showNumber
+  D:0012H         PUBLIC        MAX
+  C:034BH         PUBLIC        _delayms
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:034BH         LINE#         9
+  C:034BH         LINE#         11
+  C:0356H         LINE#         12
+  C:036AH         LINE#         13
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          _SHOWNUMBER
+  D:0082H         SYMBOL        position
+  D:0002H         SYMBOL        num
+  C:0311H         LINE#         15
+  C:0319H         LINE#         16
+  C:0322H         LINE#         17
+  C:0331H         LINE#         18
+  C:0334H         LINE#         19
+  C:0343H         LINE#         20
+  C:034AH         LINE#         21
+  -------         ENDPROC       _SHOWNUMBER
+  -------         PROC          _FLASH
+  D:0002H         SYMBOL        xms
+  C:036BH         LINE#         23
+  C:036FH         LINE#         24
+  C:036FH         LINE#         25
+  C:0372H         LINE#         26
+  C:0375H         LINE#         27
+  C:037CH         LINE#         28
+  C:037FH         LINE#         29
+  C:0381H         LINE#         30
+  C:0388H         LINE#         31
+  -------         ENDPROC       _FLASH
+  -------         PROC          MAIN
+  -------         DO            
+  D:0016H         SYMBOL        position
+  D:0018H         SYMBOL        number
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/04/2015  21:41:04  PAGE 3
+
+
+  D:001CH         SYMBOL        time
+  -------         ENDDO         
+  C:0172H         LINE#         34
+  C:0172H         LINE#         35
+  C:0177H         LINE#         36
+  C:0183H         LINE#         37
+  C:018BH         LINE#         38
+  C:018BH         LINE#         39
+  C:01B7H         LINE#         40
+  C:01CAH         LINE#         41
+  C:01D3H         LINE#         42
+  C:01DAH         LINE#         43
+  C:01DAH         LINE#         44
+  C:01DFH         LINE#         45
+  C:01FFH         LINE#         46
+  C:0218H         LINE#         47
+  C:0229H         LINE#         48
+  C:023EH         LINE#         49
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        NIXIETUBE
+
+  -------         MODULE        ?C?SIDIV
+  C:0003H         PUBLIC        ?C?SIDIV
+  -------         ENDMOD        ?C?SIDIV
+
+  -------         MODULE        ?C?ULDIV
+  C:0075H         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+  -------         MODULE        ?C?SLDIV
+  C:02CDH         PUBLIC        ?C?SLDIV
+  -------         ENDMOD        ?C?SLDIV
+
+  -------         MODULE        ?C?SLCMP
+  C:0107H         PUBLIC        ?C?SLCMP
+  -------         ENDMOD        ?C?SLCMP
+
+  -------         MODULE        ?C?UIDIV
+  C:011DH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=33.0 xdata=0 code=925
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

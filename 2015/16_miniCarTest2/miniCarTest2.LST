@@ -1,0 +1,154 @@
+C51 COMPILER V9.52.0.0   MINICARTEST2                                                      08/13/2015 19:38:46 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MINICARTEST2
+OBJECT MODULE PLACED IN miniCarTest2.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE miniCarTest2.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <regx52.h>
+   2          
+   3          
+   4          #define EVERY100US 100
+   5          
+   6          void timer0Init();
+   7          void systemInit();
+   8          void driveMoto1(unsigned char);
+   9          void driveMoto2(unsigned char);
+  10          void trace();
+  11          void delay(unsigned char);
+  12          void MotosGo(unsigned char);
+  13          
+  14          sbit senser1 = P1^0;
+  15          sbit senser2 = P1^1;
+  16          sbit light1 = P1^2;
+  17          sbit light2 = P1^3;
+  18          sbit moto1 = P1^4;
+  19          sbit moto2 = P1^5;
+  20          
+  21          void main(){
+  22   1              systemInit();
+  23   1              timer0Init();
+  24   1              while(1){
+  25   2                      if(!light1 && !light2){
+  26   3                              MotosGo(10);
+  27   3                      }
+  28   2                      if(!light1){
+  29   3                              driveMoto1(10);
+  30   3                              moto2 = 0;
+  31   3                      }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+             -                                                                                                                                                                                                                                                                                                                                                                                        
+  32   2                      if(!light2){
+C51 COMPILER V9.52.0.0   MINICARTEST2                                                      08/13/2015 19:38:46 PAGE 2   
+
+  33   3                              driveMoto2(10);
+  34   3                              moto1 = 0;
+  35   3                      }       
+  36   2              }
+  37   1      }
+  38          
+  39          void MotosGo(unsigned char dutyRatio){
+  40   1              moto1 = 1;
+  41   1              moto2 = 1;
+  42   1              delay(dutyRatio);
+  43   1              moto1 = 0;
+  44   1              moto2 = 0;
+  45   1              delay(10 - dutyRatio);
+  46   1      }
+  47          void driveMoto1(unsigned char dutyRatio){
+  48   1              moto1 = 1;
+  49   1              delay(dutyRatio);
+  50   1              moto1 = 0;
+  51   1              delay(10 - dutyRatio);
+  52   1      }
+  53          
+  54          void driveMoto2(unsigned char dutyRatio){
+  55   1              moto2 = 1;
+  56   1              delay(dutyRatio);
+  57   1              moto2 = 0;
+  58   1              delay(10 - dutyRatio);
+  59   1      }
+  60          
+  61          void systemInit(){
+  62   1              senser1 = 0;
+  63   1              senser2 = 0;
+  64   1              light1 = 0;
+  65   1              light2 = 0;
+  66   1              moto1 = 0;
+  67   1              moto2 = 0;
+  68   1      }
+  69          
+  70          void timer0Init(){
+  71   1              TMOD = 0X01;
+  72   1              TH0 = (65536 - EVERY100US) / 256;
+  73   1              TL0 = (65536 - EVERY100US) % 256;
+  74   1              EA = 1;
+  75   1              ET0 = 1;
+  76   1              TR0 = 1;
+  77   1      }
+  78          
+  79          void timer0() interrupt 1{
+  80   1              TH0 = (65536 - EVERY100US) / 256;
+  81   1              TL0 = (65536 - EVERY100US) % 256;
+  82   1              trace();
+  83   1      }
+  84          
+  85          void trace(){
+  86   1              if(senser1){
+  87   2                      light1 = 1;
+  88   2      //              moto1 = 0;
+  89   2              }else{
+  90   2                      light1 = 0;
+  91   2              }
+  92   1              if(senser2){
+  93   2                      light2 = 1;
+  94   2      //              moto2 = 0;
+C51 COMPILER V9.52.0.0   MINICARTEST2                                                      08/13/2015 19:38:46 PAGE 3   
+
+  95   2              }else{
+  96   2                      light2 = 0;
+  97   2              }
+  98   1      }
+  99          
+ 100          void delay(unsigned char delayTime){
+ 101   1              unsigned char i,j;
+ 102   1              for(i = delayTime; i > 0; i--)
+ 103   1                      for(j = 5; j > 0; j--);
+ 104   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    223    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

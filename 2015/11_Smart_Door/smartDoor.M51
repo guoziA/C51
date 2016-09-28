@@ -1,0 +1,213 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/07/2015  22:52:52  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE smartDoor.obj TO smartDoor
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  smartDoor.obj (SMARTDOOR)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  smartDoor (SMARTDOOR)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         ?DT?SMARTDOOR
+            DATA    000EH     0002H     UNIT         _DATA_GROUP_
+            IDATA   0010H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+                    0006H     0005H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     0005H                  *** GAP ***
+            CODE    0013H     0003H     ABSOLUTE     
+            CODE    0016H     0091H     UNIT         ?PR?INT1FUN?SMARTDOOR
+            CODE    00A7H     008CH     UNIT         ?C_C51STARTUP
+            CODE    0133H     0053H     UNIT         ?PR?MAIN?SMARTDOOR
+            CODE    0186H     001EH     UNIT         ?PR?_DELAYMS?SMARTDOOR
+            CODE    01A4H     0011H     UNIT         ?PR?INT0FUN?SMARTDOOR
+            CODE    01B5H     000FH     UNIT         ?PR?DELAYA?SMARTDOOR
+            CODE    01C4H     000FH     UNIT         ?PR?DELAYB?SMARTDOOR
+            CODE    01D3H     000DH     UNIT         ?PR?TIMER?SMARTDOOR
+            CODE    01E0H     0009H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   smartDoor (SMARTDOOR)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?PR?INT1FUN?SMARTDOOR          -----    -----
+  +--> ?PR?DELAYB?SMARTDOOR
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?SMARTDOOR
+  +--> ?C_INITSEG
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2015  22:52:52  PAGE 2
+
+
+
+?PR?MAIN?SMARTDOOR             000EH    0002H
+
+
+
+SYMBOL TABLE OF MODULE:  smartDoor (SMARTDOOR)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        SMARTDOOR
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  B:00A8H.7       PUBLIC        EA
+  B:00B0H.3       PUBLIC        P3_3
+  C:01D3H         PUBLIC        timer
+  C:0133H         PUBLIC        main
+  D:0008H         PUBLIC        start
+  C:01B5H         PUBLIC        DelayA
+  C:01C4H         PUBLIC        DelayB
+  D:0089H         PUBLIC        TMOD
+  C:01A4H         PUBLIC        INT0Fun
+  C:0016H         PUBLIC        INT1Fun
+  B:00A8H.1       PUBLIC        ET0
+  D:008CH         PUBLIC        TH0
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  B:00A8H.2       PUBLIC        EX1
+  B:0088H.2       PUBLIC        IT1
+  D:008AH         PUBLIC        TL0
+  C:0186H         PUBLIC        _Delayms
+  B:0088H.4       PUBLIC        TR0
+  D:000AH         PUBLIC        Counter
+  D:000CH         PUBLIC        isBrk
+  -------         PROC          MAIN
+  -------         DO            
+  D:000EH         SYMBOL        i
+  -------         ENDDO         
+  C:0133H         LINE#         15
+  C:0133H         LINE#         16
+  C:0133H         LINE#         17
+  C:0135H         LINE#         18
+  C:0137H         LINE#         19
+  C:0139H         LINE#         20
+  C:013BH         LINE#         21
+  C:013DH         LINE#         22
+  C:0140H         LINE#         23
+  C:0143H         LINE#         24
+  C:0146H         LINE#         26
+  C:0146H         LINE#         28
+  C:0159H         LINE#         29
+  C:015FH         LINE#         30
+  C:0162H         LINE#         31
+  C:016DH         LINE#         32
+  C:0170H         LINE#         33
+  C:0170H         LINE#         34
+  C:0172H         LINE#         35
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2015  22:52:52  PAGE 3
+
+
+  C:0178H         LINE#         36
+  C:017DH         LINE#         37
+  C:017FH         LINE#         38
+  C:0181H         LINE#         39
+  C:0181H         LINE#         40
+  C:0184H         LINE#         41
+  C:0184H         LINE#         42
+  -------         ENDPROC       MAIN
+  -------         PROC          INT0FUN
+  C:01A4H         LINE#         49
+  C:01A4H         LINE#         50
+  C:01AAH         LINE#         51
+  C:01B0H         LINE#         52
+  C:01B2H         LINE#         53
+  C:01B4H         LINE#         54
+  -------         ENDPROC       INT0FUN
+  -------         PROC          TIMER
+  C:01D3H         LINE#         57
+  C:01D5H         LINE#         58
+  C:01DDH         LINE#         60
+  -------         ENDPROC       TIMER
+  -------         PROC          INT1FUN
+  C:0016H         LINE#         66
+  C:0033H         LINE#         68
+  C:0036H         LINE#         69
+  C:003CH         LINE#         70
+  C:003FH         LINE#         71
+  C:0042H         LINE#         72
+  C:0055H         LINE#         73
+  C:0058H         LINE#         74
+  C:005BH         LINE#         75
+  C:005EH         LINE#         76
+  C:0061H         LINE#         77
+  C:0061H         LINE#         79
+  C:0061H         LINE#         80
+  C:0064H         LINE#         81
+  C:006AH         LINE#         82
+  C:006DH         LINE#         83
+  C:0070H         LINE#         84
+  C:0083H         LINE#         85
+  C:0083H         LINE#         87
+  C:0083H         LINE#         88
+  C:0086H         LINE#         89
+  C:008CH         LINE#         90
+  C:008CH         LINE#         91
+  C:008CH         LINE#         92
+  -------         ENDPROC       INT1FUN
+  -------         PROC          DELAYA
+  -------         DO            
+  D:0006H         SYMBOL        I
+  -------         ENDDO         
+  C:01B5H         LINE#         94
+  C:01B5H         LINE#         95
+  C:01B5H         LINE#         97
+  C:01C3H         LINE#         98
+  -------         ENDPROC       DELAYA
+  -------         PROC          DELAYB
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2015  22:52:52  PAGE 4
+
+
+  -------         DO            
+  D:0006H         SYMBOL        i
+  -------         ENDDO         
+  C:01C4H         LINE#         99
+  C:01C4H         LINE#         100
+  C:01C4H         LINE#         102
+  C:01D2H         LINE#         103
+  -------         ENDPROC       DELAYB
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:0186H         LINE#         104
+  C:0186H         LINE#         106
+  C:018FH         LINE#         107
+  C:01A3H         LINE#         108
+  -------         ENDPROC       _DELAYMS
+  -------         ENDMOD        SMARTDOOR
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DELAYA?SMARTDOOR
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYMS?SMARTDOOR
+
+Program Size: data=17.0 xdata=0 code=479
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

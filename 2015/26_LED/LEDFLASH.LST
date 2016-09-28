@@ -1,0 +1,48 @@
+A51 MACRO ASSEMBLER  LEDFLASH                                                             12/01/2015 10:12:23 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN LEDFLASH.OBJ
+ASSEMBLER INVOKED BY: E:\keil\C51\BIN\A51.EXE LEDFLASH.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+0100                   2                     ORG 100H
+0100 74FE              3                     MOV A, #0FEH
+0102 F580              4     LOOP:   MOV P0, A
+0104 12010B            5                     LCALL DELAY
+0107 23                6                     RL A
+0108 020102            7                     LJMP LOOP
+                       8                     
+010B 7838              9     DELAY:  MOV R0, #038H
+010D 79FA             10     LOOP2:  MOV R1, #0FAH
+010F 00               11     LOOP1:  NOP
+0110 00               12                     NOP
+0111 00               13                     NOP
+0112 00               14                     NOP
+0113 00               15                     NOP
+0114 D9F9             16                     DJNZ R1, LOOP1
+0116 D8F5             17                     DJNZ R0, LOOP2
+0118 22               18                     RET
+                      19                     
+                      20                     END
+A51 MACRO ASSEMBLER  LEDFLASH                                                             12/01/2015 10:12:23 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   010BH   A   
+LOOP . . . . . . .  C ADDR   0102H   A   
+LOOP1. . . . . . .  C ADDR   010FH   A   
+LOOP2. . . . . . .  C ADDR   010DH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

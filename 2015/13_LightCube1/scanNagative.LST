@@ -1,0 +1,29 @@
+C51 COMPILER V9.52.0.0   SCANNAGATIVE                                                      07/26/2015 20:29:05 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SCANNAGATIVE
+OBJECT MODULE PLACED IN scanNagative.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE scanNagative.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <regx52.h>
+   2          #include "scanNagative.h"
+   3          
+   4          void scan_nagative(){
+   5   1              P1 = 0X01;
+   6   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      4    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

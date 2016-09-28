@@ -1,0 +1,90 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/30/2015  09:50:50  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE HBridge.obj TO h_bridge RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  HBridge.obj (HBRIDGE)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  h_bridge (HBRIDGE)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     001EH     UNIT         ?PR?_DELAYMS?HBRIDGE
+            CODE    0021H     001CH     UNIT         ?PR?MAIN?HBRIDGE
+            CODE    003DH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   h_bridge (HBRIDGE)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?HBRIDGE
+
+?PR?MAIN?HBRIDGE
+  +--> ?PR?_DELAYMS?HBRIDGE
+
+
+
+SYMBOL TABLE OF MODULE:  h_bridge (HBRIDGE)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HBRIDGE
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  B:0090H.0       PUBLIC        moto11
+  B:0090H.1       PUBLIC        moto12
+  C:0021H         PUBLIC        main
+  C:0003H         PUBLIC        _delayms
+  -------         PROC          MAIN
+  C:0021H         LINE#         8
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/30/2015  09:50:50  PAGE 2
+
+
+  C:0021H         LINE#         9
+  C:0023H         LINE#         10
+  C:0025H         LINE#         11
+  C:0025H         LINE#         12
+  C:0027H         LINE#         13
+  C:0029H         LINE#         14
+  C:0030H         LINE#         15
+  C:0032H         LINE#         16
+  C:0034H         LINE#         17
+  C:003BH         LINE#         18
+  -------         ENDPROC       MAIN
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:0003H         LINE#         21
+  C:0003H         LINE#         23
+  C:000CH         LINE#         24
+  C:0020H         LINE#         25
+  -------         ENDPROC       _DELAYMS
+  -------         ENDMOD        HBRIDGE
+
+Program Size: data=9.0 xdata=0 code=73
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

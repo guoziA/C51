@@ -1,0 +1,75 @@
+C51 COMPILER V9.52.0.0   NIXIETUBE                                                         03/04/2015 21:41:04 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE NIXIETUBE
+OBJECT MODULE PLACED IN Nixietube.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE Nixietube.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<regx52.h>
+   2          
+   3          #define CONTROL P1//控制端口
+   4          #define SHOW P0//显示端口
+   5          
+   6          const long MAX = 100000;//倒数的最大值
+   7          //const unsigned char number[] = {0x50,0x5f,0x38,0x19,0x17,0x91,0x90,0x5d,0x10,0x11,0xef};//数字0~9,实物
+   8          const unsigned char number[] = {0x77, 0x06, 0xb3, 0x97, 0xc6, 0xd5, 0xf5, 0x07, 0xf7, 0xd7};//仿真数字0~9
+   9          void delayms(int xms){//延时
+  10   1              int i, j;
+  11   1              for(i = xms; i > 0; i--)
+  12   1                      for(j = 110; j > 0; j--);
+  13   1      }
+  14          
+  15          void showNumber(int position, int num){//显示
+  16   1              position = position%8;//防止position大于7
+  17   1              num = num%10;//防止num大于9
+  18   1              SHOW = 0x00;//置空显示
+  19   1              CONTROL = ~(0x01 << position);//第position个数码管通电
+  20   1              SHOW = number[num];//显示number数组第num个元素
+  21   1      }
+  22          
+  23          void flash(int xms){//闪烁
+  24   1              while(1){
+  25   2                      CONTROL = 0xff;
+  26   2                      SHOW = 0xff;
+  27   2                      delayms(xms);
+  28   2                      SHOW = 0x00;
+  29   2                      CONTROL = 0x00;
+  30   2                      delayms(xms);
+  31   2              }
+  32   1      }
+  33          
+  34          void main(){
+  35   1              unsigned int position = 0;
+  36   1              long number = MAX;
+  37   1              unsigned long time = 0;
+  38   1              while(1){
+  39   2                      number = MAX - time/11;//time每过11倒数一个数
+  40   2                      if(number <= 0){//number小于等于0，开始闪烁
+  41   3                              time = 0;
+  42   3                              flash(500);
+  43   3                      }
+  44   2                      for(position = 0; position < 8; position++){//扫描数码管显示数字
+  45   3                              showNumber(position, number%10);
+  46   3                              number = number / 10;//提出高数位的数字
+  47   3                      }
+  48   2                      time++;
+  49   2              }
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    328    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.52.0.0   NIXIETUBE                                                         03/04/2015 21:41:04 PAGE 2   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,407 @@
+C51 COMPILER V9.52.0.0   TIEMER                                                            05/13/2015 00:03:37 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE TIEMER
+OBJECT MODULE PLACED IN tiemer.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE tiemer.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <regx52.h>
+   2          #include <intrins.h>
+   3          
+   4          #define LCD_Data P3   //数据端口
+   5          #define LCD_Busy P3_7 //忙检测位
+   6          #define LCD_RS   P1_0 //控制端口RS
+   7          #define LCD_RW   P1_1 //控制端口RW
+   8          #define LCD_E    P1_2 //控制端口E
+   9          #define LCD_BG   P1_5 //LCD背光控制
+  10          #define IO_TYPE P2_6  //type键IO口
+  11          #define IO_PLUS P2_5  //plus键IO口
+  12          #define IO_MINUS P2_4 //minus键IO口
+  13          #define IO_LOW  P2_0  //需拉低的IO口，用于上面三个键的检测
+  14          #define FREQ 12000000 //12M晶振
+  15          #define EVERY50ms (50000/(FREQ/12/1000000))//50ms需要的机器周期
+  16          
+  17          code char *weekString[]={"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+  18          unsigned char YEAR=13,MONTH=1,DAY=1,WEEK=1,HOUR=0,MIN=0,SEC=0;
+  19          unsigned char MONTH_LENGTH = 31;//当月的日期长度
+  20          enum setState{NO_SET,SET_HOUR,SET_MIN,SET_SEC,SET_YEAR,SET_MONTH,SET_DAY,SET_WEEK};//设置项枚举
+  21          enum setState setNow = NO_SET;//当前设置的项
+  22          enum keyVal{NO_KEY,TYPE_KEY,PLUS_KEY,MINUS_KEY};//键值枚举
+  23          enum keyVal keyNow = NO_KEY;//当前按下的键
+  24          
+  25          void LCD_busy();//LCD忙检测
+  26          void LCD_WriteCode(unsigned char cmd);//向LCD发送命令cmd
+  27          void LCD_WriteData(unsigned char dat);//向LCD发送数据dat
+  28          void LCD_GoToXY(unsigned char x,unsigned char y);//将光标定位于(x,y)
+  29          void LCD_ShowString(unsigned char x,unsigned char y,unsigned char *str);//以(x,y)为起点写str指向的字符串
+  30          void LCD_Init();//LCD初始化
+  31          void LCD_Clear();//清屏
+  32          void secFlush();//当秒满60后更新相关信息
+  33          void minFlush();//当分满60后更新相关信息
+  34          void hourFlush();//当小时满24后更新相关信息
+  35          void dayFlush();//当日期满当月日期后更新相关信息
+  36          void monthLengthSet();//计算当月的天数
+  37          void monthFlush();//当月满12后更新相关信息
+  38          void timer2Init();//定时器2初始化程序, 其用于产生计时时钟
+  39          void timer0Init();//定时器0初始化，用于在LCD显示信息
+  40          enum keyVal getKey();//获取当前按键情况
+  41          void timeFlush();//用于设置时间时更新相关信息
+  42          void delay(unsigned int i);//延时
+  43          
+  44          
+  45          void main(){
+  46   1              timer2Init();
+  47   1              LCD_Init();
+  48   1              timer0Init();
+  49   1              LCD_BG = 0;//开启LCD背光
+  50   1              while(1){
+  51   2                      keyNow = getKey();//获取当前按键情况
+  52   2                      if(NO_KEY == keyNow){//无键按下则继续while(1)
+  53   3                              continue;
+  54   3                      }else if(TYPE_KEY == keyNow){//设置类型键按下，则更新当前的设置项
+  55   3                              if(SET_WEEK == setNow){
+C51 COMPILER V9.52.0.0   TIEMER                                                            05/13/2015 00:03:37 PAGE 2   
+
+  56   4                                      setNow = NO_SET;
+  57   4                              }else{
+  58   4                                      setNow++;
+  59   4                              }
+  60   3                      }else if(NO_SET != setNow){//PLUS或MINUS键按下，并且当前的设置状态不为NO_SET
+  61   3                              timeFlush();
+  62   3                      }
+  63   2                      while(getKey() != NO_KEY);//等待按键松开
+  64   2              }
+  65   1      }
+  66          
+  67          void timeFlush(){
+  68   1              if(PLUS_KEY == keyNow){
+  69   2                      switch(setNow){
+  70   3                              case SET_HOUR:
+  71   3                                      HOUR= 23==HOUR? 0 : HOUR+1;
+  72   3                                      break;
+  73   3                              case SET_MIN:
+  74   3                                      MIN= 59==MIN? 0 : MIN+1;
+  75   3                                      break;
+  76   3                              case SET_SEC:
+  77   3                                      SEC= 59==SEC? 0 : SEC+1;
+  78   3                                      break;
+  79   3                              case SET_YEAR:
+  80   3                                      YEAR= 99==YEAR? 0 : YEAR+1;
+  81   3                                      break;
+  82   3                              case SET_MONTH:
+  83   3                                      MONTH= 12==MONTH? 1 : MONTH+1;
+  84   3                                      monthLengthSet();//修改了月份，更新当月的天数
+  85   3                                      DAY = MONTH_LENGTH<DAY? MONTH_LENGTH : DAY;
+  86   3                                      break;
+  87   3                              case SET_DAY:
+  88   3                                      DAY= MONTH_LENGTH==DAY? 1 : DAY+1;
+  89   3                                      break;
+  90   3                              case SET_WEEK:
+  91   3                                      WEEK= 6==WEEK? 0 : WEEK+1;
+  92   3                                      break;
+  93   3                              default:
+  94   3                                      break;
+  95   3                                      }
+  96   2              }else if(MINUS_KEY == keyNow){
+  97   2                      switch(setNow){
+  98   3                              case SET_HOUR:
+  99   3                                      HOUR= 0==HOUR? 23 : HOUR-1;
+ 100   3                                      break;
+ 101   3                              case SET_MIN:
+ 102   3                                      MIN= 0==MIN? 59 : MIN-1;
+ 103   3                                      break;
+ 104   3                              case SET_SEC:
+ 105   3                                      SEC= 0==SEC? 59 : SEC-1;
+ 106   3                                      break;
+ 107   3                              case SET_YEAR:
+ 108   3                                      YEAR= 0==YEAR? 99 : YEAR-1;
+ 109   3                                      break;
+ 110   3                              case SET_MONTH:
+ 111   3                                      MONTH= 1==MONTH? 12 : MONTH-1;
+ 112   3                                      monthLengthSet();//修改了月份，更新当月的天数
+ 113   3                                      DAY = MONTH_LENGTH<DAY? MONTH_LENGTH : DAY;
+ 114   3                                      break;
+ 115   3                              case SET_DAY:
+ 116   3                                      DAY= 1==DAY? MONTH_LENGTH : DAY-1;
+ 117   3                                      break;
+C51 COMPILER V9.52.0.0   TIEMER                                                            05/13/2015 00:03:37 PAGE 3   
+
+ 118   3                              case SET_WEEK:
+ 119   3                                      WEEK= 0==WEEK? 6 : WEEK-1;
+ 120   3                                      break;
+ 121   3                              default:
+ 122   3                                      break;
+ 123   3                      }
+ 124   2              }
+ 125   1      }
+ 126          void timer0Init(){
+ 127   1              TMOD = 0x01;//定时器0工作模式1，16位定时器
+ 128   1              TL0 = (65536-EVERY50ms);//每50ms中断一次
+ 129   1              TH0 = (65536-EVERY50ms)>>8;
+ 130   1              ET0 = 1;//使能定时器0中断
+ 131   1              EA = 1;//使能总中断
+ 132   1              TR0 = 1;//定时器开始工作
+ 133   1      }
+ 134          void timer2Init(){
+ 135   1              T2CON = 0x00;//16位自动重装模式
+ 136   1              RCAP2H=TH2 = (65536-EVERY50ms)>>8;
+ 137   1              RCAP2L=TL2 = (65536-EVERY50ms);
+ 138   1              ET2 = 1;
+ 139   1              EA = 1;
+ 140   1              TR2 = 1;
+ 141   1      }
+ 142          
+ 143          void timer0() interrupt 1{//定时器0用于刷新显示
+ 144   1              static unsigned char tmp = 0;
+ 145   1              static unsigned char timeInf[9]="        ";//8个空格
+ 146   1              static unsigned char dateInf[11]="          ";//10个空格
+ 147   1              char *weekInf=weekString[WEEK];
+ 148   1              code unsigned char weekBli[4]="   ";//week设置闪烁内容
+ 149   1              TL0 = (65536-EVERY50ms);//重新赋初值
+ 150   1              TH0 = (65536-EVERY50ms)>>8;
+ 151   1              timeInf[0] = HOUR/10+'0';
+ 152   1              timeInf[1] = HOUR%10+'0';
+ 153   1              timeInf[2] = ':';
+ 154   1              timeInf[3] = MIN/10+'0';
+ 155   1              timeInf[4] = MIN%10+'0';
+ 156   1              timeInf[5] = ':';
+ 157   1              timeInf[6] = SEC/10+'0';
+ 158   1              timeInf[7] = SEC%10+'0';
+ 159   1              dateInf[0] = '2';
+ 160   1              dateInf[1] = '0';
+ 161   1              dateInf[2] = YEAR/10+'0';
+ 162   1              dateInf[3] = YEAR%10+'0';
+ 163   1              dateInf[4] = '-';
+ 164   1              dateInf[5] = MONTH/10+'0';
+ 165   1              dateInf[6] = MONTH%10+'0';
+ 166   1              dateInf[7] = '-';
+ 167   1              dateInf[8] = DAY/10+'0';
+ 168   1              dateInf[9] = DAY%10+'0';
+ 169   1              if(5>tmp){
+ 170   2                      switch(setNow){
+ 171   3                              case NO_SET:
+ 172   3                                      break;
+ 173   3                              case SET_HOUR:
+ 174   3                                      timeInf[0]=timeInf[1]=' ';
+ 175   3                                      break;
+ 176   3                              case SET_MIN:
+ 177   3                                      timeInf[3]=timeInf[4]=' ';
+ 178   3                                      break;
+ 179   3                              case SET_SEC:
+C51 COMPILER V9.52.0.0   TIEMER                                                            05/13/2015 00:03:37 PAGE 4   
+
+ 180   3                                      timeInf[6]=timeInf[7]=' ';
+ 181   3                                      break;
+ 182   3                              case SET_YEAR:
+ 183   3                                      dateInf[0]=dateInf[1]=dateInf[2]=dateInf[3]=' ';
+ 184   3                                      break;
+ 185   3                              case SET_MONTH:
+ 186   3                                      dateInf[5]=dateInf[6]=' ';
+ 187   3                                      break;
+ 188   3                              case SET_DAY:
+ 189   3                                      dateInf[8]=dateInf[9]=' ';
+ 190   3                                      break;
+ 191   3                              case SET_WEEK:
+ 192   3                                      weekInf=weekBli;
+ 193   3                                      break;
+ 194   3                              default:
+ 195   3                                      break;
+ 196   3                      }
+ 197   2              }
+ 198   1              LCD_ShowString(4,0,timeInf);
+ 199   1              LCD_ShowString(0,1,dateInf);
+ 200   1              LCD_ShowString(13,1,weekInf);
+ 201   1              tmp++;
+ 202   1              if(10==tmp){
+ 203   2                      tmp=0;
+ 204   2              }
+ 205   1      }
+ 206          void timer2() interrupt 5{//定时器2用于计时     
+ 207   1              static unsigned char every50ms = 0;
+ 208   1              TF2 = 0;//清零中断标志位
+ 209   1              every50ms++;
+ 210   1              if(20==every50ms){
+ 211   2                      if(59==SEC){
+ 212   3                              secFlush();
+ 213   3                      }else{
+ 214   3                              SEC++;
+ 215   3                      }
+ 216   2                      every50ms=0;
+ 217   2              }
+ 218   1      }
+ 219          
+ 220          void secFlush(){
+ 221   1              SEC = 0;
+ 222   1              if(59==MIN){
+ 223   2                      minFlush();
+ 224   2              }else{
+ 225   2                      MIN++;
+ 226   2              }
+ 227   1      }
+ 228          void minFlush(){
+ 229   1              MIN = 0;
+ 230   1              if(23==HOUR){
+ 231   2                      hourFlush();
+ 232   2              }else{
+ 233   2                      HOUR++;
+ 234   2              }
+ 235   1      }
+ 236          void hourFlush(){
+ 237   1              HOUR = 0;
+ 238   1              if(MONTH_LENGTH==DAY){
+ 239   2                      dayFlush();
+ 240   2              }else{
+ 241   2                      DAY++;
+C51 COMPILER V9.52.0.0   TIEMER                                                            05/13/2015 00:03:37 PAGE 5   
+
+ 242   2              }
+ 243   1              WEEK++;
+ 244   1              WEEK %= 7;
+ 245   1      }
+ 246          void dayFlush(){
+ 247   1              DAY = 1;
+ 248   1              if(12==MONTH){
+ 249   2                      monthFlush();
+ 250   2              }else{
+ 251   2                      MONTH++;
+ 252   2              }
+ 253   1              monthLengthSet();
+ 254   1      }
+ 255          void monthLengthSet(){
+ 256   1              switch(MONTH){
+ 257   2                      case 1:
+ 258   2                      case 3:
+ 259   2                      case 5:
+ 260   2                      case 7:
+ 261   2                      case 8:
+ 262   2                      case 10:
+ 263   2                      case 12:
+ 264   2                              MONTH_LENGTH = 31;
+ 265   2                              break;
+ 266   2                      case 2:
+ 267   2                              if(0==(YEAR%4)){
+ 268   3                                      MONTH_LENGTH = 29;
+ 269   3                              }else{
+ 270   3                                      MONTH_LENGTH = 28;
+ 271   3                              }
+ 272   2                              break;
+ 273   2                      default:
+ 274   2                              MONTH_LENGTH = 30;
+ 275   2                              break;
+ 276   2              }
+ 277   1      }
+ 278          void monthFlush(){
+ 279   1              MONTH=1;
+ 280   1              if(99==YEAR){//超过99后从0开始计数
+ 281   2                      YEAR = 0;
+ 282   2              }else{
+ 283   2                      YEAR++;
+ 284   2              }
+ 285   1      }
+ 286          void LCD_busy() 
+ 287          {
+ 288   1         bit busy;
+ 289   1         LCD_E = 0;
+ 290   1         LCD_RS = 0;
+ 291   1         LCD_RW = 1;  
+ 292   1         do{
+ 293   2                LCD_Busy = 1;
+ 294   2                LCD_E = 1;
+ 295   2                      _nop_(); 
+ 296   2                busy = LCD_Busy;
+ 297   2                LCD_E = 0;
+ 298   2                }while(busy);
+ 299   1      }
+ 300          void LCD_WriteCode(unsigned char cmd)
+ 301          {
+ 302   1         LCD_busy();
+ 303   1         LCD_E = 0;
+C51 COMPILER V9.52.0.0   TIEMER                                                            05/13/2015 00:03:37 PAGE 6   
+
+ 304   1         LCD_RS = 0;
+ 305   1         LCD_RW = 0;
+ 306   1         LCD_Data = cmd; 
+ 307   1         LCD_E = 1;
+ 308   1               _nop_();
+ 309   1         LCD_E = 0;   
+ 310   1      }
+ 311          void LCD_GoToXY(unsigned char x,unsigned char y)
+ 312          {
+ 313   1         if(y == 0){
+ 314   2                LCD_WriteCode(0x80 | x);
+ 315   2         }else{
+ 316   2            LCD_WriteCode(0xC0 | x);
+ 317   2         }
+ 318   1      }
+ 319          void LCD_WriteData(unsigned char dat)
+ 320          {
+ 321   1         LCD_busy();
+ 322   1         LCD_RS = 1;    
+ 323   1         LCD_RW = 0;
+ 324   1         LCD_Data = dat; 
+ 325   1         LCD_E = 1;
+ 326   1               _nop_();
+ 327   1         LCD_E = 0;
+ 328   1      }
+ 329          void LCD_Init()
+ 330          {
+ 331   1         LCD_E = 0;
+ 332   1         LCD_WriteCode(0x08);//关显示 ，关光标显示  
+ 333   1         LCD_Clear();//清屏 
+ 334   1         LCD_WriteCode(0x38);//显示模式设定：16*2显示，5*7点阵，8位数据接口  
+ 335   1         LCD_WriteCode(0x06);//读或写一个字符后，地址加1，整屏不移动  
+ 336   1         LCD_WriteCode(0x0c);//开显示 
+ 337   1      
+ 338   1      }
+ 339          void LCD_Clear()
+ 340          {
+ 341   1         LCD_WriteCode(0x01);
+ 342   1      }
+ 343          void LCD_ShowString(unsigned char x,unsigned char y,unsigned char *str){
+ 344   1              LCD_GoToXY(x,y);
+ 345   1              while(*str){
+ 346   2                      LCD_WriteData(*str);
+ 347   2                      str++;
+ 348   2              }
+ 349   1      }
+ 350          enum keyVal getKey(){
+ 351   1              IO_LOW = 0;
+ 352   1              if(!IO_TYPE){
+ 353   2                      delay(1000);
+ 354   2                      if(!IO_TYPE){
+ 355   3                              return TYPE_KEY;
+ 356   3                      }
+ 357   2              }else if(!IO_PLUS){
+ 358   2                      delay(1000);
+ 359   2                      if(!IO_PLUS){
+ 360   3                              return PLUS_KEY;
+ 361   3                      }
+ 362   2              }else if(!IO_MINUS){
+ 363   2                      delay(1000);
+ 364   2                      if(!IO_MINUS){
+ 365   3                              return MINUS_KEY;
+C51 COMPILER V9.52.0.0   TIEMER                                                            05/13/2015 00:03:37 PAGE 7   
+
+ 366   3                      }
+ 367   2              }
+ 368   1              return NO_KEY;
+ 369   1      }
+ 370          void delay(unsigned int i){
+ 371   1              for( ;i>0;i--);
+ 372   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1271    ----
+   CONSTANT SIZE    =     53    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     32       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

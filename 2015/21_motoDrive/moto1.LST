@@ -1,0 +1,49 @@
+C51 COMPILER V9.52.0.0   MOTO1                                                             08/11/2015 18:50:39 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MOTO1
+OBJECT MODULE PLACED IN moto1.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE moto1.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <regx52.h>
+   2          
+   3          void delayms(int);
+   4          
+   5          sbit Moto = P0^0;
+   6          sbit moto_ = P0^1;
+   7          sbit moto1 = P2^1;
+   8          sbit moto2 = P2^2;
+   9          
+  10          void main(){
+  11   1              moto1 = 1;
+  12   1              moto2 = 0;
+  13   1              moto_ = 0;
+  14   1              while(1){
+  15   2                      Moto = 1;
+  16   2                      delayms(10000);
+  17   2                      Moto = 0;
+  18   2                      delayms(10000);
+  19   2              }
+  20   1      }
+  21          
+  22          void delayms(int xms){
+  23   1              unsigned int i,j;
+  24   1              for(i = xms; i > 0; i--)
+  25   1                      for(j = 110; j > 0; j--);
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     56    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

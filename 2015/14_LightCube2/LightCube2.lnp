@@ -1,0 +1,4 @@
+"constants.obj",
+"lightCube.obj" 
+TO "LightCube2" 
+RAMSIZE(256) 

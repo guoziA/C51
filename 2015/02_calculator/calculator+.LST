@@ -1,0 +1,213 @@
+C51 COMPILER V9.52.0.0   CALCULATOR_                                                       05/14/2015 00:22:45 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE CALCULATOR_
+OBJECT MODULE PLACED IN calculator+.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE calculator+.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<regx52.h>
+   2          #include<stdlib.h>
+   3          
+   4          //扫描键盘
+   5          #define ROW_0 P2_0
+   6          #define ROW_1 P2_1
+   7          #define ROW_2 P2_2
+   8          #define ROW_3 P2_3
+   9          #define COL_0 P2_4
+  10          #define COL_1 P2_5
+  11          #define COL_2 P2_6
+  12          #define COL_3 P2_7
+  13          //LCD1602各口
+  14          #define LCD_RS P3_0
+  15          #define LCD_RW P3_1
+  16          #define LCD_E P3_2
+  17          #define LCD_DATA P1
+  18          //用double存放键盘得到的运算符
+  19          #define PLUS 1.051
+  20          #define SUBSTRACT 2.051
+  21          #define MULTIPLY 3.051
+  22          #define DIVIDE 4.051
+  23          #define EQUAL 5.051
+  24          #define CLEAR 6.051
+  25          
+  26          struct KeyVal{
+  27                  double Val;
+  28                  struct KeyVal *next;
+  29          };
+  30          
+  31          struct KeyVal *head, *tail, *p;
+  32          
+  33          //结果
+  34          double result = 0;
+  35          //存放输入的数据
+  36          char xdata keyData[30];
+  37          //存放解码keyData得到的数据
+  38          double xdata Val[20];
+  39          //判断符号是否存在
+  40          int isPlus = 0;
+  41          int isSubstract = 0;
+  42          int isMultiply = 0;
+  43          int isDivide = 0;
+  44          
+  45          void main(){
+  46   1              head = tail = NULL;
+  47   1              
+  48   1      }
+  49          
+  50          
+  51          
+  52          /*加法*/
+  53          double plus(double plusNum1, double plusNum2){
+  54   1              return plusNum1 + plusNum2;
+  55   1      }
+C51 COMPILER V9.52.0.0   CALCULATOR_                                                       05/14/2015 00:22:45 PAGE 2   
+
+  56          
+  57          /*减法*/
+  58          double substract(double substractNum1, double substractNum2){
+  59   1              return substractNum1 - substractNum2;
+  60   1      }
+  61          
+  62          /*乘法*/
+  63          double multiply(double multiplyNum1, double multiplyNum2){
+  64   1              return multiplyNum1 * multiplyNum2;
+  65   1      }
+  66          
+  67          /*除法*/
+  68          double divide(double divideNum1, double divideNum2){
+  69   1              return divideNum1 / divideNum2;
+  70   1      }
+  71          
+  72          unsigned char getKey(){
+  73   1              P2 = 0xFF;
+  74   1              ROW_0 = 0;
+  75   1              if(0==COL_0){
+  76   2                      return 7;
+  77   2              }else if(0==COL_1){
+  78   2                      return 8;
+  79   2              }else if(0==COL_2){
+  80   2                      return 9;
+  81   2              }else if(0==COL_3){
+  82   2                      return '/';
+  83   2              }
+  84   1              P2 = 0xFF;
+  85   1              ROW_1 = 0;
+  86   1              if(0==COL_0){
+  87   2                      return 4;
+  88   2              }else if(0==COL_1){
+  89   2                      return 5;
+  90   2              }else if(0==COL_2){
+  91   2                      return 6;
+  92   2              }else if(0==COL_3){
+  93   2                      return '*';
+  94   2              }
+  95   1              P2 = 0xFF;
+  96   1              ROW_2 = 0;
+  97   1              if(0==COL_0){
+  98   2                      return 1;
+  99   2              }else if(0==COL_1){
+ 100   2                      return 2;
+ 101   2              }else if(0==COL_2){
+ 102   2                      return 3;
+ 103   2              }else if(0==COL_3){
+ 104   2                      return '-';
+ 105   2              }
+ 106   1              P2 = 0xFF;
+ 107   1              ROW_3 = 0;
+ 108   1              if(0==COL_0){
+ 109   2                      return 's';
+ 110   2              }else if(0==COL_1){
+ 111   2                      return 0;
+ 112   2              }else if(0==COL_2){
+ 113   2                      return '+';
+ 114   2              }else if(0==COL_3){
+ 115   2                      return '=';
+ 116   2              }
+ 117   1              return 0xFF;
+C51 COMPILER V9.52.0.0   CALCULATOR_                                                       05/14/2015 00:22:45 PAGE 3   
+
+ 118   1      }
+ 119          
+ 120          void getKeyVal(){
+ 121   1              char keyVal = getKey();
+ 122   1              if(keyVal != 0xFF){
+ 123   2                      p = (struct KeyVal *)malloc(sizeof(struct KeyVal));
+ 124   2                      switch(keyVal){
+ 125   3                              case 0:
+ 126   3                                      p->Val = 0;
+ 127   3                                      break;
+ 128   3                              case 1:
+ 129   3                                      p->Val = 1;
+ 130   3                                      break;
+ 131   3                              case 2:
+ 132   3                                      p->Val = 2;
+ 133   3                                      break;
+ 134   3                              case 3:
+ 135   3                                      p->Val = 3;
+ 136   3                                      break;
+ 137   3                              case 4:
+ 138   3                                      p->Val = 4;
+ 139   3                                      break;
+ 140   3                              case 5:
+ 141   3                                      p->Val = 5;
+ 142   3                                      break;
+ 143   3                              case 6:
+ 144   3                                      p->Val = 6;
+ 145   3                                      break;
+ 146   3                              case 7:
+ 147   3                                      p->Val = 7;
+ 148   3                                      break;
+ 149   3                              case 8:
+ 150   3                                      p->Val = 8;
+ 151   3                                      break;
+ 152   3                              case 9:
+ 153   3                                      p->Val = 9;
+ 154   3                                      break;
+ 155   3                              case '+':
+ 156   3                                      p->Val = PLUS;
+ 157   3                                      break;
+ 158   3                              case '-':
+ 159   3                                      p->Val = SUBSTRACT;
+ 160   3                                      break;
+ 161   3                              case '*':
+ 162   3                                      p->Val = MULTIPLY;
+ 163   3                                      break;
+ 164   3                              case '/':
+ 165   3                                      p->Val = DIVIDE;
+ 166   3                                      break;
+ 167   3                              case '=':
+ 168   3                                      p->Val = EQUAL;
+ 169   3                                      break;
+ 170   3                              case 'c':
+ 171   3                                      p->Val = CLEAR;
+ 172   3                                      break;
+ 173   3                              default:
+ 174   3                                      break;
+ 175   3                      }
+ 176   2                      p->next = NULL;
+ 177   2                      if(head == NULL){
+ 178   3                              head = tail = p;
+ 179   3                      }else{
+C51 COMPILER V9.52.0.0   CALCULATOR_                                                       05/14/2015 00:22:45 PAGE 4   
+
+ 180   3                              tail->next = p;
+ 181   3                              tail = p;
+ 182   3                      }
+ 183   2              }
+ 184   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    635    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    110    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     21      33
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

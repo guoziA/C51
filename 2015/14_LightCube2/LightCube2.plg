@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\keil\project\C51\2015\14_LightCube2\LightCube2.uvproj
+Project File Date:  07/30/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_METEOR?LIGHTCUBE
+Program Size: data=36.0 xdata=0 code=26735
+creating hex file from "LightCube2"...
+"LightCube2" - 0 Error(s), 1 Warning(s).

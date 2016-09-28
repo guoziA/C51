@@ -1,0 +1,248 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/23/2015  00:45:07  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL\C51\BIN\BL51.EXE HC_SR04_ultrasound.obj TO HC_SR04 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  HC_SR04_ultrasound.obj (HC_SR04_ULTRASOUND)
+  E:\KEIL\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  E:\KEIL\C51\LIB\C51FPS.LIB (?C?FPDIV)
+  E:\KEIL\C51\LIB\C51FPS.LIB (?C?FCAST)
+  E:\KEIL\C51\LIB\C51FPS.LIB (?C?CASTF)
+  E:\KEIL\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?ULDIV)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?LNEG)
+  E:\KEIL\C51\LIB\C51S.LIB (?C?ULCMP)
+  E:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  HC_SR04 (HC_SR04_ULTRASOUND)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+                    0008H     0018H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?HC_SR04_ULTRASOUND
+                    0020H.1   0000H.7                *** GAP ***
+            DATA    0021H     001BH     UNIT         ?DT?HC_SR04_ULTRASOUND
+            IDATA   003CH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     UNIT         ?PR?ZD0?HC_SR04_ULTRASOUND
+                    0006H     0005H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     000DH                  *** GAP ***
+            CODE    001BH     0003H     ABSOLUTE     
+            CODE    001EH     0352H     UNIT         ?C?LIB_CODE
+            CODE    0370H     00F4H     UNIT         ?PR?CONUT?HC_SR04_ULTRASOUND
+            CODE    0464H     008CH     UNIT         ?C_C51STARTUP
+            CODE    04F0H     0049H     UNIT         ?PR?ZD3?HC_SR04_ULTRASOUND
+            CODE    0539H     0035H     UNIT         ?PR?DISPLAY?HC_SR04_ULTRASOUND
+            CODE    056EH     002CH     UNIT         ?C_INITSEG
+            CODE    059AH     0025H     UNIT         ?PR?MAIN?HC_SR04_ULTRASOUND
+
+
+
+OVERLAY MAP OF MODULE:   HC_SR04 (HC_SR04_ULTRASOUND)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/23/2015  00:45:07  PAGE 2
+
+
+?PR?ZD3?HC_SR04_ULTRASOUND
+  +--> ?PR?DISPLAY?HC_SR04_ULTRASOUND
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?HC_SR04_ULTRASOUND
+  +--> ?C_INITSEG
+
+?PR?MAIN?HC_SR04_ULTRASOUND
+  +--> ?PR?CONUT?HC_SR04_ULTRASOUND
+
+
+
+SYMBOL TABLE OF MODULE:  HC_SR04 (HC_SR04_ULTRASOUND)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HC_SR04_ULTRASOUND
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  B:00A8H.7       PUBLIC        EA
+  C:0370H         PUBLIC        Conut
+  C:0003H         PUBLIC        zd0
+  D:0021H         PUBLIC        positon
+  C:04F0H         PUBLIC        zd3
+  B:00B0H.1       PUBLIC        P3_1
+  B:00B0H.2       PUBLIC        P3_2
+  B:0020H.0       PUBLIC        flag
+  D:0024H         PUBLIC        timer
+  C:059AH         PUBLIC        main
+  D:0026H         PUBLIC        time
+  D:0028H         PUBLIC        posit
+  D:0089H         PUBLIC        TMOD
+  B:00A8H.1       PUBLIC        ET0
+  B:00A8H.3       PUBLIC        ET1
+  D:008CH         PUBLIC        TH0
+  D:008DH         PUBLIC        TH1
+  D:008AH         PUBLIC        TL0
+  D:008BH         PUBLIC        TL1
+  D:0029H         PUBLIC        S
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  C:0539H         PUBLIC        Display
+  D:002DH         PUBLIC        discode
+  D:0038H         PUBLIC        disbuff
+  -------         PROC          DISPLAY
+  C:0539H         LINE#         16
+  C:0539H         LINE#         17
+  C:0539H         LINE#         18
+  C:053DH         LINE#         19
+  C:054DH         LINE#         21
+  C:0559H         LINE#         22
+  C:0561H         LINE#         23
+  C:056AH         LINE#         24
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/23/2015  00:45:07  PAGE 3
+
+
+  C:056DH         LINE#         25
+  -------         ENDPROC       DISPLAY
+  -------         PROC          CONUT
+  C:0370H         LINE#         27
+  C:0370H         LINE#         28
+  C:0370H         LINE#         29
+  C:0380H         LINE#         30
+  C:0383H         LINE#         31
+  C:0385H         LINE#         33
+  C:03ACH         LINE#         34
+  C:03C4H         LINE#         35
+  C:03C4H         LINE#         36
+  C:03C6H         LINE#         37
+  C:03C9H         LINE#         38
+  C:03CCH         LINE#         39
+  C:03CFH         LINE#         40
+  C:03D0H         LINE#         42
+  C:03D0H         LINE#         43
+  C:03F5H         LINE#         44
+  C:042BH         LINE#         45
+  C:0463H         LINE#         46
+  C:0463H         LINE#         47
+  -------         ENDPROC       CONUT
+  -------         PROC          ZD0
+  C:0003H         LINE#         49
+  C:0003H         LINE#         51
+  C:0005H         LINE#         52
+  -------         ENDPROC       ZD0
+  -------         PROC          ZD3
+  C:04F0H         LINE#         54
+  C:04F9H         LINE#         56
+  C:04FCH         LINE#         57
+  C:04FFH         LINE#         58
+  C:0502H         LINE#         59
+  C:050AH         LINE#         60
+  C:0513H         LINE#         61
+  C:0513H         LINE#         62
+  C:0519H         LINE#         63
+  C:051BH         LINE#         64
+  C:051CH         LINE#         65
+  C:051DH         LINE#         66
+  C:051EH         LINE#         67
+  C:051FH         LINE#         68
+  C:0520H         LINE#         69
+  C:0521H         LINE#         70
+  C:0522H         LINE#         71
+  C:0523H         LINE#         72
+  C:0524H         LINE#         73
+  C:0525H         LINE#         74
+  C:0526H         LINE#         75
+  C:0527H         LINE#         76
+  C:0528H         LINE#         77
+  C:0529H         LINE#         78
+  C:052AH         LINE#         79
+  C:052BH         LINE#         80
+  C:052CH         LINE#         81
+  C:052DH         LINE#         82
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/23/2015  00:45:07  PAGE 4
+
+
+  C:052EH         LINE#         83
+  C:052FH         LINE#         84
+  C:0530H         LINE#         85
+  C:0532H         LINE#         86
+  C:0532H         LINE#         87
+  -------         ENDPROC       ZD3
+  -------         PROC          MAIN
+  C:059AH         LINE#         90
+  C:059AH         LINE#         92
+  C:059AH         LINE#         93
+  C:059DH         LINE#         94
+  C:05A0H         LINE#         95
+  C:05A2H         LINE#         96
+  C:05A5H         LINE#         97
+  C:05A8H         LINE#         98
+  C:05AAH         LINE#         99
+  C:05ACH         LINE#         100
+  C:05AEH         LINE#         101
+  C:05B0H         LINE#         103
+  C:05B0H         LINE#         104
+  C:05B0H         LINE#         105
+  C:05B3H         LINE#         106
+  C:05B5H         LINE#         107
+  C:05B8H         LINE#         108
+  C:05BAH         LINE#         109
+  C:05BDH         LINE#         110
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        HC_SR04_ULTRASOUND
+
+  -------         MODULE        ?C?FPMUL
+  C:001EH         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FPDIV
+  C:0127H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+
+  -------         MODULE        ?C?FCAST
+  C:01CEH         PUBLIC        ?C?FCASTC
+  C:01C9H         PUBLIC        ?C?FCASTI
+  C:01C4H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:0202H         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        ?C?ULDIV
+  C:02BFH         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+  -------         MODULE        ?C?LNEG
+  C:0351H         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?ULCMP
+  C:035FH         PUBLIC        ?C?ULCMP
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/23/2015  00:45:07  PAGE 5
+
+
+  -------         ENDMOD        ?C?ULCMP
+
+Program Size: data=36.1 xdata=0 code=1453
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

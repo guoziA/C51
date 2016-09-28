@@ -1,0 +1,94 @@
+A51 MACRO ASSEMBLER  INT0INTERRUPT                                                        12/17/2015 10:31:21 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN INT0INTERRUPT.OBJ
+ASSEMBLER INVOKED BY: E:\keil\C51\BIN\A51.EXE INT0INTERRUPT.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+  0082                 2             LED     EQU     P0.2
+  00B3                 3             BUTTON  EQU     P3.3
+                       4             
+0000                   5             ORG      0000H
+0000 020006            6             LJMP     MAIN
+0003                   7             ORG      03H
+0003 020021            8             LJMP     INT0ISR
+                       9                     
+0006 D2B3             10     MAIN:   SETB    BUTTON
+0008 D282             11             SETB    LED
+000A D3               12             SETB    C
+000B D2AF             13             SETB    EA
+000D C288             14             CLR     IT0
+000F D2A8             15             SETB    EX0
+                      16                     
+0011 20B303           17     LOOP:   JB      BUTTON, TRIG0;PHIGHT
+0014 02001C           18             LJMP    TRIG1;
+                      19             ;JC     TRIG1
+                      20             ;LJMP   LOOP
+                      21                     
+                      22     ;PHIGHT:        JNC     TRIG0
+                      23             ;LJMP   LOOP
+                      24     
+0017 C288             25     TRIG0:  CLR     IT0
+                      26             ;SETB   C
+0019 020011           27             LJMP    LOOP
+                      28                     
+001C D288             29     TRIG1:  SETB    IT0
+                      30             ;CLR    C
+001E 020011           31             LJMP    LOOP
+                      32                     
+0021 C2AF             33     INT0ISR:CLR     EA
+0023 12002B           34             LCALL   BLING
+0026 D282             35             SETB    LED             ;Ãðled·ÀÖ¹BLING³ö´í
+0028 D2AF             36             SETB    EA
+002A 32               37             RETI
+                      38                     
+002B 7A0A             39     BLING:  MOV     R2,     #0AH
+002D B282             40     LEDLP:  CPL     LED
+002F 120034           41             LCALL   DELAY
+0032 DAF9             42             DJNZ    R2,     LEDLP
+                      43                     
+0034 78FA             44     DELAY:  MOV     R0,     #0FAH   ;4 X 250 X 250
+0036 79FA             45     LOOP1:  MOV     R1,     #0FAH
+0038 00               46     LOOP2:  NOP
+0039 00               47             NOP
+003A 00               48             NOP
+003B 00               49             NOP
+003C D9FA             50             DJNZ    R1,     LOOP2
+003E D8F6             51             DJNZ    R0,     LOOP1
+0040 22               52             RET
+                      53             
+                      54             END
+A51 MACRO ASSEMBLER  INT0INTERRUPT                                                        12/17/2015 10:31:21 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BLING. . . . . . .  C ADDR   002BH   A   
+BUTTON . . . . . .  B ADDR   00B0H.3 A   
+DELAY. . . . . . .  C ADDR   0034H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+INT0ISR. . . . . .  C ADDR   0021H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+LED. . . . . . . .  B ADDR   0080H.2 A   
+LEDLP. . . . . . .  C ADDR   002DH   A   
+LOOP . . . . . . .  C ADDR   0011H   A   
+LOOP1. . . . . . .  C ADDR   0036H   A   
+LOOP2. . . . . . .  C ADDR   0038H   A   
+MAIN . . . . . . .  C ADDR   0006H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+TRIG0. . . . . . .  C ADDR   0017H   A   
+TRIG1. . . . . . .  C ADDR   001CH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
