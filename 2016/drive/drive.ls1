@@ -1,0 +1,1459 @@
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN drive.OBJ
+ASSEMBLER INVOKED BY: E:\keil\C51\BIN\A51.EXE drive.src PR(.\drive.ls1) EP DEBUG
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; .\drive.SRC generated from: drive\drive.c
+                       2     ; COMPILER INVOKED BY:
+                       3     ;        E:\keil\C51\BIN\C51.EXE drive\drive.c BROWSE INCDIR(.\drive) DEBUG OBJECTEXTEND PR
+                             INT(.\drive.lst) SRC(.\drive.SRC)
+                       4     
+                       5     $nomod51 
+                       6     
+                       7     NAME    DRIVE
+                       8     
+  0080                 9     P0      DATA    080H
+  0090                10     P1      DATA    090H
+  00A0                11     P2      DATA    0A0H
+  00B0                12     P3      DATA    0B0H
+  00D6                13     AC      BIT     0D0H.6
+  00B4                14     T0      BIT     0B0H.4
+  00B5                15     T1      BIT     0B0H.5
+  00AF                16     EA      BIT     0A8H.7
+  0090                17     T2      BIT     090H.0
+  00A8                18     IE      DATA    0A8H
+  0080                19     P0_0    BIT     080H.0
+  0090                20     P1_0    BIT     090H.0
+  0081                21     P0_1    BIT     080H.1
+  00A0                22     P2_0    BIT     0A0H.0
+  0091                23     P1_1    BIT     090H.1
+  0082                24     P0_2    BIT     080H.2
+  00B0                25     P3_0    BIT     0B0H.0
+  00A1                26     P2_1    BIT     0A0H.1
+  0092                27     P1_2    BIT     090H.2
+  0083                28     P0_3    BIT     080H.3
+  00B1                29     P3_1    BIT     0B0H.1
+  00A2                30     P2_2    BIT     0A0H.2
+  0093                31     P1_3    BIT     090H.3
+  0084                32     P0_4    BIT     080H.4
+  00B2                33     P3_2    BIT     0B0H.2
+  00A3                34     P2_3    BIT     0A0H.3
+  0094                35     P1_4    BIT     090H.4
+  0085                36     P0_5    BIT     080H.5
+  00CE                37     EXF2    BIT     0C8H.6
+  00B7                38     RD      BIT     0B0H.7
+  00B3                39     P3_3    BIT     0B0H.3
+  00A4                40     P2_4    BIT     0A0H.4
+  0095                41     P1_5    BIT     090H.5
+  0086                42     P0_6    BIT     080H.6
+  00B4                43     P3_4    BIT     0B0H.4
+  00A5                44     P2_5    BIT     0A0H.5
+  0096                45     P1_6    BIT     090H.6
+  0087                46     P0_7    BIT     080H.7
+  00B5                47     P3_5    BIT     0B0H.5
+  00AC                48     ES      BIT     0A8H.4
+  00A6                49     P2_6    BIT     0A0H.6
+  0097                50     P1_7    BIT     090H.7
+  00B6                51     P3_6    BIT     0B0H.6
+  00A7                52     P2_7    BIT     0A0H.7
+  00B8                53     IP      DATA    0B8H
+  00B7                54     P3_7    BIT     0B0H.7
+  0098                55     RI      BIT     098H.0
+  00D7                56     CY      BIT     0D0H.7
+  00B2                57     INT0    BIT     0B0H.2
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     2
+
+  00B3                58     INT1    BIT     0B0H.3
+  0099                59     TI      BIT     098H.1
+  00CB                60     RCAP2H  DATA    0CBH
+  00BC                61     PS      BIT     0B8H.4
+  0081                62     SP      DATA    081H
+  0091                63     T2EX    BIT     090H.1
+  00D2                64     OV      BIT     0D0H.2
+  00CA                65     RCAP2L  DATA    0CAH
+  00C9                66     C_T2    BIT     0C8H.1
+  00B6                67     WR      BIT     0B0H.6
+  00CD                68     RCLK    BIT     0C8H.5
+  00CC                69     TCLK    BIT     0C8H.4
+  0099                70     SBUF    DATA    099H
+  0087                71     PCON    DATA    087H
+  0098                72     SCON    DATA    098H
+  0089                73     TMOD    DATA    089H
+  0088                74     TCON    DATA    088H
+  0089                75     IE0     BIT     088H.1
+  008B                76     IE1     BIT     088H.3
+  00F0                77     B       DATA    0F0H
+  00C8                78     CP_RL2  BIT     0C8H.0
+  00E0                79     ACC     DATA    0E0H
+  00A9                80     ET0     BIT     0A8H.1
+  00AB                81     ET1     BIT     0A8H.3
+  008D                82     TF0     BIT     088H.5
+  00AD                83     ET2     BIT     0A8H.5
+  008F                84     TF1     BIT     088H.7
+  00CF                85     TF2     BIT     0C8H.7
+  009A                86     RB8     BIT     098H.2
+  008C                87     TH0     DATA    08CH
+  00A8                88     EX0     BIT     0A8H.0
+  0088                89     IT0     BIT     088H.0
+  008D                90     TH1     DATA    08DH
+  00AA                91     EX1     BIT     0A8H.2
+  009B                92     TB8     BIT     098H.3
+  008A                93     IT1     BIT     088H.2
+  00CD                94     TH2     DATA    0CDH
+  00D0                95     P       BIT     0D0H.0
+  009F                96     SM0     BIT     098H.7
+  008A                97     TL0     DATA    08AH
+  009E                98     SM1     BIT     098H.6
+  008B                99     TL1     DATA    08BH
+  009D               100     SM2     BIT     098H.5
+  00CC               101     TL2     DATA    0CCH
+  00B9               102     PT0     BIT     0B8H.1
+  00D3               103     RS0     BIT     0D0H.3
+  00BB               104     PT1     BIT     0B8H.3
+  00D4               105     RS1     BIT     0D0H.4
+  00BD               106     PT2     BIT     0B8H.5
+  008C               107     TR0     BIT     088H.4
+  008E               108     TR1     BIT     088H.6
+  00CA               109     TR2     BIT     0C8H.2
+  00B8               110     PX0     BIT     0B8H.0
+  00BA               111     PX1     BIT     0B8H.2
+  0083               112     DPH     DATA    083H
+  0082               113     DPL     DATA    082H
+  00CB               114     EXEN2   BIT     0C8H.3
+  009C               115     REN     BIT     098H.4
+  00C9               116     T2MOD   DATA    0C9H
+  00C8               117     T2CON   DATA    0C8H
+  00B0               118     RXD     BIT     0B0H.0
+  00B1               119     TXD     BIT     0B0H.1
+  00D5               120     F0      BIT     0D0H.5
+  00D1               121     F1      BIT     0D0H.1
+  00D0               122     PSW     DATA    0D0H
+                     123     ?PR?SERIAL_timer2_Init?DRIVE             SEGMENT CODE 
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     3
+
+                     124     ?PR?SERIAL_Receive?DRIVE                 SEGMENT CODE 
+                     125     ?PR?SERIAL_Receive_INT?DRIVE             SEGMENT CODE 
+                     126     ?PR?_SERIAL_Send_Char?DRIVE              SEGMENT CODE 
+                     127     ?PR?_SERIAL_Print?DRIVE                  SEGMENT CODE 
+                     128     ?PR?_LED_Display_Num?DRIVE               SEGMENT CODE 
+                     129     ?PR?_LED_Display?DRIVE                   SEGMENT CODE 
+                     130     ?DT?_LED_Display?DRIVE                   SEGMENT DATA OVERLAYABLE 
+                     131     ?PR?DS18B20_Reset?DRIVE                  SEGMENT CODE 
+                     132     ?BI?DS18B20_Reset?DRIVE                  SEGMENT BIT OVERLAYABLE 
+                     133     ?PR?_DS18B20_Write?DRIVE                 SEGMENT CODE 
+                     134     ?DT?_DS18B20_Write?DRIVE                 SEGMENT DATA OVERLAYABLE 
+                     135     ?PR?_DS18B20_Config?DRIVE                SEGMENT CODE 
+                     136     ?DT?_DS18B20_Config?DRIVE                SEGMENT DATA OVERLAYABLE 
+                     137     ?PR?_DS18B20_Init?DRIVE                  SEGMENT CODE 
+                     138     ?DT?_DS18B20_Init?DRIVE                  SEGMENT DATA OVERLAYABLE 
+                     139     ?PR?DS18B20_ConvertT?DRIVE               SEGMENT CODE 
+                     140     ?PR?DS18B20_Read?DRIVE                   SEGMENT CODE 
+                     141     ?DT?DS18B20_Read?DRIVE                   SEGMENT DATA OVERLAYABLE 
+                     142     ?PR?DS18B20_ReadT?DRIVE                  SEGMENT CODE 
+                     143     ?PR?DS18B20_GetT?DRIVE                   SEGMENT CODE 
+                     144     ?DT?DS18B20_GetT?DRIVE                   SEGMENT DATA OVERLAYABLE 
+                     145     ?CO?DRIVE            SEGMENT CODE 
+                     146     ?C_INITSEG           SEGMENT CODE 
+                     147     ?DT?DRIVE            SEGMENT DATA 
+                     148             EXTRN   CODE (_delay_us)
+                     149             EXTRN   CODE (?C?CLDPTR)
+                     150             EXTRN   CODE (?C?ULCMP)
+                     151             EXTRN   CODE (?C?ULDIV)
+                     152             EXTRN   CODE (?C?FCASTC)
+                     153             EXTRN   CODE (?C?FPDIV)
+                     154             EXTRN   CODE (?C?FCASTI)
+                     155             EXTRN   CODE (?C?FPADD)
+                     156             EXTRN   CODE (?C?CASTF)
+                     157             PUBLIC  LED_Num
+                     158             PUBLIC  SERIAL_BUFFER
+                     159             PUBLIC  DS18B20_GetT
+                     160             PUBLIC  DS18B20_ReadT
+                     161             PUBLIC  DS18B20_Read
+                     162             PUBLIC  DS18B20_ConvertT
+                     163             PUBLIC  _DS18B20_Init
+                     164             PUBLIC  _DS18B20_Config
+                     165             PUBLIC  _DS18B20_Write
+                     166             PUBLIC  DS18B20_Reset
+                     167             PUBLIC  _LED_Display
+                     168             PUBLIC  _LED_Display_Num
+                     169             PUBLIC  _SERIAL_Print
+                     170             PUBLIC  _SERIAL_Send_Char
+                     171             PUBLIC  SERIAL_Receive_INT
+                     172             PUBLIC  SERIAL_Receive
+                     173             PUBLIC  SERIAL_timer2_Init
+                     174     
+----                 175             RSEG  ?DT?DS18B20_Read?DRIVE
+0000                 176     ?DS18B20_Read?BYTE:
+0000                 177              i?1258:   DS   1
+0001                 178             ORG  1
+0001                 179           temp?1259:   DS   1
+                     180     
+----                 181             RSEG  ?BI?DS18B20_Reset?DRIVE
+0000                 182     ?DS18B20_Reset?BIT:
+0000                 183        precence?749:   DBIT   1
+                     184     
+----                 185             RSEG  ?DT?_LED_Display?DRIVE
+0000                 186     ?_LED_Display?BYTE:
+0000                 187             num?645:   DS   4
+0004                 188             ORG  4
+0004                 189             pos?646:   DS   1
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     4
+
+0005                 190             ORG  5
+0005                 191           level?647:   DS   1
+0006                 192             ORG  6
+0006                 193            temp?648:   DS   4
+                     194     
+----                 195             RSEG  ?DT?_DS18B20_Write?DRIVE
+0000                 196     ?_DS18B20_Write?BYTE:
+0000                 197             dat?850:   DS   1
+0001                 198             ORG  1
+0001                 199               i?851:   DS   1
+                     200     
+----                 201             RSEG  ?DT?_DS18B20_Init?DRIVE
+0000                 202     ?_DS18B20_Init?BYTE:
+0000                 203          TempH?1055:   DS   1
+0001                 204             ORG  1
+0001                 205          TempL?1056:   DS   1
+0002                 206             ORG  2
+0002                 207         config?1057:   DS   1
+                     208     
+----                 209             RSEG  ?DT?_DS18B20_Config?DRIVE
+0000                 210     ?_DS18B20_Config?BYTE:
+0000                 211           TempH?952:   DS   1
+0001                 212             ORG  1
+0001                 213           TempL?953:   DS   1
+0002                 214             ORG  2
+0002                 215          config?954:   DS   1
+                     216     
+----                 217             RSEG  ?DT?DS18B20_GetT?DRIVE
+0000                 218     ?DS18B20_GetT?BYTE:
+0000                 219        decimal?1461:   DS   1
+0001                 220             ORG  1
+0001                 221           temp?1462:   DS   2
+0003                 222             ORG  3
+0003                 223     isNegative?1463:   DS   1
+                     224     
+----                 225             RSEG  ?DT?DRIVE
+0000                 226       SERIAL_BUFFER:   DS   1
+0001                 227             LED_Num:   DS   11
+                     228     
+----                 229             RSEG  ?CO?DRIVE
+0000                 230     ?SC_0:
+0000 636F6E66        231             DB  'c' ,'o' ,'n' ,'f' ,'i' ,'g' ,' ' ,'o' ,'k' ,000H
+0004 6967206F                
+0008 6B00                    
+                     232     
+                     233     
+----                 234             RSEG  ?C_INITSEG
+0000 0B              235             DB      00BH
+0001 00       F      236             DB      LED_Num
+0002 50              237             DB      050H
+0003 5F              238             DB      05FH
+0004 38              239             DB      038H
+0005 19              240             DB      019H
+0006 17              241             DB      017H
+0007 91              242             DB      091H
+0008 90              243             DB      090H
+0009 5D              244             DB      05DH
+000A 10              245             DB      010H
+000B 11              246             DB      011H
+000C EF              247             DB      0EFH
+                     248     
+                     249     ; #include "driveincludes.h"
+                     250     ; 
+                     251     ; /*
+                     252     ; *****************************************************************************************
+                             ****************
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     5
+
+                     253     ; *                                                                                     ³¬É
+                             ù²â¾à                                                                                                                *
+                     254     ; *     ½Ó¿Úº¯Ê£º                                                                          
+                                                                                                                                          *
+                     255     ; *     float HC_SR04_getDistance()     ·µ»Ø²âÁ¿¾àÀë µ¥Î»cm                                
+                                                                                                          *
+                     256     ; *     void HC_SR04_Trigger()          ´¥·¢ÐÅºÅ                                           
+                                                                                                                          *
+                     257     ; *     ÄÚ²¿º¯Ê£º                                                                          
+                                                                                                                                          *
+                     258     ; *                                                                                        
+                                                                                                                                                  *
+                     259     ; *             Ê¹ÄÜÖÐ¶Ï£º                                                                 
+                                                                                                                                          *
+                     260     ; *     void HC_SR04_INT_Init()         Íâ²¿ÖÐ¶Ï³õÊ¼»¯                                     
+                                                                                                          *
+                     261     ; *     void HC_SR04_INT() interrupt 0  /void HC_SR04_INT() interrupt 2ÍâÖÐ¶ÏÏìÓ¦º¯Ê       
+                                                                  *
+                     262     ; *     void HC_SR04_timer11_Init()     ¶¨Ê±Æ÷1³õÊ¼»¯                                      
+                                                                                                          *
+                     263     ; *     void HC_SR04_Init()                     ³¬ÉùÄ£¿é³õÊ¼»¯                             
+                                                                                                                  *
+                     264     ; *     float HC_SR04_Response()        ²â¾à¼ÆËã                                           
+                                                                                                                          *
+                     265     ; *                                                                                        
+                                                                                                                                                  *
+                     266     ; *             ²»Ê¹ÄÜÖÐ¶Ï£º                                                               
+                                                                                                                                          *
+                     267     ; *     void HC_SR04_getDigit_dis()     ²âÁ¿¸ßµçÆ½Ê±¼ä³¤¶È                                 
+                                                                                                          *
+                     268     ; *     void HC_SR04_Init()                     ³¬ÉùÄ£¿é³õÊ¼»¯                             
+                                                                                                                  *
+                     269     ; *     float HC_SR04_Response()        ²âÁ¿¼ÆËã                                           
+                                                                                                                          *
+                     270     ; *                                                                                        
+                                                                                                                                                  *
+                     271     ; *****************************************************************************************
+                             ****************
+                     272     ; */
+                     273     ; #if   HC_SR04_EN > 0
+                     274     ; 
+                     275     ; uint HC_SR04_digit_dis;
+                     276     ; uchar HC_SR04_Overflow;
+                     277     ; 
+                     278     ;       #if HC_SR04_TIMER_EN > 0
+                     279     ;                                                                       
+                     280     ;               void HC_SR04_timer1_Init(){                                     //³õÊ¼»¯¶¨Ê
+                             ±Æ÷1
+                     281     ;                       EA = 1;
+                     282     ;                       TMOD |= 0X10;                                                   //¶
+                             ¨Ê±Æ÷1ÖÐ¶Ï·½Ê½1
+                     283     ;                       TH1 = 0;
+                     284     ;                       TL1 = 0;
+                     285     ;                       ET1 = 1;
+                     286     ;                       TR1 = 0;
+                     287     ;               }
+                     288     ;               
+                     289     ;               void timer1_overflow() interrupt 3{
+                     290     ;                       HC_SR04_Overflow = 1;
+                     291     ;               }
+                     292     ;                                                                                          
+                                                                  //³õÊ¼»¯        
+                     293     ;               void HC_SR04_Init(){
+                     294     ;                       HC_SR04_ECHO = 0;
+                     295     ;                       HC_SR04_TRIG = 0;
+                     296     ;                       HC_SR04_Overflow = 0;
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     6
+
+                     297     ;                       HC_SR04_timer1_Init();
+                     298     ;               }
+                     299     ;               
+                     300     ;               uint HC_SR04_GetDistance(){
+                     301     ;                       uint dis = 0;
+                     302     ;                       HC_SR04_TRIG = 1;
+                     303     ;                       delay_us(15);
+                     304     ;                       HC_SR04_TRIG = 0;
+                     305     ;                       while(!HC_SR04_ECHO);
+                     306     ;                       TR1 = 1;
+                     307     ;                       while(HC_SR04_ECHO);
+                     308     ;                       TR1 = 0;
+                     309     ;                       dis = TH1 * 256 + TL1;
+                     310     ;                       dis = dis * 17 / ((float)SYS_FREQ / 12000);
+                     311     ;                       if(dis > 200 || HC_SR04_Overflow){
+                     312     ;                               HC_SR04_Init();
+                     313     ;                               return 0;
+                     314     ;                       }
+                     315     ;                       TH1 = 0;
+                     316     ;                       TL1 = 0;
+                     317     ;                       return dis;
+                     318     ;               }
+                     319     ; 
+                     320     ;       #else  
+                     321     ;               void HC_SR04_getDigit_dis(){
+                     322     ;                       #pragma asm
+                     323     ;                               PUSH    DPH
+                     324     ;                               PUSH    DPL
+                     325     ;                               CLR             EA
+                     326     ;                               MOV             DPH,    #00H
+                     327     ;                               MOV             DPL,    #00H
+                     328     ;                               JNB             HC_SR04_ECHO,   $
+                     329     ;                       CTR_LOOP:
+                     330     ;                               INC             DPTR
+                     331     ;                               JB              HC_SR04_ECHO,   CTR_LOOP
+                     332     ;                               SETB    EA
+                     333     ;                               MOV     HC_SR04_digit_dis,      DPH
+                     334     ;                               MOV             HC_SR04_digit_dis+01H,  DPL
+                     335     ;                               POP             DPL
+                     336     ;                               POP             DPH
+                     337     ;                               RET
+                     338     ;                       #pragma endasm
+                     339     ;               }
+                     340     ;               
+                     341     ;               void HC_SR04_Init(){
+                     342     ;                       HC_SR04_ECHO = 0;
+                     343     ;                       HC_SR04_TRIG = 0;
+                     344     ;                       HC_SR04_digit_dis = 0;
+                     345     ;               }
+                     346     ;               
+                     347     ;               void HC_SR04_Trigger(){
+                     348     ;                       HC_SR04_TRIG = 0;
+                     349     ;                       HC_SR04_TRIG = 1;
+                     350     ;                       delay_us(15);
+                     351     ;                       HC_SR04_TRIG = 0;
+                     352     ;               }
+                     353     ;               
+                     354     ;               uint HC_SR04_Response(){
+                     355     ;                       uint distance = 0;      
+                     356     ;                       HC_SR04_getDigit_dis();
+                     357     ;                       distance = 4 * (1 + HC_SR04_digit_dis) * 17 / ((float)SYS_FREQ / 12
+                             000);
+                     358     ;                       HC_SR04_Init();
+                     359     ;                       return distance;
+                     360     ;               }
+                     361     ; 
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     7
+
+                     362     ;               uint HC_SR04_GetDistance(){
+                     363     ;                       HC_SR04_Trigger();
+                     364     ;                       return HC_SR04_Response();
+                     365     ;               }
+                     366     ;       #endif
+                     367     ;                                                                               
+                     368     ; 
+                     369     ; #endif
+                     370     ;       
+                     371     ; /*
+                     372     ; *****************************************************************************************
+                             ****************
+                     373     ; *                                                                                     ´®¿
+                             ÚÍ¨ÐÅ                                                                                                                *
+                     374     ; *     ½Ó¿Úº¯Ê£º                                                                          
+                                                                                                                                          *
+                     375     ; *     void SERIAL_Print(char *str)×Ö·û´®Îª²ÎÊ                                            
+                                                                                                          *
+                     376     ; *     char SERIAL_Receive()           ½ÓÊÕ£¬·µ»ØÊÕµ½µÄÊ¾Ý                                
+                                                                                                          *
+                     377     ; *     void SERIAL_Receive_INT() interrupt 4 Ê¹ÓÃÖÐ¶Ï½ÓÊÕ£¬ÊÕµ½µÄÊ¾ÝÔÚchar SERIAL_BUFFER  
+                                                                  *
+                     378     ; *                                                                                        
+                                                                                                                                                  *
+                     379     ; *     ÄÚ²¿º¯Ê£º                                                                          
+                                                                                                                                          *
+                     380     ; *                                             *
+                     381     ; *                                             *
+                     382     ; *                                             *
+                     383     ; *                                             *
+                     384     ; *                                             *
+                     385     ; *                                             *
+                     386     ; *                                             *
+                     387     ; *                                             *
+                     388     ; *                                             *
+                     389     ; *                                             *
+                     390     ; *                                                                                        
+                                                                                                                                                  *
+                     391     ; *****************************************************************************************
+                             ****************
+                     392     ; */
+                     393     ;       
+                     394     ; #if SERIAL_EN > 0
+                     395     ; 
+                     396     ;       char SERIAL_BUFFER;
+                     397     ;       void SERIAL_timer2_Init(){
+                     398     
+----                 399             RSEG  ?PR?SERIAL_timer2_Init?DRIVE
+0000                 400     SERIAL_timer2_Init:
+                     401                             ; SOURCE LINE # 149
+                     402     ;               uint temp;
+                     403     ;               temp = (65536 - SYS_FREQ / (SERIAL_BAUD_RATE * 32));
+                     404                             ; SOURCE LINE # 151
+                     405     ;---- Variable 'temp?040' assigned to Register 'R4/R5' ----
+0000 74FF            406             MOV     A,#0FFH
+                     407     ;               TH2 = RCAP2H = temp >> 8;
+                     408                             ; SOURCE LINE # 152
+0002 F5CB            409             MOV     RCAP2H,A
+0004 F5CD            410             MOV     TH2,A
+                     411     ;               TL2 = RCAP2L = temp;
+                     412                             ; SOURCE LINE # 153
+0006 F5CA            413             MOV     RCAP2L,A
+0008 F5CC            414             MOV     TL2,A
+                     415     ;               T2MOD = 0X00;
+                     416                             ; SOURCE LINE # 154
+000A E4              417             CLR     A
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     8
+
+000B F5C9            418             MOV     T2MOD,A
+                     419     ;               T2CON = 0X34;
+                     420                             ; SOURCE LINE # 155
+000D 75C834          421             MOV     T2CON,#034H
+                     422     ;               SCON = 0X50;
+                     423                             ; SOURCE LINE # 156
+0010 759850          424             MOV     SCON,#050H
+                     425     ;       }
+                     426                             ; SOURCE LINE # 157
+0013 22              427             RET     
+                     428     ; END OF SERIAL_timer2_Init
+                     429     
+                     430     ;       
+                     431     ;       char SERIAL_Receive(){
+                     432     
+----                 433             RSEG  ?PR?SERIAL_Receive?DRIVE
+0000                 434     SERIAL_Receive:
+                     435             USING   0
+                     436                             ; SOURCE LINE # 159
+0000                 437     ?C0002:
+                     438     ;               while(!RI);
+                     439                             ; SOURCE LINE # 160
+0000 3098FD          440             JNB     RI,?C0002
+0003                 441     ?C0003:
+                     442     ;               RI = 0;
+                     443                             ; SOURCE LINE # 161
+0003 C298            444             CLR     RI
+                     445     ;               return SBUF;
+                     446                             ; SOURCE LINE # 162
+0005 AF99            447             MOV     R7,SBUF
+                     448     ;       }
+                     449                             ; SOURCE LINE # 163
+0007                 450     ?C0004:
+0007 22              451             RET     
+                     452     ; END OF SERIAL_Receive
+                     453     
+----                 454     CSEG    AT      00023H
+0023 020000   F      455             LJMP    SERIAL_Receive_INT
+                     456     
+                     457     ;       
+                     458     ;       void SERIAL_Receive_INT() interrupt 4{
+                     459     
+----                 460             RSEG  ?PR?SERIAL_Receive_INT?DRIVE
+                     461             USING   0
+0000                 462     SERIAL_Receive_INT:
+                     463                             ; SOURCE LINE # 165
+                     464     ;               if(RI){
+                     465                             ; SOURCE LINE # 166
+0000 309805          466             JNB     RI,?C0006
+                     467     ;                       RI = 0;
+                     468                             ; SOURCE LINE # 167
+0003 C298            469             CLR     RI
+                     470     ;                       SERIAL_BUFFER = SBUF;
+                     471                             ; SOURCE LINE # 168
+0005 859900   F      472             MOV     SERIAL_BUFFER,SBUF
+                     473     ;               }
+                     474                             ; SOURCE LINE # 169
+                     475     ;       }
+                     476                             ; SOURCE LINE # 170
+0008                 477     ?C0006:
+0008 32              478             RETI    
+                     479     ; END OF SERIAL_Receive_INT
+                     480     
+                     481     ;       
+                     482     ;       void SERIAL_Send_Char(char dat){
+                     483     
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE     9
+
+----                 484             RSEG  ?PR?_SERIAL_Send_Char?DRIVE
+0000                 485     _SERIAL_Send_Char:
+                     486                             ; SOURCE LINE # 172
+                     487     ;---- Variable 'dat?341' assigned to Register 'R7' ----
+                     488     ;               SBUF = dat;
+                     489                             ; SOURCE LINE # 173
+0000 8F99            490             MOV     SBUF,R7
+0002                 491     ?C0007:
+                     492     ;               while(!TI);
+                     493                             ; SOURCE LINE # 174
+0002 3099FD          494             JNB     TI,?C0007
+0005                 495     ?C0008:
+                     496     ;               TI = 0;
+                     497                             ; SOURCE LINE # 175
+0005 C299            498             CLR     TI
+                     499     ;       }
+                     500                             ; SOURCE LINE # 176
+0007 22              501             RET     
+                     502     ; END OF _SERIAL_Send_Char
+                     503     
+                     504     ;       
+                     505     ;       void SERIAL_Print(char *dat){
+                     506     
+----                 507             RSEG  ?PR?_SERIAL_Print?DRIVE
+0000                 508     _SERIAL_Print:
+                     509             USING   0
+                     510                             ; SOURCE LINE # 178
+                     511     ;---- Variable 'dat?442' assigned to Register 'R1/R2/R3' ----
+0000                 512     ?C0010:
+                     513     ;               while(*dat){
+                     514                             ; SOURCE LINE # 179
+0000 120000   F      515             LCALL   ?C?CLDPTR
+0003 FF              516             MOV     R7,A
+0004 600C            517             JZ      ?C0012
+                     518     ;                       SERIAL_Send_Char(*dat);
+                     519                             ; SOURCE LINE # 180
+0006 120000   F      520             LCALL   _SERIAL_Send_Char
+                     521     ;                       dat++;
+                     522                             ; SOURCE LINE # 181
+0009 7401            523             MOV     A,#01H
+000B 29              524             ADD     A,R1
+000C F9              525             MOV     R1,A
+000D E4              526             CLR     A
+000E 3A              527             ADDC    A,R2
+000F FA              528             MOV     R2,A
+                     529     ;               }
+                     530                             ; SOURCE LINE # 182
+0010 80EE            531             SJMP    ?C0010
+                     532     ;       }
+                     533                             ; SOURCE LINE # 183
+0012                 534     ?C0012:
+0012 22              535             RET     
+                     536     ; END OF _SERIAL_Print
+                     537     
+                     538     ;       
+                     539     ; #endif
+                     540     ;       
+                     541     ;       
+                     542     ; #if LED_EN > 0
+                     543     ;       
+                     544     ;       const uchar LED_Num[] = {0x50,0x5f,0x38,0x19,0x17,0x91,0x90,0x5d,0x10,0x11,0xef};//
+                             0~9
+                     545     ; 
+                     546     ;       void LED_Display_Num(uchar num, uchar pos){
+                     547     
+----                 548             RSEG  ?PR?_LED_Display_Num?DRIVE
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    10
+
+0000                 549     _LED_Display_Num:
+                     550             USING   0
+                     551                             ; SOURCE LINE # 192
+                     552     ;---- Variable 'pos?544' assigned to Register 'R5' ----
+                     553     ;---- Variable 'num?543' assigned to Register 'R7' ----
+                     554     ;               num %= 10;
+                     555                             ; SOURCE LINE # 193
+0000 EF              556             MOV     A,R7
+0001 75F00A          557             MOV     B,#0AH
+0004 84              558             DIV     AB
+0005 AFF0            559             MOV     R7,B
+                     560     ;               pos %= 8;
+                     561                             ; SOURCE LINE # 194
+0007 530507          562             ANL     AR5,#07H
+                     563     ;               LED_CONTROL = 0XFF;
+                     564                             ; SOURCE LINE # 195
+000A 7590FF          565             MOV     P1,#0FFH
+                     566     ;               LED_DATA = 0X00;
+                     567                             ; SOURCE LINE # 196
+000D E4              568             CLR     A
+000E F580            569             MOV     P0,A
+                     570     ;               LED_CONTROL = ~(0X01 << pos);
+                     571                             ; SOURCE LINE # 197
+0010 AE05            572             MOV     R6,AR5
+0012 04              573             INC     A
+0013 A806            574             MOV     R0,AR6
+0015 08              575             INC     R0
+0016 8002            576             SJMP    ?C0048
+0018                 577     ?C0047:
+0018 C3              578             CLR     C
+0019 33              579             RLC     A
+001A                 580     ?C0048:
+001A D8FC            581             DJNZ    R0,?C0047
+001C F4              582             CPL     A
+001D F590            583             MOV     P1,A
+                     584     ;               LED_DATA = LED_Num[num];
+                     585                             ; SOURCE LINE # 198
+001F 7400     F      586             MOV     A,#LOW (LED_Num)
+0021 2F              587             ADD     A,R7
+0022 F8              588             MOV     R0,A
+0023 E6              589             MOV     A,@R0
+0024 F580            590             MOV     P0,A
+                     591     ;       }
+                     592                             ; SOURCE LINE # 199
+0026 22              593             RET     
+                     594     ; END OF _LED_Display_Num
+                     595     
+                     596     ;       
+                     597     ;       void LED_Display(ulong num){
+                     598     
+----                 599             RSEG  ?PR?_LED_Display?DRIVE
+0000                 600     _LED_Display:
+                     601             USING   0
+                     602                             ; SOURCE LINE # 201
+0000 8F00     F      603             MOV     num?645+03H,R7
+0002 8E00     F      604             MOV     num?645+02H,R6
+0004 8D00     F      605             MOV     num?645+01H,R5
+0006 8C00     F      606             MOV     num?645,R4
+                     607     ;               uchar pos = 0, level = 0;
+                     608                             ; SOURCE LINE # 202
+0008 E4              609             CLR     A
+0009 F500     F      610             MOV     pos?646,A
+000B F500     F      611             MOV     level?647,A
+                     612     ;               ulong temp = num;
+                     613                             ; SOURCE LINE # 203
+                     614     ;               for(; temp > 0; temp /= 10){
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    11
+
+                     615                             ; SOURCE LINE # 204
+000D 8026            616             SJMP    ?C0051
+000F                 617     ?C0014:
+000F E4              618             CLR     A
+0010 FF              619             MOV     R7,A
+0011 FE              620             MOV     R6,A
+0012 FD              621             MOV     R5,A
+0013 FC              622             MOV     R4,A
+0014 AB00     F      623             MOV     R3,temp?648+03H
+0016 AA00     F      624             MOV     R2,temp?648+02H
+0018 A900     F      625             MOV     R1,temp?648+01H
+001A A800     F      626             MOV     R0,temp?648
+001C D3              627             SETB    C
+001D 120000   F      628             LCALL   ?C?ULCMP
+0020 401D            629             JC      ?C0017
+                     630     ;                       level++;
+                     631                             ; SOURCE LINE # 205
+0022 0500     F      632             INC     level?647
+                     633     ;               }
+                     634                             ; SOURCE LINE # 206
+0024 AF00     F      635             MOV     R7,temp?648+03H
+0026 AE00     F      636             MOV     R6,temp?648+02H
+0028 AD00     F      637             MOV     R5,temp?648+01H
+002A AC00     F      638             MOV     R4,temp?648
+002C E4              639             CLR     A
+002D 7B0A            640             MOV     R3,#0AH
+002F FA              641             MOV     R2,A
+0030 F9              642             MOV     R1,A
+0031 F8              643             MOV     R0,A
+0032 120000   F      644             LCALL   ?C?ULDIV
+0035                 645     ?C0051:
+0035 8F00     F      646             MOV     temp?648+03H,R7
+0037 8E00     F      647             MOV     temp?648+02H,R6
+0039 8D00     F      648             MOV     temp?648+01H,R5
+003B 8C00     F      649             MOV     temp?648,R4
+003D 80D0            650             SJMP    ?C0014
+                     651     ;               for(; pos < level; pos++){
+                     652                             ; SOURCE LINE # 207
+003F                 653     ?C0017:
+003F E500     F      654             MOV     A,pos?646
+0041 C3              655             CLR     C
+0042 9500     F      656             SUBB    A,level?647
+0044 5035            657             JNC     ?C0020
+                     658     ;                       LED_Display_Num(num % 10, pos);
+                     659                             ; SOURCE LINE # 208
+0046 E4              660             CLR     A
+0047 7B0A            661             MOV     R3,#0AH
+0049 FA              662             MOV     R2,A
+004A F9              663             MOV     R1,A
+004B F8              664             MOV     R0,A
+004C AF00     F      665             MOV     R7,num?645+03H
+004E AE00     F      666             MOV     R6,num?645+02H
+0050 AD00     F      667             MOV     R5,num?645+01H
+0052 AC00     F      668             MOV     R4,num?645
+0054 120000   F      669             LCALL   ?C?ULDIV
+0057 AF03            670             MOV     R7,AR3
+0059 AD00     F      671             MOV     R5,pos?646
+005B 120000   F      672             LCALL   _LED_Display_Num
+                     673     ;                       num /= 10;
+                     674                             ; SOURCE LINE # 209
+005E AF00     F      675             MOV     R7,num?645+03H
+0060 AE00     F      676             MOV     R6,num?645+02H
+0062 AD00     F      677             MOV     R5,num?645+01H
+0064 AC00     F      678             MOV     R4,num?645
+0066 E4              679             CLR     A
+0067 7B0A            680             MOV     R3,#0AH
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    12
+
+0069 FA              681             MOV     R2,A
+006A F9              682             MOV     R1,A
+006B F8              683             MOV     R0,A
+006C 120000   F      684             LCALL   ?C?ULDIV
+006F 8F00     F      685             MOV     num?645+03H,R7
+0071 8E00     F      686             MOV     num?645+02H,R6
+0073 8D00     F      687             MOV     num?645+01H,R5
+0075 8C00     F      688             MOV     num?645,R4
+                     689     ;               }
+                     690                             ; SOURCE LINE # 210
+0077 0500     F      691             INC     pos?646
+0079 80C4            692             SJMP    ?C0017
+                     693     ;       }
+                     694                             ; SOURCE LINE # 211
+007B                 695     ?C0020:
+007B 22              696             RET     
+                     697     ; END OF _LED_Display
+                     698     
+                     699     ;       
+                     700     ; #endif
+                     701     ; 
+                     702     ;       
+                     703     ; #if   DS18B20_EN > 0
+                     704     ;       
+                     705     ;       bit DS18B20_Reset(){
+                     706     
+----                 707             RSEG  ?PR?DS18B20_Reset?DRIVE
+0000                 708     DS18B20_Reset:
+                     709             USING   0
+                     710                             ; SOURCE LINE # 218
+                     711     ;               bit precence;
+                     712     ;               DS18B20_DQ = 0;
+                     713                             ; SOURCE LINE # 220
+0000 C2B7            714             CLR     P3_7
+                     715     ;               delay_us(480);
+                     716                             ; SOURCE LINE # 221
+0002 7FE0            717             MOV     R7,#0E0H
+0004 120000   F      718             LCALL   _delay_us
+                     719     ;               DS18B20_DQ = 1;
+                     720                             ; SOURCE LINE # 222
+0007 D2B7            721             SETB    P3_7
+                     722     ;               delay_us(480);
+                     723                             ; SOURCE LINE # 223
+0009 7FE0            724             MOV     R7,#0E0H
+000B 120000   F      725             LCALL   _delay_us
+                     726     ;               precence = DS18B20_DQ;
+                     727                             ; SOURCE LINE # 224
+000E A2B7            728             MOV     C,P3_7
+0010 9200     F      729             MOV     precence?749,C
+0012                 730     ?C0021:
+                     731     ;               while(!DS18B20_DQ);
+                     732                             ; SOURCE LINE # 225
+0012 30B7FD          733             JNB     P3_7,?C0021
+0015                 734     ?C0022:
+                     735     ;               return precence;
+                     736                             ; SOURCE LINE # 226
+0015 A200     F      737             MOV     C,precence?749
+                     738     ;       }
+                     739                             ; SOURCE LINE # 227
+0017                 740     ?C0023:
+0017 22              741             RET     
+                     742     ; END OF DS18B20_Reset
+                     743     
+                     744     ;       
+                     745     ;       void DS18B20_Write(char dat){
+                     746     
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    13
+
+----                 747             RSEG  ?PR?_DS18B20_Write?DRIVE
+0000                 748     _DS18B20_Write:
+                     749             USING   0
+                     750                             ; SOURCE LINE # 229
+0000 8F00     F      751             MOV     dat?850,R7
+                     752     ;               uchar i;
+                     753     ;               for(i = 0; i < 8; i++){
+                     754                             ; SOURCE LINE # 231
+0002 E4              755             CLR     A
+0003 F500     F      756             MOV     i?851,A
+0005                 757     ?C0024:
+                     758     ;                       DS18B20_DQ = 0;
+                     759                             ; SOURCE LINE # 232
+0005 C2B7            760             CLR     P3_7
+                     761     ;                       delay_us(2);
+                     762                             ; SOURCE LINE # 233
+0007 7F02            763             MOV     R7,#02H
+0009 120000   F      764             LCALL   _delay_us
+                     765     ;                       DS18B20_DQ = (dat >> i) & 0x01;
+                     766                             ; SOURCE LINE # 234
+000C AF00     F      767             MOV     R7,i?851
+000E E500     F      768             MOV     A,dat?850
+0010 A807            769             MOV     R0,AR7
+0012 08              770             INC     R0
+0013 8003            771             SJMP    ?C0050
+0015                 772     ?C0049:
+0015 A2E7            773             MOV     C,ACC.7
+0017 13              774             RRC     A
+0018                 775     ?C0050:
+0018 D8FB            776             DJNZ    R0,?C0049
+001A 13              777             RRC     A
+001B 92B7            778             MOV     P3_7,C
+                     779     ;                       delay_us(50);
+                     780                             ; SOURCE LINE # 235
+001D 7F32            781             MOV     R7,#032H
+001F 120000   F      782             LCALL   _delay_us
+                     783     ;                       DS18B20_DQ = 1;
+                     784                             ; SOURCE LINE # 236
+0022 D2B7            785             SETB    P3_7
+                     786     ;                       delay_us(1);
+                     787                             ; SOURCE LINE # 237
+0024 7F01            788             MOV     R7,#01H
+0026 120000   F      789             LCALL   _delay_us
+                     790     ;               }
+                     791                             ; SOURCE LINE # 238
+0029 0500     F      792             INC     i?851
+002B E500     F      793             MOV     A,i?851
+002D C3              794             CLR     C
+002E 9408            795             SUBB    A,#08H
+0030 40D3            796             JC      ?C0024
+                     797     ;       }
+                     798                             ; SOURCE LINE # 239
+0032                 799     ?C0027:
+0032 22              800             RET     
+                     801     ; END OF _DS18B20_Write
+                     802     
+                     803     ;       
+                     804     ;       void DS18B20_Config(char TempH, char TempL, char config){
+                     805     
+----                 806             RSEG  ?PR?_DS18B20_Config?DRIVE
+0000                 807     _DS18B20_Config:
+                     808             USING   0
+                     809                             ; SOURCE LINE # 241
+0000 8F00     F      810             MOV     TempH?952,R7
+0002 8D00     F      811             MOV     TempL?953,R5
+0004 8B00     F      812             MOV     config?954,R3
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    14
+
+                     813     ;               DS18B20_Write(DS18B20_WRITE_SCRACHPAD);
+                     814                             ; SOURCE LINE # 242
+0006 7F4E            815             MOV     R7,#04EH
+0008 120000   F      816             LCALL   _DS18B20_Write
+                     817     ;               DS18B20_Write(TempH);
+                     818                             ; SOURCE LINE # 243
+000B AF00     F      819             MOV     R7,TempH?952
+000D 120000   F      820             LCALL   _DS18B20_Write
+                     821     ;               DS18B20_Write(TempL);
+                     822                             ; SOURCE LINE # 244
+0010 AF00     F      823             MOV     R7,TempL?953
+0012 120000   F      824             LCALL   _DS18B20_Write
+                     825     ;               DS18B20_Write(config);
+                     826                             ; SOURCE LINE # 245
+0015 AF00     F      827             MOV     R7,config?954
+0017 020000   F      828             LJMP    _DS18B20_Write
+                     829     ; END OF _DS18B20_Config
+                     830     
+                     831     ;       }
+                     832     ;       
+                     833     ;       void DS18B20_Init(char TempH, char TempL, char config){
+                     834     
+----                 835             RSEG  ?PR?_DS18B20_Init?DRIVE
+0000                 836     _DS18B20_Init:
+                     837             USING   0
+                     838                             ; SOURCE LINE # 248
+0000 8F00     F      839             MOV     TempH?1055,R7
+0002 8D00     F      840             MOV     TempL?1056,R5
+0004 8B00     F      841             MOV     config?1057,R3
+                     842     ;               if(DS18B20_Reset() == 0){
+                     843                             ; SOURCE LINE # 249
+0006 120000   F      844             LCALL   DS18B20_Reset
+0009 401A            845             JC      ?C0030
+                     846     ;                       DS18B20_Config(TempH, TempL, config);
+                     847                             ; SOURCE LINE # 250
+000B AB00     F      848             MOV     R3,config?1057
+000D AD00     F      849             MOV     R5,TempL?1056
+000F AF00     F      850             MOV     R7,TempH?1055
+0011 120000   F      851             LCALL   _DS18B20_Config
+                     852     ;                       DS18B20_Reset();
+                     853                             ; SOURCE LINE # 251
+0014 120000   F      854             LCALL   DS18B20_Reset
+                     855     ;                       DS18B20_Write(DS18B20_SKIP_ROM);
+                     856                             ; SOURCE LINE # 252
+0017 7FCC            857             MOV     R7,#0CCH
+0019 120000   F      858             LCALL   _DS18B20_Write
+                     859     ;                       SERIAL_Print("config ok");
+                     860                             ; SOURCE LINE # 253
+001C 7BFF            861             MOV     R3,#0FFH
+001E 7A00     F      862             MOV     R2,#HIGH (?SC_0)
+0020 7900     F      863             MOV     R1,#LOW (?SC_0)
+0022 120000   F      864             LCALL   _SERIAL_Print
+                     865     ;               }
+                     866                             ; SOURCE LINE # 254
+                     867     ;       }
+                     868                             ; SOURCE LINE # 255
+0025                 869     ?C0030:
+0025 22              870             RET     
+                     871     ; END OF _DS18B20_Init
+                     872     
+                     873     ;       
+                     874     ;       void DS18B20_ConvertT(){
+                     875     
+----                 876             RSEG  ?PR?DS18B20_ConvertT?DRIVE
+0000                 877     DS18B20_ConvertT:
+                     878             USING   0
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    15
+
+                     879                             ; SOURCE LINE # 257
+                     880     ;               DS18B20_Write(DS18B20_CONVERT_T);
+                     881                             ; SOURCE LINE # 258
+0000 7F44            882             MOV     R7,#044H
+0002 020000   F      883             LJMP    _DS18B20_Write
+                     884     ; END OF DS18B20_ConvertT
+                     885     
+                     886     ;       }
+                     887     ;       
+                     888     ;       uchar DS18B20_Read(){
+                     889     
+----                 890             RSEG  ?PR?DS18B20_Read?DRIVE
+0000                 891     DS18B20_Read:
+                     892             USING   0
+                     893                             ; SOURCE LINE # 261
+0000                 894     ?C0032:
+                     895     ;               uchar i, temp;
+                     896     ;               while(!DS18B20_DQ);
+                     897                             ; SOURCE LINE # 263
+0000 30B7FD          898             JNB     P3_7,?C0032
+0003                 899     ?C0033:
+                     900     ;               for(i = 0; i < 8; i++){
+                     901                             ; SOURCE LINE # 264
+0003 E4              902             CLR     A
+0004 F500     F      903             MOV     i?1258,A
+0006                 904     ?C0034:
+                     905     ;                       DS18B20_DQ = 0;
+                     906                             ; SOURCE LINE # 265
+0006 C2B7            907             CLR     P3_7
+                     908     ;                       delay_us(1);
+                     909                             ; SOURCE LINE # 266
+0008 7F01            910             MOV     R7,#01H
+000A 120000   F      911             LCALL   _delay_us
+                     912     ;                       DS18B20_DQ = 1;
+                     913                             ; SOURCE LINE # 267
+000D D2B7            914             SETB    P3_7
+                     915     ;                       delay_us(15);
+                     916                             ; SOURCE LINE # 268
+000F 7F0F            917             MOV     R7,#0FH
+0011 120000   F      918             LCALL   _delay_us
+                     919     ;                       if(DS18B20_DQ == 1){
+                     920                             ; SOURCE LINE # 269
+0014 30B703          921             JNB     P3_7,?C0037
+                     922     ;                               temp |= 0x80;
+                     923                             ; SOURCE LINE # 270
+0017 430080   F      924             ORL     temp?1259,#080H
+                     925     ;                       }
+                     926                             ; SOURCE LINE # 271
+001A                 927     ?C0037:
+                     928     ;                       delay_us(30);
+                     929                             ; SOURCE LINE # 272
+001A 7F1E            930             MOV     R7,#01EH
+001C 120000   F      931             LCALL   _delay_us
+                     932     ;                       temp >>= 1;
+                     933                             ; SOURCE LINE # 273
+001F E500     F      934             MOV     A,temp?1259
+0021 C3              935             CLR     C
+0022 13              936             RRC     A
+0023 F500     F      937             MOV     temp?1259,A
+0025                 938     ?C0038:
+                     939     ;                       while(!DS18B20_DQ);
+                     940                             ; SOURCE LINE # 274
+0025 30B7FD          941             JNB     P3_7,?C0038
+0028                 942     ?C0039:
+                     943     ;               }
+                     944                             ; SOURCE LINE # 275
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    16
+
+0028                 945     ?C0036:
+0028 0500     F      946             INC     i?1258
+002A E500     F      947             MOV     A,i?1258
+002C C3              948             CLR     C
+002D 9408            949             SUBB    A,#08H
+002F 40D5            950             JC      ?C0034
+0031                 951     ?C0035:
+                     952     ;               return temp;
+                     953                             ; SOURCE LINE # 276
+0031 AF00     F      954             MOV     R7,temp?1259
+                     955     ;       }
+                     956                             ; SOURCE LINE # 277
+0033                 957     ?C0040:
+0033 22              958             RET     
+                     959     ; END OF DS18B20_Read
+                     960     
+                     961     ;       
+                     962     ;       uint DS18B20_ReadT(){
+                     963     
+----                 964             RSEG  ?PR?DS18B20_ReadT?DRIVE
+0000                 965     DS18B20_ReadT:
+                     966             USING   0
+                     967                             ; SOURCE LINE # 279
+                     968     ;               uint temp;
+                     969     ;               DS18B20_Write(DS18B20_READ_SCRACHPAD);
+                     970                             ; SOURCE LINE # 281
+0000 7FBE            971             MOV     R7,#0BEH
+0002 120000   F      972             LCALL   _DS18B20_Write
+                     973     ;               temp = DS18B20_Read();
+                     974                             ; SOURCE LINE # 282
+0005 120000   F      975             LCALL   DS18B20_Read
+                     976     ;---- Variable 'temp?1360' assigned to Register 'R6/R7' ----
+                     977     ;               temp <<= 8;
+                     978                             ; SOURCE LINE # 283
+0008 EF              979             MOV     A,R7
+0009 7F00            980             MOV     R7,#00H
+000B FE              981             MOV     R6,A
+                     982     ;               temp = DS18B20_Read();
+                     983                             ; SOURCE LINE # 284
+000C 120000   F      984             LCALL   DS18B20_Read
+000F 7E00            985             MOV     R6,#00H
+                     986     ;               return temp;
+                     987                             ; SOURCE LINE # 285
+                     988     ;       }
+                     989                             ; SOURCE LINE # 286
+0011                 990     ?C0041:
+0011 22              991             RET     
+                     992     ; END OF DS18B20_ReadT
+                     993     
+                     994     ;       
+                     995     ;       float DS18B20_GetT(){
+                     996     
+----                 997             RSEG  ?PR?DS18B20_GetT?DRIVE
+0000                 998     DS18B20_GetT:
+                     999             USING   0
+                    1000                             ; SOURCE LINE # 288
+                    1001     ;               uchar decimal = 0;
+                    1002                             ; SOURCE LINE # 289
+0000 E4             1003             CLR     A
+0001 F500     F     1004             MOV     decimal?1461,A
+                    1005     ;               uint temp = DS18B20_ReadT();
+                    1006                             ; SOURCE LINE # 290
+0003 120000   F     1007             LCALL   DS18B20_ReadT
+0006 8E00     F     1008             MOV     temp?1462,R6
+0008 8F00     F     1009             MOV     temp?1462+01H,R7
+                    1010     ;               uchar isNegative = 0;
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    17
+
+                    1011                             ; SOURCE LINE # 291
+000A E4             1012             CLR     A
+000B F500     F     1013             MOV     isNegative?1463,A
+                    1014     ;               if(temp >= 0){
+                    1015                             ; SOURCE LINE # 292
+000D C3             1016             CLR     C
+000E E500     F     1017             MOV     A,temp?1462
+0010 9400           1018             SUBB    A,#00H
+0012 4005           1019             JC      ?C0042
+                    1020     ;                       isNegative = 0;
+                    1021                             ; SOURCE LINE # 293
+0014 E4             1022             CLR     A
+0015 F500     F     1023             MOV     isNegative?1463,A
+                    1024     ;               }else{
+                    1025                             ; SOURCE LINE # 294
+0017 800E           1026             SJMP    ?C0043
+0019                1027     ?C0042:
+                    1028     ;                       isNegative = 1;
+                    1029                             ; SOURCE LINE # 295
+0019 750001   F     1030             MOV     isNegative?1463,#01H
+                    1031     ;                       temp = 0 - temp;
+                    1032                             ; SOURCE LINE # 296
+001C C3             1033             CLR     C
+001D E4             1034             CLR     A
+001E 9500     F     1035             SUBB    A,temp?1462+01H
+0020 F500     F     1036             MOV     temp?1462+01H,A
+0022 E4             1037             CLR     A
+0023 9500     F     1038             SUBB    A,temp?1462
+0025 F500     F     1039             MOV     temp?1462,A
+                    1040     ;               }
+                    1041                             ; SOURCE LINE # 297
+0027                1042     ?C0043:
+                    1043     ;               decimal = temp & 0x000f;
+                    1044                             ; SOURCE LINE # 298
+0027 E500     F     1045             MOV     A,temp?1462+01H
+0029 540F           1046             ANL     A,#0FH
+002B F500     F     1047             MOV     decimal?1461,A
+                    1048     ;               temp >>= 4;
+                    1049                             ; SOURCE LINE # 299
+002D E500     F     1050             MOV     A,temp?1462
+002F C4             1051             SWAP    A
+0030 F8             1052             MOV     R0,A
+0031 54F0           1053             ANL     A,#0F0H
+0033 C8             1054             XCH     A,R0
+0034 68             1055             XRL     A,R0
+0035 F500     F     1056             MOV     temp?1462,A
+0037 E500     F     1057             MOV     A,temp?1462+01H
+0039 C4             1058             SWAP    A
+003A 540F           1059             ANL     A,#0FH
+003C 48             1060             ORL     A,R0
+003D F500     F     1061             MOV     temp?1462+01H,A
+                    1062     ;               temp = temp + (float)decimal / 16;
+                    1063                             ; SOURCE LINE # 300
+003F AC00     F     1064             MOV     R4,decimal?1461
+0041 E4             1065             CLR     A
+0042 120000   F     1066             LCALL   ?C?FCASTC
+0045 E4             1067             CLR     A
+0046 FB             1068             MOV     R3,A
+0047 FA             1069             MOV     R2,A
+0048 7980           1070             MOV     R1,#080H
+004A 7841           1071             MOV     R0,#041H
+004C 120000   F     1072             LCALL   ?C?FPDIV
+004F C004           1073             PUSH    AR4
+0051 C005           1074             PUSH    AR5
+0053 C006           1075             PUSH    AR6
+0055 C007           1076             PUSH    AR7
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    18
+
+0057 AC00     F     1077             MOV     R4,temp?1462
+0059 AD00     F     1078             MOV     R5,temp?1462+01H
+005B E4             1079             CLR     A
+005C 120000   F     1080             LCALL   ?C?FCASTI
+005F D003           1081             POP     AR3
+0061 D002           1082             POP     AR2
+0063 D001           1083             POP     AR1
+0065 D000           1084             POP     AR0
+0067 120000   F     1085             LCALL   ?C?FPADD
+006A 120000   F     1086             LCALL   ?C?CASTF
+006D 8E00     F     1087             MOV     temp?1462,R6
+006F 8F00     F     1088             MOV     temp?1462+01H,R7
+                    1089     ;               if(isNegative){
+                    1090                             ; SOURCE LINE # 301
+0071 E500     F     1091             MOV     A,isNegative?1463
+0073 600B           1092             JZ      ?C0044
+                    1093     ;                       return -temp;
+                    1094                             ; SOURCE LINE # 302
+0075 C3             1095             CLR     C
+0076 E4             1096             CLR     A
+0077 9500     F     1097             SUBB    A,temp?1462+01H
+0079 FD             1098             MOV     R5,A
+007A E4             1099             CLR     A
+007B 9500     F     1100             SUBB    A,temp?1462
+007D FC             1101             MOV     R4,A
+007E 8004           1102             SJMP    ?C0052
+                    1103     ;               }else{
+                    1104                             ; SOURCE LINE # 303
+0080                1105     ?C0044:
+                    1106     ;                       return temp;
+                    1107                             ; SOURCE LINE # 304
+0080 AC00     F     1108             MOV     R4,temp?1462
+0082 AD00     F     1109             MOV     R5,temp?1462+01H
+0084                1110     ?C0052:
+0084 E4             1111             CLR     A
+0085 120000   F     1112             LCALL   ?C?FCASTI
+                    1113     ;               }
+                    1114                             ; SOURCE LINE # 305
+                    1115     ;       }
+                    1116                             ; SOURCE LINE # 306
+0088                1117     ?C0045:
+0088 22             1118             RET     
+                    1119     ; END OF DS18B20_GetT
+                    1120     
+                    1121             END
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    19
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                       T Y P E  V A L U E   ATTRIBUTES
+
+?BI?DS18B20_RESET?DRIVE. . .  B SEG    0001H       REL=UNIT
+?C0002 . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?SERIAL_RECEIVE?DRIVE
+?C0003 . . . . . . . . . . .  C ADDR   0003H   R   SEG=?PR?SERIAL_RECEIVE?DRIVE
+?C0004 . . . . . . . . . . .  C ADDR   0007H   R   SEG=?PR?SERIAL_RECEIVE?DRIVE
+?C0006 . . . . . . . . . . .  C ADDR   0008H   R   SEG=?PR?SERIAL_RECEIVE_INT?DRIVE
+?C0007 . . . . . . . . . . .  C ADDR   0002H   R   SEG=?PR?_SERIAL_SEND_CHAR?DRIVE
+?C0008 . . . . . . . . . . .  C ADDR   0005H   R   SEG=?PR?_SERIAL_SEND_CHAR?DRIVE
+?C0010 . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?_SERIAL_PRINT?DRIVE
+?C0012 . . . . . . . . . . .  C ADDR   0012H   R   SEG=?PR?_SERIAL_PRINT?DRIVE
+?C0014 . . . . . . . . . . .  C ADDR   000FH   R   SEG=?PR?_LED_DISPLAY?DRIVE
+?C0017 . . . . . . . . . . .  C ADDR   003FH   R   SEG=?PR?_LED_DISPLAY?DRIVE
+?C0020 . . . . . . . . . . .  C ADDR   007BH   R   SEG=?PR?_LED_DISPLAY?DRIVE
+?C0021 . . . . . . . . . . .  C ADDR   0012H   R   SEG=?PR?DS18B20_RESET?DRIVE
+?C0022 . . . . . . . . . . .  C ADDR   0015H   R   SEG=?PR?DS18B20_RESET?DRIVE
+?C0023 . . . . . . . . . . .  C ADDR   0017H   R   SEG=?PR?DS18B20_RESET?DRIVE
+?C0024 . . . . . . . . . . .  C ADDR   0005H   R   SEG=?PR?_DS18B20_WRITE?DRIVE
+?C0027 . . . . . . . . . . .  C ADDR   0032H   R   SEG=?PR?_DS18B20_WRITE?DRIVE
+?C0030 . . . . . . . . . . .  C ADDR   0025H   R   SEG=?PR?_DS18B20_INIT?DRIVE
+?C0032 . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0033 . . . . . . . . . . .  C ADDR   0003H   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0034 . . . . . . . . . . .  C ADDR   0006H   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0035 . . . . . . . . . . .  C ADDR   0031H   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0036 . . . . . . . . . . .  C ADDR   0028H   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0037 . . . . . . . . . . .  C ADDR   001AH   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0038 . . . . . . . . . . .  C ADDR   0025H   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0039 . . . . . . . . . . .  C ADDR   0028H   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0040 . . . . . . . . . . .  C ADDR   0033H   R   SEG=?PR?DS18B20_READ?DRIVE
+?C0041 . . . . . . . . . . .  C ADDR   0011H   R   SEG=?PR?DS18B20_READT?DRIVE
+?C0042 . . . . . . . . . . .  C ADDR   0019H   R   SEG=?PR?DS18B20_GETT?DRIVE
+?C0043 . . . . . . . . . . .  C ADDR   0027H   R   SEG=?PR?DS18B20_GETT?DRIVE
+?C0044 . . . . . . . . . . .  C ADDR   0080H   R   SEG=?PR?DS18B20_GETT?DRIVE
+?C0045 . . . . . . . . . . .  C ADDR   0088H   R   SEG=?PR?DS18B20_GETT?DRIVE
+?C0047 . . . . . . . . . . .  C ADDR   0018H   R   SEG=?PR?_LED_DISPLAY_NUM?DRIVE
+?C0048 . . . . . . . . . . .  C ADDR   001AH   R   SEG=?PR?_LED_DISPLAY_NUM?DRIVE
+?C0049 . . . . . . . . . . .  C ADDR   0015H   R   SEG=?PR?_DS18B20_WRITE?DRIVE
+?C0050 . . . . . . . . . . .  C ADDR   0018H   R   SEG=?PR?_DS18B20_WRITE?DRIVE
+?C0051 . . . . . . . . . . .  C ADDR   0035H   R   SEG=?PR?_LED_DISPLAY?DRIVE
+?C0052 . . . . . . . . . . .  C ADDR   0084H   R   SEG=?PR?DS18B20_GETT?DRIVE
+?C?CASTF . . . . . . . . . .  C ADDR   -----       EXT
+?C?CLDPTR. . . . . . . . . .  C ADDR   -----       EXT
+?C?FCASTC. . . . . . . . . .  C ADDR   -----       EXT
+?C?FCASTI. . . . . . . . . .  C ADDR   -----       EXT
+?C?FPADD . . . . . . . . . .  C ADDR   -----       EXT
+?C?FPDIV . . . . . . . . . .  C ADDR   -----       EXT
+?C?ULCMP . . . . . . . . . .  C ADDR   -----       EXT
+?C?ULDIV . . . . . . . . . .  C ADDR   -----       EXT
+?CO?DRIVE. . . . . . . . . .  C SEG    000AH       REL=UNIT
+?C_INITSEG . . . . . . . . .  C SEG    000DH       REL=UNIT
+?DS18B20_GETT?BYTE . . . . .  D ADDR   0000H   R   SEG=?DT?DS18B20_GETT?DRIVE
+?DS18B20_READ?BYTE . . . . .  D ADDR   0000H   R   SEG=?DT?DS18B20_READ?DRIVE
+?DS18B20_RESET?BIT . . . . .  B ADDR   0000H.0 R   SEG=?BI?DS18B20_RESET?DRIVE
+?DT?DRIVE. . . . . . . . . .  D SEG    000CH       REL=UNIT
+?DT?DS18B20_GETT?DRIVE . . .  D SEG    0004H       REL=UNIT
+?DT?DS18B20_READ?DRIVE . . .  D SEG    0002H       REL=UNIT
+?DT?_DS18B20_CONFIG?DRIVE. .  D SEG    0003H       REL=UNIT
+?DT?_DS18B20_INIT?DRIVE. . .  D SEG    0003H       REL=UNIT
+?DT?_DS18B20_WRITE?DRIVE . .  D SEG    0002H       REL=UNIT
+?DT?_LED_DISPLAY?DRIVE . . .  D SEG    000AH       REL=UNIT
+?PR?DS18B20_CONVERTT?DRIVE .  C SEG    0005H       REL=UNIT
+?PR?DS18B20_GETT?DRIVE . . .  C SEG    0089H       REL=UNIT
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    20
+
+?PR?DS18B20_READ?DRIVE . . .  C SEG    0034H       REL=UNIT
+?PR?DS18B20_READT?DRIVE. . .  C SEG    0012H       REL=UNIT
+?PR?DS18B20_RESET?DRIVE. . .  C SEG    0018H       REL=UNIT
+?PR?SERIAL_RECEIVE?DRIVE . .  C SEG    0008H       REL=UNIT
+?PR?SERIAL_RECEIVE_INT?DRIVE  C SEG    0009H       REL=UNIT
+?PR?SERIAL_TIMER2_INIT?DRIVE  C SEG    0014H       REL=UNIT
+?PR?_DS18B20_CONFIG?DRIVE. .  C SEG    001AH       REL=UNIT
+?PR?_DS18B20_INIT?DRIVE. . .  C SEG    0026H       REL=UNIT
+?PR?_DS18B20_WRITE?DRIVE . .  C SEG    0033H       REL=UNIT
+?PR?_LED_DISPLAY?DRIVE . . .  C SEG    007CH       REL=UNIT
+?PR?_LED_DISPLAY_NUM?DRIVE .  C SEG    0027H       REL=UNIT
+?PR?_SERIAL_PRINT?DRIVE. . .  C SEG    0013H       REL=UNIT
+?PR?_SERIAL_SEND_CHAR?DRIVE.  C SEG    0008H       REL=UNIT
+?SC_0. . . . . . . . . . . .  C ADDR   0000H   R   SEG=?CO?DRIVE
+?_DS18B20_CONFIG?BYTE. . . .  D ADDR   0000H   R   SEG=?DT?_DS18B20_CONFIG?DRIVE
+?_DS18B20_INIT?BYTE. . . . .  D ADDR   0000H   R   SEG=?DT?_DS18B20_INIT?DRIVE
+?_DS18B20_WRITE?BYTE . . . .  D ADDR   0000H   R   SEG=?DT?_DS18B20_WRITE?DRIVE
+?_LED_DISPLAY?BYTE . . . . .  D ADDR   0000H   R   SEG=?DT?_LED_DISPLAY?DRIVE
+AC . . . . . . . . . . . . .  B ADDR   00D0H.6 A   
+ACC. . . . . . . . . . . . .  D ADDR   00E0H   A   
+AR0. . . . . . . . . . . . .  D ADDR   0000H   A   
+AR1. . . . . . . . . . . . .  D ADDR   0001H   A   
+AR2. . . . . . . . . . . . .  D ADDR   0002H   A   
+AR3. . . . . . . . . . . . .  D ADDR   0003H   A   
+AR4. . . . . . . . . . . . .  D ADDR   0004H   A   
+AR5. . . . . . . . . . . . .  D ADDR   0005H   A   
+AR6. . . . . . . . . . . . .  D ADDR   0006H   A   
+AR7. . . . . . . . . . . . .  D ADDR   0007H   A   
+B. . . . . . . . . . . . . .  D ADDR   00F0H   A   
+CONFIG?1057. . . . . . . . .  D ADDR   0002H   R   SEG=?DT?_DS18B20_INIT?DRIVE
+CONFIG?954 . . . . . . . . .  D ADDR   0002H   R   SEG=?DT?_DS18B20_CONFIG?DRIVE
+CP_RL2 . . . . . . . . . . .  B ADDR   00C8H.0 A   
+CY . . . . . . . . . . . . .  B ADDR   00D0H.7 A   
+C_T2 . . . . . . . . . . . .  B ADDR   00C8H.1 A   
+DAT?850. . . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_DS18B20_WRITE?DRIVE
+DECIMAL?1461 . . . . . . . .  D ADDR   0000H   R   SEG=?DT?DS18B20_GETT?DRIVE
+DPH. . . . . . . . . . . . .  D ADDR   0083H   A   
+DPL. . . . . . . . . . . . .  D ADDR   0082H   A   
+DRIVE. . . . . . . . . . . .  N NUMB   -----       
+DS18B20_CONVERTT . . . . . .  C ADDR   0000H   R   SEG=?PR?DS18B20_CONVERTT?DRIVE
+DS18B20_GETT . . . . . . . .  C ADDR   0000H   R   SEG=?PR?DS18B20_GETT?DRIVE
+DS18B20_READ . . . . . . . .  C ADDR   0000H   R   SEG=?PR?DS18B20_READ?DRIVE
+DS18B20_READT. . . . . . . .  C ADDR   0000H   R   SEG=?PR?DS18B20_READT?DRIVE
+DS18B20_RESET. . . . . . . .  C ADDR   0000H   R   SEG=?PR?DS18B20_RESET?DRIVE
+EA . . . . . . . . . . . . .  B ADDR   00A8H.7 A   
+ES . . . . . . . . . . . . .  B ADDR   00A8H.4 A   
+ET0. . . . . . . . . . . . .  B ADDR   00A8H.1 A   
+ET1. . . . . . . . . . . . .  B ADDR   00A8H.3 A   
+ET2. . . . . . . . . . . . .  B ADDR   00A8H.5 A   
+EX0. . . . . . . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . . . . . . .  B ADDR   00A8H.2 A   
+EXEN2. . . . . . . . . . . .  B ADDR   00C8H.3 A   
+EXF2 . . . . . . . . . . . .  B ADDR   00C8H.6 A   
+F0 . . . . . . . . . . . . .  B ADDR   00D0H.5 A   
+F1 . . . . . . . . . . . . .  B ADDR   00D0H.1 A   
+I?1258 . . . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?DS18B20_READ?DRIVE
+I?851. . . . . . . . . . . .  D ADDR   0001H   R   SEG=?DT?_DS18B20_WRITE?DRIVE
+IE . . . . . . . . . . . . .  D ADDR   00A8H   A   
+IE0. . . . . . . . . . . . .  B ADDR   0088H.1 A   
+IE1. . . . . . . . . . . . .  B ADDR   0088H.3 A   
+INT0 . . . . . . . . . . . .  B ADDR   00B0H.2 A   
+INT1 . . . . . . . . . . . .  B ADDR   00B0H.3 A   
+IP . . . . . . . . . . . . .  D ADDR   00B8H   A   
+ISNEGATIVE?1463. . . . . . .  D ADDR   0003H   R   SEG=?DT?DS18B20_GETT?DRIVE
+IT0. . . . . . . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . . . . . . .  B ADDR   0088H.2 A   
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    21
+
+LED_NUM. . . . . . . . . . .  D ADDR   0001H   R   SEG=?DT?DRIVE
+LEVEL?647. . . . . . . . . .  D ADDR   0005H   R   SEG=?DT?_LED_DISPLAY?DRIVE
+NUM?645. . . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_LED_DISPLAY?DRIVE
+OV . . . . . . . . . . . . .  B ADDR   00D0H.2 A   
+P. . . . . . . . . . . . . .  B ADDR   00D0H.0 A   
+P0 . . . . . . . . . . . . .  D ADDR   0080H   A   
+P0_0 . . . . . . . . . . . .  B ADDR   0080H.0 A   
+P0_1 . . . . . . . . . . . .  B ADDR   0080H.1 A   
+P0_2 . . . . . . . . . . . .  B ADDR   0080H.2 A   
+P0_3 . . . . . . . . . . . .  B ADDR   0080H.3 A   
+P0_4 . . . . . . . . . . . .  B ADDR   0080H.4 A   
+P0_5 . . . . . . . . . . . .  B ADDR   0080H.5 A   
+P0_6 . . . . . . . . . . . .  B ADDR   0080H.6 A   
+P0_7 . . . . . . . . . . . .  B ADDR   0080H.7 A   
+P1 . . . . . . . . . . . . .  D ADDR   0090H   A   
+P1_0 . . . . . . . . . . . .  B ADDR   0090H.0 A   
+P1_1 . . . . . . . . . . . .  B ADDR   0090H.1 A   
+P1_2 . . . . . . . . . . . .  B ADDR   0090H.2 A   
+P1_3 . . . . . . . . . . . .  B ADDR   0090H.3 A   
+P1_4 . . . . . . . . . . . .  B ADDR   0090H.4 A   
+P1_5 . . . . . . . . . . . .  B ADDR   0090H.5 A   
+P1_6 . . . . . . . . . . . .  B ADDR   0090H.6 A   
+P1_7 . . . . . . . . . . . .  B ADDR   0090H.7 A   
+P2 . . . . . . . . . . . . .  D ADDR   00A0H   A   
+P2_0 . . . . . . . . . . . .  B ADDR   00A0H.0 A   
+P2_1 . . . . . . . . . . . .  B ADDR   00A0H.1 A   
+P2_2 . . . . . . . . . . . .  B ADDR   00A0H.2 A   
+P2_3 . . . . . . . . . . . .  B ADDR   00A0H.3 A   
+P2_4 . . . . . . . . . . . .  B ADDR   00A0H.4 A   
+P2_5 . . . . . . . . . . . .  B ADDR   00A0H.5 A   
+P2_6 . . . . . . . . . . . .  B ADDR   00A0H.6 A   
+P2_7 . . . . . . . . . . . .  B ADDR   00A0H.7 A   
+P3 . . . . . . . . . . . . .  D ADDR   00B0H   A   
+P3_0 . . . . . . . . . . . .  B ADDR   00B0H.0 A   
+P3_1 . . . . . . . . . . . .  B ADDR   00B0H.1 A   
+P3_2 . . . . . . . . . . . .  B ADDR   00B0H.2 A   
+P3_3 . . . . . . . . . . . .  B ADDR   00B0H.3 A   
+P3_4 . . . . . . . . . . . .  B ADDR   00B0H.4 A   
+P3_5 . . . . . . . . . . . .  B ADDR   00B0H.5 A   
+P3_6 . . . . . . . . . . . .  B ADDR   00B0H.6 A   
+P3_7 . . . . . . . . . . . .  B ADDR   00B0H.7 A   
+PCON . . . . . . . . . . . .  D ADDR   0087H   A   
+POS?646. . . . . . . . . . .  D ADDR   0004H   R   SEG=?DT?_LED_DISPLAY?DRIVE
+PRECENCE?749 . . . . . . . .  B ADDR   0000H.0 R   SEG=?BI?DS18B20_RESET?DRIVE
+PS . . . . . . . . . . . . .  B ADDR   00B8H.4 A   
+PSW. . . . . . . . . . . . .  D ADDR   00D0H   A   
+PT0. . . . . . . . . . . . .  B ADDR   00B8H.1 A   
+PT1. . . . . . . . . . . . .  B ADDR   00B8H.3 A   
+PT2. . . . . . . . . . . . .  B ADDR   00B8H.5 A   
+PX0. . . . . . . . . . . . .  B ADDR   00B8H.0 A   
+PX1. . . . . . . . . . . . .  B ADDR   00B8H.2 A   
+RB8. . . . . . . . . . . . .  B ADDR   0098H.2 A   
+RCAP2H . . . . . . . . . . .  D ADDR   00CBH   A   
+RCAP2L . . . . . . . . . . .  D ADDR   00CAH   A   
+RCLK . . . . . . . . . . . .  B ADDR   00C8H.5 A   
+RD . . . . . . . . . . . . .  B ADDR   00B0H.7 A   
+REN. . . . . . . . . . . . .  B ADDR   0098H.4 A   
+RI . . . . . . . . . . . . .  B ADDR   0098H.0 A   
+RS0. . . . . . . . . . . . .  B ADDR   00D0H.3 A   
+RS1. . . . . . . . . . . . .  B ADDR   00D0H.4 A   
+RXD. . . . . . . . . . . . .  B ADDR   00B0H.0 A   
+SBUF . . . . . . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . . . . . . .  D ADDR   0098H   A   
+SERIAL_BUFFER. . . . . . . .  D ADDR   0000H   R   SEG=?DT?DRIVE
+SERIAL_RECEIVE . . . . . . .  C ADDR   0000H   R   SEG=?PR?SERIAL_RECEIVE?DRIVE
+SERIAL_RECEIVE_INT . . . . .  C ADDR   0000H   R   SEG=?PR?SERIAL_RECEIVE_INT?DRIVE
+A51 MACRO ASSEMBLER  DRIVE                                                                08/23/2016 17:08:36 PAGE    22
+
+SERIAL_TIMER2_INIT . . . . .  C ADDR   0000H   R   SEG=?PR?SERIAL_TIMER2_INIT?DRIVE
+SM0. . . . . . . . . . . . .  B ADDR   0098H.7 A   
+SM1. . . . . . . . . . . . .  B ADDR   0098H.6 A   
+SM2. . . . . . . . . . . . .  B ADDR   0098H.5 A   
+SP . . . . . . . . . . . . .  D ADDR   0081H   A   
+T0 . . . . . . . . . . . . .  B ADDR   00B0H.4 A   
+T1 . . . . . . . . . . . . .  B ADDR   00B0H.5 A   
+T2 . . . . . . . . . . . . .  B ADDR   0090H.0 A   
+T2CON. . . . . . . . . . . .  D ADDR   00C8H   A   
+T2EX . . . . . . . . . . . .  B ADDR   0090H.1 A   
+T2MOD. . . . . . . . . . . .  D ADDR   00C9H   A   
+TB8. . . . . . . . . . . . .  B ADDR   0098H.3 A   
+TCLK . . . . . . . . . . . .  B ADDR   00C8H.4 A   
+TCON . . . . . . . . . . . .  D ADDR   0088H   A   
+TEMP?1259. . . . . . . . . .  D ADDR   0001H   R   SEG=?DT?DS18B20_READ?DRIVE
+TEMP?1462. . . . . . . . . .  D ADDR   0001H   R   SEG=?DT?DS18B20_GETT?DRIVE
+TEMP?648 . . . . . . . . . .  D ADDR   0006H   R   SEG=?DT?_LED_DISPLAY?DRIVE
+TEMPH?1055 . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_DS18B20_INIT?DRIVE
+TEMPH?952. . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_DS18B20_CONFIG?DRIVE
+TEMPL?1056 . . . . . . . . .  D ADDR   0001H   R   SEG=?DT?_DS18B20_INIT?DRIVE
+TEMPL?953. . . . . . . . . .  D ADDR   0001H   R   SEG=?DT?_DS18B20_CONFIG?DRIVE
+TF0. . . . . . . . . . . . .  B ADDR   0088H.5 A   
+TF1. . . . . . . . . . . . .  B ADDR   0088H.7 A   
+TF2. . . . . . . . . . . . .  B ADDR   00C8H.7 A   
+TH0. . . . . . . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . . . . . . .  D ADDR   008DH   A   
+TH2. . . . . . . . . . . . .  D ADDR   00CDH   A   
+TI . . . . . . . . . . . . .  B ADDR   0098H.1 A   
+TL0. . . . . . . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . . . . . . .  D ADDR   008BH   A   
+TL2. . . . . . . . . . . . .  D ADDR   00CCH   A   
+TMOD . . . . . . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . . . . . . .  B ADDR   0088H.6 A   
+TR2. . . . . . . . . . . . .  B ADDR   00C8H.2 A   
+TXD. . . . . . . . . . . . .  B ADDR   00B0H.1 A   
+WR . . . . . . . . . . . . .  B ADDR   00B0H.6 A   
+_DELAY_US. . . . . . . . . .  C ADDR   -----       EXT
+_DS18B20_CONFIG. . . . . . .  C ADDR   0000H   R   SEG=?PR?_DS18B20_CONFIG?DRIVE
+_DS18B20_INIT. . . . . . . .  C ADDR   0000H   R   SEG=?PR?_DS18B20_INIT?DRIVE
+_DS18B20_WRITE . . . . . . .  C ADDR   0000H   R   SEG=?PR?_DS18B20_WRITE?DRIVE
+_LED_DISPLAY . . . . . . . .  C ADDR   0000H   R   SEG=?PR?_LED_DISPLAY?DRIVE
+_LED_DISPLAY_NUM . . . . . .  C ADDR   0000H   R   SEG=?PR?_LED_DISPLAY_NUM?DRIVE
+_SERIAL_PRINT. . . . . . . .  C ADDR   0000H   R   SEG=?PR?_SERIAL_PRINT?DRIVE
+_SERIAL_SEND_CHAR. . . . . .  C ADDR   0000H   R   SEG=?PR?_SERIAL_SEND_CHAR?DRIVE
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

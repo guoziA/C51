@@ -1,0 +1,65 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              08/23/2016 21:47:20 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN MAIN.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE MAIN.c BROWSE INCDIR(.\drive) DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "driveincludes.h"
+   2          #include <math.h>
+   3          
+   4          char *ItoC(uint);
+   5          
+   6          void main(){
+   7   1              uint i = 0, flag = 0, dly = 0;
+   8   1              float temp = 0;
+   9   1              drive_init();
+  10   1              while(1){
+  11   2                      if(i % 500){
+  12   3                              if(flag){
+  13   4                                      temp = DS18B20_GetT();
+  14   4                                      //SERIAL_Print("temperature in main: ");
+  15   4                                      //SERIAL_Print(ItoC(temp));
+  16   4                                      flag = 0;
+  17   4                              }else{
+  18   4                                      DS18B20_ConvertT();
+  19   4                                      flag = 1;
+  20   4                              }
+  21   3                      }
+  22   2                      LED_Display((uint)temp);
+  23   2                      i++;
+  24   2              }
+  25   1      }
+  26          
+  27          char *ItoC(uint num){
+  28   1              uchar i = 0;
+  29   1              uint temp = num, level = 0;
+  30   1              char str[20];
+  31   1              for(;temp > 0; temp /= 10){
+  32   2                      i++;
+  33   2              }
+  34   1              level = (i == 1 || i == 2) ? pow(10, i - 1) : pow(10, i - 1) + 1;                       /*为什么pow(10, 2) = 99 double 转换为
+             -int！！ */
+  35   1              for(i = 0; level > 0; level /= 10){
+  36   2                      str[i] = num / level + 48;
+  37   2                      num %= level;
+  38   2                      i++;
+  39   2              }
+  40   1              return str;
+  41   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    301    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      35
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

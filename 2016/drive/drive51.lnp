@@ -1,0 +1,6 @@
+"drive.obj",
+"drive_cpu.obj",
+".\drive\C51S.LIB",
+"MAIN.obj" 
+TO "drive51" 
+RAMSIZE(256) 

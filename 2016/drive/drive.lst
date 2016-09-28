@@ -1,0 +1,356 @@
+C51 COMPILER V9.52.0.0   DRIVE                                                             08/23/2016 21:47:19 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE DRIVE
+OBJECT MODULE PLACED IN drive.obj
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE drive\drive.c BROWSE INCDIR(.\drive) DEBUG OBJECTEXTEND PRINT(.\drive.lst) 
+                    -OBJECT(drive.obj)
+
+line level    source
+
+   1          #include "driveincludes.h"
+   2          
+   3          /*
+   4          *********************************************************************************************************
+   5          *                                                                                       超声测距                                                                                                                *
+   6          *       接口函数：                                                                                                                                                                                      *
+   7          *       float HC_SR04_getDistance()     返回测量距离 单位cm                                                                                                             *
+   8          *       void HC_SR04_Trigger()          触发信号                                                                                                                                        *
+   9          *       内部函数：                                                                                                                                                                                      *
+  10          *                                                                                                                                                                                                               *
+  11          *               使能中断：                                                                                                                                                                              *
+  12          *       void HC_SR04_INT_Init()         外部中断初始化                                                                                                                  *
+  13          *       void HC_SR04_INT() interrupt 0  /void HC_SR04_INT() interrupt 2外中断响应函数                                           *
+  14          *       void HC_SR04_timer11_Init()     定时器1初始化                                                                                                                   *
+  15          *       void HC_SR04_Init()                     超声模块初始化                                                                                                                  *
+  16          *       float HC_SR04_Response()        测距计算                                                                                                                                        *
+  17          *                                                                                                                                                                                                               *
+  18          *               不使能中断：                                                                                                                                                                            *
+  19          *       void HC_SR04_getDigit_dis()     测量高电平时间长度                                                                                                              *
+  20          *       void HC_SR04_Init()                     超声模块初始化                                                                                                                  *
+  21          *       float HC_SR04_Response()        测量计算                                                                                                                                        *
+  22          *                                                                                                                                                                                                               *
+  23          *********************************************************************************************************
+  24          */
+  25          #if     HC_SR04_EN > 0
+              
+              uint HC_SR04_digit_dis;
+              uchar HC_SR04_Overflow;
+              
+                      #if HC_SR04_TIMER_EN > 0
+                                                                                      
+                              void HC_SR04_timer1_Init(){                                     //初始化定时器1
+                                      EA = 1;
+                                      TMOD |= 0X10;                                                   //定时器1中断方式1
+                                      TH1 = 0;
+                                      TL1 = 0;
+                                      ET1 = 1;
+                                      TR1 = 0;
+                              }
+                              
+                              void timer1_overflow() interrupt 3{
+                                      HC_SR04_Overflow = 1;
+                              }
+                                                                                                                                              //初始化        
+                              void HC_SR04_Init(){
+                                      HC_SR04_ECHO = 0;
+                                      HC_SR04_TRIG = 0;
+                                      HC_SR04_Overflow = 0;
+                                      HC_SR04_timer1_Init();
+                              }
+                              
+                              uint HC_SR04_GetDistance(){
+                                      uint dis = 0;
+                                      HC_SR04_TRIG = 1;
+C51 COMPILER V9.52.0.0   DRIVE                                                             08/23/2016 21:47:19 PAGE 2   
+
+                                      delay_us(15);
+                                      HC_SR04_TRIG = 0;
+                                      while(!HC_SR04_ECHO);
+                                      TR1 = 1;
+                                      while(HC_SR04_ECHO);
+                                      TR1 = 0;
+                                      dis = TH1 * 256 + TL1;
+                                      dis = dis * 17 / ((float)SYS_FREQ / 12000);
+                                      if(dis > 200 || HC_SR04_Overflow){
+                                              HC_SR04_Init();
+                                              return 0;
+                                      }
+                                      TH1 = 0;
+                                      TL1 = 0;
+                                      return dis;
+                              }
+              
+                      #else  
+                              void HC_SR04_getDigit_dis(){
+                                      #pragma asm
+                                              PUSH    DPH
+                                              PUSH    DPL
+                                              CLR             EA
+                                              MOV             DPH,    #00H
+                                              MOV             DPL,    #00H
+                                              JNB             HC_SR04_ECHO,   $
+                                      CTR_LOOP:
+                                              INC             DPTR
+                                              JB              HC_SR04_ECHO,   CTR_LOOP
+                                              SETB    EA
+                                              MOV     HC_SR04_digit_dis,      DPH
+                                              MOV             HC_SR04_digit_dis+01H,  DPL
+                                              POP             DPL
+                                              POP             DPH
+                                              RET
+                                      #pragma endasm
+                              }
+                              
+                              void HC_SR04_Init(){
+                                      HC_SR04_ECHO = 0;
+                                      HC_SR04_TRIG = 0;
+                                      HC_SR04_digit_dis = 0;
+                              }
+                              
+                              void HC_SR04_Trigger(){
+                                      HC_SR04_TRIG = 0;
+                                      HC_SR04_TRIG = 1;
+                                      delay_us(15);
+                                      HC_SR04_TRIG = 0;
+                              }
+                              
+                              uint HC_SR04_Response(){
+                                      uint distance = 0;      
+                                      HC_SR04_getDigit_dis();
+                                      distance = 4 * (1 + HC_SR04_digit_dis) * 17 / ((float)SYS_FREQ / 12000);
+                                      HC_SR04_Init();
+                                      return distance;
+                              }
+              
+                              uint HC_SR04_GetDistance(){
+                                      HC_SR04_Trigger();
+                                      return HC_SR04_Response();
+C51 COMPILER V9.52.0.0   DRIVE                                                             08/23/2016 21:47:19 PAGE 3   
+
+                              }
+                      #endif
+                                                                                              
+              
+              #endif
+ 122                  
+ 123          /*
+ 124          *********************************************************************************************************
+ 125          *                                                                                       串口通信                                                                                                                *
+ 126          *       接口函数：                                                                                                                                                                                      *
+ 127          *       void SERIAL_Print(char *str)字符串为参数                                                                                                                                *
+ 128          *       char SERIAL_Receive()           接收，返回收到的数据                                                                                                            *
+ 129          *       void SERIAL_Receive_INT() interrupt 4 使用中断接收，收到的数据在char SERIAL_BUFFER                                      *
+ 130          *                                                                                                                                                                                                               *
+ 131          *       内部函数：                                                                                                                                                                                      *
+ 132          *                                               *
+ 133          *                                               *
+ 134          *                                               *
+ 135          *                                               *
+ 136          *                                               *
+ 137          *                                               *
+ 138          *                                               *
+ 139          *                                               *
+ 140          *                                               *
+ 141          *                                               *
+ 142          *                                                                                                                                                                                                               *
+ 143          *********************************************************************************************************
+ 144          */
+ 145                  
+ 146          #if SERIAL_EN > 0
+ 147          
+ 148                  char SERIAL_BUFFER;
+ 149                  void SERIAL_timer2_Init(){
+ 150   1                      uint temp;
+ 151   1                      temp = (65536 - SYS_FREQ / (SERIAL_BAUD_RATE * 32));
+ 152   1                      TH2 = RCAP2H = temp >> 8;
+ 153   1                      TL2 = RCAP2L = temp;
+ 154   1                      T2MOD = 0X00;
+ 155   1                      T2CON = 0X34;
+ 156   1                      SCON = 0X50;
+ 157   1              }
+ 158                  
+ 159                  char SERIAL_Receive(){
+ 160   1                      while(!RI);
+ 161   1                      RI = 0;
+ 162   1                      return SBUF;
+ 163   1              }
+ 164                  
+ 165                  void SERIAL_Receive_INT() interrupt 4{
+ 166   1                      if(RI){
+ 167   2                              RI = 0;
+ 168   2                              SERIAL_BUFFER = SBUF;
+ 169   2                      }
+ 170   1              }
+ 171                  
+ 172                  void SERIAL_Send_Char(char dat){
+ 173   1                      SBUF = dat;
+ 174   1                      while(!TI);
+ 175   1                      TI = 0;
+ 176   1              }
+ 177                  
+ 178                  void SERIAL_Print(char *dat){
+C51 COMPILER V9.52.0.0   DRIVE                                                             08/23/2016 21:47:19 PAGE 4   
+
+ 179   1                      while(*dat){
+ 180   2                              SERIAL_Send_Char(*dat);
+ 181   2                              dat++;
+ 182   2                      }
+ 183   1              }
+ 184                  
+ 185          #endif
+ 186                  
+ 187                  
+ 188          #if LED_EN > 0
+ 189                  
+ 190                  const uchar LED_Num[] = {0x50,0x5f,0x38,0x19,0x17,0x91,0x90,0x5d,0x10,0x11,0xef};//0~9
+ 191          
+ 192                  void LED_Display_Num(uchar num, uchar pos){
+ 193   1                      num %= 10;
+ 194   1                      pos %= 8;
+ 195   1                      LED_CONTROL = 0XFF;
+ 196   1                      LED_DATA = 0X00;
+ 197   1                      LED_CONTROL = ~(0X01 << pos);
+ 198   1                      LED_DATA = LED_Num[num];
+ 199   1              }
+ 200                  
+ 201                  void LED_Display(ulong num){
+ 202   1                      uchar pos = 0, level = 0;
+ 203   1                      ulong temp = num;
+ 204   1                      for(; temp > 0; temp /= 10){
+ 205   2                              level++;
+ 206   2                      }
+ 207   1                      for(; pos < level; pos++){
+ 208   2                              LED_Display_Num(num % 10, pos);
+ 209   2                              num /= 10;
+ 210   2                      }
+ 211   1              }
+ 212                  
+ 213          #endif
+ 214          
+ 215                  
+ 216          #if     DS18B20_EN > 0
+ 217                  
+ 218                  bit DS18B20_Reset(){
+ 219   1                      bit precence;
+ 220   1                      uint ctr = 60000;
+ 221   1                      DS18B20_DQ = 0;
+ 222   1                      delay_us(90);
+ 223   1                      DS18B20_DQ = 1;
+ 224   1                      delay_us(11);
+ 225   1                      while(DS18B20_DQ && ctr > 0) ctr--;
+ 226   1                      precence = DS18B20_DQ;
+ 227   1                      while(!DS18B20_DQ);
+ 228   1                      return precence;
+ 229   1              }
+ 230                  
+ 231                  void DS18B20_Write(char dat){
+ 232   1                      uchar i;
+ 233   1                      for(i = 0; i < 8; i++){
+ 234   2                              DS18B20_DQ = 0;
+ 235   2                              delay_us(1);
+ 236   2                              DS18B20_DQ = dat & 0x01;
+ 237   2                              delay_us(8);
+ 238   2                              DS18B20_DQ = 1;
+ 239   2                              delay_us(1);
+ 240   2                              dat >>= 1;
+C51 COMPILER V9.52.0.0   DRIVE                                                             08/23/2016 21:47:19 PAGE 5   
+
+ 241   2                      }
+ 242   1              }
+ 243                  
+ 244                  void DS18B20_Config(char TempH, char TempL, char config){
+ 245   1                      DS18B20_Write(DS18B20_WRITE_SCRACHPAD);
+ 246   1                      DS18B20_Write(TempH);
+ 247   1                      DS18B20_Write(TempL);
+ 248   1                      DS18B20_Write(config);
+ 249   1              }
+ 250                  
+ 251                  void DS18B20_Init(char TempH, char TempL, char config){
+ 252   1                      SERIAL_Print("ds18b20 init");
+ 253   1                      if(DS18B20_Reset() == 0){
+ 254   2                              DS18B20_Config(TempH, TempL, config);
+ 255   2                              DS18B20_Reset();
+ 256   2                              DS18B20_Write(DS18B20_SKIP_ROM);
+ 257   2                              SERIAL_Print("config ok");
+ 258   2                      }
+ 259   1              }
+ 260                  
+ 261                  void DS18B20_ConvertT(){
+ 262   1                      DS18B20_Reset();
+ 263   1                      DS18B20_Write(DS18B20_SKIP_ROM);
+ 264   1                      DS18B20_Write(DS18B20_CONVERT_T);
+ 265   1              }
+ 266                  
+ 267                  uchar DS18B20_Read(){
+ 268   1                      uchar i, temp;
+ 269   1                      for(i = 0; i < 8; i++){
+ 270   2                              temp >>= 1;
+ 271   2                              DS18B20_DQ = 0;
+ 272   2                              delay_us(1);
+ 273   2                              DS18B20_DQ = 1;
+ 274   2                              delay_us(6);
+ 275   2                              if(DS18B20_DQ == 1){
+ 276   3                                      temp |= 0x80;
+ 277   3                              }
+ 278   2                              delay_us(8);
+ 279   2                              DS18B20_DQ = 1;
+ 280   2                              while(!DS18B20_DQ);
+ 281   2                      }
+ 282   1                      return temp;
+ 283   1              }
+ 284                  
+ 285                  int DS18B20_ReadT(){
+ 286   1                      int temp;
+ 287   1                      uchar temp1, temp2;
+ 288   1                      DS18B20_Reset();
+ 289   1                      DS18B20_Write(DS18B20_SKIP_ROM);
+ 290   1                      DS18B20_Write(DS18B20_READ_SCRACHPAD);
+ 291   1                      temp1 = DS18B20_Read();
+ 292   1                      temp2 = DS18B20_Read();
+ 293   1                      temp = (temp2 << 8) | temp1;
+ 294   1                      SERIAL_Print("          ");
+ 295   1                      SERIAL_Print(ItoC(temp));
+ 296   1                      return temp;
+ 297   1              }
+ 298                  
+ 299                  float DS18B20_GetT(){
+ 300   1                      uchar decimal = 0;
+ 301   1                      uchar isNegative = 0;
+ 302   1                      int temp = DS18B20_ReadT();
+C51 COMPILER V9.52.0.0   DRIVE                                                             08/23/2016 21:47:19 PAGE 6   
+
+ 303   1                      //SERIAL_Print("ds18b20 read temperature");
+ 304   1                      if(temp >= 0){
+ 305   2                              isNegative = 0;
+ 306   2                      }else{
+ 307   2                              isNegative = 1;
+ 308   2                              temp = 0 - temp;
+ 309   2                      }
+ 310   1                      decimal = temp & 0x000f;
+ 311   1                      temp >>= 4;
+ 312   1                      temp = temp + (float)decimal / 16;
+ 313   1                      //SERIAL_Print("        temperature: hex to dec:");
+ 314   1                      //SERIAL_Print(ItoC(temp));
+ 315   1                      if(isNegative){
+ 316   2                              return -temp;
+ 317   2                      }else{
+ 318   2                              return temp;
+ 319   2                      }
+ 320   1              }
+ 321                  
+ 322          #endif
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    654    ----
+   CONSTANT SIZE    =     26    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     12      29
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

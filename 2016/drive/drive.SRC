@@ -1,0 +1,1121 @@
+; .\drive.SRC generated from: drive\drive.c
+; COMPILER INVOKED BY:
+;        E:\keil\C51\BIN\C51.EXE drive\drive.c BROWSE INCDIR(.\drive) DEBUG OBJECTEXTEND PRINT(.\drive.lst) SRC(.\drive.SRC)
+
+$NOMOD51
+
+NAME	DRIVE
+
+P0	DATA	080H
+P1	DATA	090H
+P2	DATA	0A0H
+P3	DATA	0B0H
+AC	BIT	0D0H.6
+T0	BIT	0B0H.4
+T1	BIT	0B0H.5
+EA	BIT	0A8H.7
+T2	BIT	090H.0
+IE	DATA	0A8H
+P0_0	BIT	080H.0
+P1_0	BIT	090H.0
+P0_1	BIT	080H.1
+P2_0	BIT	0A0H.0
+P1_1	BIT	090H.1
+P0_2	BIT	080H.2
+P3_0	BIT	0B0H.0
+P2_1	BIT	0A0H.1
+P1_2	BIT	090H.2
+P0_3	BIT	080H.3
+P3_1	BIT	0B0H.1
+P2_2	BIT	0A0H.2
+P1_3	BIT	090H.3
+P0_4	BIT	080H.4
+P3_2	BIT	0B0H.2
+P2_3	BIT	0A0H.3
+P1_4	BIT	090H.4
+P0_5	BIT	080H.5
+EXF2	BIT	0C8H.6
+RD	BIT	0B0H.7
+P3_3	BIT	0B0H.3
+P2_4	BIT	0A0H.4
+P1_5	BIT	090H.5
+P0_6	BIT	080H.6
+P3_4	BIT	0B0H.4
+P2_5	BIT	0A0H.5
+P1_6	BIT	090H.6
+P0_7	BIT	080H.7
+P3_5	BIT	0B0H.5
+ES	BIT	0A8H.4
+P2_6	BIT	0A0H.6
+P1_7	BIT	090H.7
+P3_6	BIT	0B0H.6
+P2_7	BIT	0A0H.7
+IP	DATA	0B8H
+P3_7	BIT	0B0H.7
+RI	BIT	098H.0
+CY	BIT	0D0H.7
+INT0	BIT	0B0H.2
+INT1	BIT	0B0H.3
+TI	BIT	098H.1
+RCAP2H	DATA	0CBH
+PS	BIT	0B8H.4
+SP	DATA	081H
+T2EX	BIT	090H.1
+OV	BIT	0D0H.2
+RCAP2L	DATA	0CAH
+C_T2	BIT	0C8H.1
+WR	BIT	0B0H.6
+RCLK	BIT	0C8H.5
+TCLK	BIT	0C8H.4
+SBUF	DATA	099H
+PCON	DATA	087H
+SCON	DATA	098H
+TMOD	DATA	089H
+TCON	DATA	088H
+IE0	BIT	088H.1
+IE1	BIT	088H.3
+B	DATA	0F0H
+CP_RL2	BIT	0C8H.0
+ACC	DATA	0E0H
+ET0	BIT	0A8H.1
+ET1	BIT	0A8H.3
+TF0	BIT	088H.5
+ET2	BIT	0A8H.5
+TF1	BIT	088H.7
+TF2	BIT	0C8H.7
+RB8	BIT	098H.2
+TH0	DATA	08CH
+EX0	BIT	0A8H.0
+IT0	BIT	088H.0
+TH1	DATA	08DH
+EX1	BIT	0A8H.2
+TB8	BIT	098H.3
+IT1	BIT	088H.2
+TH2	DATA	0CDH
+P	BIT	0D0H.0
+SM0	BIT	098H.7
+TL0	DATA	08AH
+SM1	BIT	098H.6
+TL1	DATA	08BH
+SM2	BIT	098H.5
+TL2	DATA	0CCH
+PT0	BIT	0B8H.1
+RS0	BIT	0D0H.3
+PT1	BIT	0B8H.3
+RS1	BIT	0D0H.4
+PT2	BIT	0B8H.5
+TR0	BIT	088H.4
+TR1	BIT	088H.6
+TR2	BIT	0C8H.2
+PX0	BIT	0B8H.0
+PX1	BIT	0B8H.2
+DPH	DATA	083H
+DPL	DATA	082H
+EXEN2	BIT	0C8H.3
+REN	BIT	098H.4
+T2MOD	DATA	0C9H
+T2CON	DATA	0C8H
+RXD	BIT	0B0H.0
+TXD	BIT	0B0H.1
+F0	BIT	0D0H.5
+F1	BIT	0D0H.1
+PSW	DATA	0D0H
+?PR?SERIAL_timer2_Init?DRIVE             SEGMENT CODE 
+?PR?SERIAL_Receive?DRIVE                 SEGMENT CODE 
+?PR?SERIAL_Receive_INT?DRIVE             SEGMENT CODE 
+?PR?_SERIAL_Send_Char?DRIVE              SEGMENT CODE 
+?PR?_SERIAL_Print?DRIVE                  SEGMENT CODE 
+?PR?_LED_Display_Num?DRIVE               SEGMENT CODE 
+?PR?_LED_Display?DRIVE                   SEGMENT CODE 
+?DT?_LED_Display?DRIVE                   SEGMENT DATA OVERLAYABLE 
+?PR?DS18B20_Reset?DRIVE                  SEGMENT CODE 
+?BI?DS18B20_Reset?DRIVE                  SEGMENT BIT OVERLAYABLE 
+?PR?_DS18B20_Write?DRIVE                 SEGMENT CODE 
+?DT?_DS18B20_Write?DRIVE                 SEGMENT DATA OVERLAYABLE 
+?PR?_DS18B20_Config?DRIVE                SEGMENT CODE 
+?DT?_DS18B20_Config?DRIVE                SEGMENT DATA OVERLAYABLE 
+?PR?_DS18B20_Init?DRIVE                  SEGMENT CODE 
+?DT?_DS18B20_Init?DRIVE                  SEGMENT DATA OVERLAYABLE 
+?PR?DS18B20_ConvertT?DRIVE               SEGMENT CODE 
+?PR?DS18B20_Read?DRIVE                   SEGMENT CODE 
+?DT?DS18B20_Read?DRIVE                   SEGMENT DATA OVERLAYABLE 
+?PR?DS18B20_ReadT?DRIVE                  SEGMENT CODE 
+?PR?DS18B20_GetT?DRIVE                   SEGMENT CODE 
+?DT?DS18B20_GetT?DRIVE                   SEGMENT DATA OVERLAYABLE 
+?CO?DRIVE            SEGMENT CODE 
+?C_INITSEG           SEGMENT CODE 
+?DT?DRIVE            SEGMENT DATA 
+	EXTRN	CODE (_delay_us)
+	EXTRN	CODE (?C?CLDPTR)
+	EXTRN	CODE (?C?ULCMP)
+	EXTRN	CODE (?C?ULDIV)
+	EXTRN	CODE (?C?FCASTC)
+	EXTRN	CODE (?C?FPDIV)
+	EXTRN	CODE (?C?FCASTI)
+	EXTRN	CODE (?C?FPADD)
+	EXTRN	CODE (?C?CASTF)
+	PUBLIC	LED_Num
+	PUBLIC	SERIAL_BUFFER
+	PUBLIC	DS18B20_GetT
+	PUBLIC	DS18B20_ReadT
+	PUBLIC	DS18B20_Read
+	PUBLIC	DS18B20_ConvertT
+	PUBLIC	_DS18B20_Init
+	PUBLIC	_DS18B20_Config
+	PUBLIC	_DS18B20_Write
+	PUBLIC	DS18B20_Reset
+	PUBLIC	_LED_Display
+	PUBLIC	_LED_Display_Num
+	PUBLIC	_SERIAL_Print
+	PUBLIC	_SERIAL_Send_Char
+	PUBLIC	SERIAL_Receive_INT
+	PUBLIC	SERIAL_Receive
+	PUBLIC	SERIAL_timer2_Init
+
+	RSEG  ?DT?DS18B20_Read?DRIVE
+?DS18B20_Read?BYTE:
+         i?1258:   DS   1
+	ORG  1
+      temp?1259:   DS   1
+
+	RSEG  ?BI?DS18B20_Reset?DRIVE
+?DS18B20_Reset?BIT:
+   precence?749:   DBIT   1
+
+	RSEG  ?DT?_LED_Display?DRIVE
+?_LED_Display?BYTE:
+        num?645:   DS   4
+	ORG  4
+        pos?646:   DS   1
+	ORG  5
+      level?647:   DS   1
+	ORG  6
+       temp?648:   DS   4
+
+	RSEG  ?DT?_DS18B20_Write?DRIVE
+?_DS18B20_Write?BYTE:
+        dat?850:   DS   1
+	ORG  1
+          i?851:   DS   1
+
+	RSEG  ?DT?_DS18B20_Init?DRIVE
+?_DS18B20_Init?BYTE:
+     TempH?1055:   DS   1
+	ORG  1
+     TempL?1056:   DS   1
+	ORG  2
+    config?1057:   DS   1
+
+	RSEG  ?DT?_DS18B20_Config?DRIVE
+?_DS18B20_Config?BYTE:
+      TempH?952:   DS   1
+	ORG  1
+      TempL?953:   DS   1
+	ORG  2
+     config?954:   DS   1
+
+	RSEG  ?DT?DS18B20_GetT?DRIVE
+?DS18B20_GetT?BYTE:
+   decimal?1461:   DS   1
+	ORG  1
+      temp?1462:   DS   2
+	ORG  3
+isNegative?1463:   DS   1
+
+	RSEG  ?DT?DRIVE
+  SERIAL_BUFFER:   DS   1
+        LED_Num:   DS   11
+
+	RSEG  ?CO?DRIVE
+?SC_0:
+	DB  'c' ,'o' ,'n' ,'f' ,'i' ,'g' ,' ' ,'o' ,'k' ,000H
+
+
+	RSEG  ?C_INITSEG
+	DB	00BH
+	DB	LED_Num
+	DB	050H
+	DB	05FH
+	DB	038H
+	DB	019H
+	DB	017H
+	DB	091H
+	DB	090H
+	DB	05DH
+	DB	010H
+	DB	011H
+	DB	0EFH
+
+; #include "driveincludes.h"
+; 
+; /*
+; *********************************************************************************************************
+; *											超声测距														*
+; *	接口函数：																							*
+; *	float HC_SR04_getDistance()	返回测量距离 单位cm														*
+; *	void HC_SR04_Trigger()		触发信号																	*
+; *	内部函数：																							*
+; *																										*
+; *		使能中断：																						*
+; *	void HC_SR04_INT_Init()		外部中断初始化															*
+; *	void HC_SR04_INT() interrupt 0	/void HC_SR04_INT() interrupt 2外中断响应函数						*
+; *	void HC_SR04_timer11_Init()	定时器1初始化															*
+; *	void HC_SR04_Init()			超声模块初始化															*
+; *	float HC_SR04_Response()	测距计算																	*
+; *																										*
+; *		不使能中断：																						*
+; *	void HC_SR04_getDigit_dis()	测量高电平时间长度														*
+; *	void HC_SR04_Init()			超声模块初始化															*
+; *	float HC_SR04_Response()	测量计算																	*
+; *																										*
+; *********************************************************************************************************
+; */
+; #if	HC_SR04_EN > 0
+; 
+; uint HC_SR04_digit_dis;
+; uchar HC_SR04_Overflow;
+; 
+; 	#if HC_SR04_TIMER_EN > 0
+; 									
+; 		void HC_SR04_timer1_Init(){					//初始化定时器1
+; 			EA = 1;
+; 			TMOD |= 0X10;							//定时器1中断方式1
+; 			TH1 = 0;
+; 			TL1 = 0;
+; 			ET1 = 1;
+; 			TR1 = 0;
+; 		}
+; 		
+; 		void timer1_overflow() interrupt 3{
+; 			HC_SR04_Overflow = 1;
+; 		}
+; 																//初始化	
+; 		void HC_SR04_Init(){
+; 			HC_SR04_ECHO = 0;
+; 			HC_SR04_TRIG = 0;
+; 			HC_SR04_Overflow = 0;
+; 			HC_SR04_timer1_Init();
+; 		}
+; 		
+; 		uint HC_SR04_GetDistance(){
+; 			uint dis = 0;
+; 			HC_SR04_TRIG = 1;
+; 			delay_us(15);
+; 			HC_SR04_TRIG = 0;
+; 			while(!HC_SR04_ECHO);
+; 			TR1 = 1;
+; 			while(HC_SR04_ECHO);
+; 			TR1 = 0;
+; 			dis = TH1 * 256 + TL1;
+; 			dis = dis * 17 / ((float)SYS_FREQ / 12000);
+; 			if(dis > 200 || HC_SR04_Overflow){
+; 				HC_SR04_Init();
+; 				return 0;
+; 			}
+; 			TH1 = 0;
+; 			TL1 = 0;
+; 			return dis;
+; 		}
+; 
+; 	#else  
+; 		void HC_SR04_getDigit_dis(){
+; 			#pragma asm
+; 				PUSH	DPH
+; 				PUSH	DPL
+; 				CLR		EA
+; 				MOV		DPH,	#00H
+; 				MOV		DPL,	#00H
+; 				JNB		HC_SR04_ECHO,	$
+; 			CTR_LOOP:
+; 				INC		DPTR
+; 				JB		HC_SR04_ECHO,	CTR_LOOP
+; 				SETB	EA
+; 				MOV 	HC_SR04_digit_dis,	DPH
+; 				MOV		HC_SR04_digit_dis+01H,	DPL
+; 				POP		DPL
+; 				POP		DPH
+; 				RET
+; 			#pragma endasm
+; 		}
+; 		
+; 		void HC_SR04_Init(){
+; 			HC_SR04_ECHO = 0;
+; 			HC_SR04_TRIG = 0;
+; 			HC_SR04_digit_dis = 0;
+; 		}
+; 		
+; 		void HC_SR04_Trigger(){
+; 			HC_SR04_TRIG = 0;
+; 			HC_SR04_TRIG = 1;
+; 			delay_us(15);
+; 			HC_SR04_TRIG = 0;
+; 		}
+; 		
+; 		uint HC_SR04_Response(){
+; 			uint distance = 0;	
+; 			HC_SR04_getDigit_dis();
+; 			distance = 4 * (1 + HC_SR04_digit_dis) * 17 / ((float)SYS_FREQ / 12000);
+; 			HC_SR04_Init();
+; 			return distance;
+; 		}
+; 
+; 		uint HC_SR04_GetDistance(){
+; 			HC_SR04_Trigger();
+; 			return HC_SR04_Response();
+; 		}
+; 	#endif
+; 										
+; 
+; #endif
+; 	
+; /*
+; *********************************************************************************************************
+; *											串口通信														*
+; *	接口函数：																							*
+; *	void SERIAL_Print(char *str)字符串为参数																*
+; *	char SERIAL_Receive()		接收，返回收到的数据														*
+; *	void SERIAL_Receive_INT() interrupt 4 使用中断接收，收到的数据在char SERIAL_BUFFER					*
+; *																										*
+; *	内部函数：																							*
+; *						*
+; *						*
+; *						*
+; *						*
+; *						*
+; *						*
+; *						*
+; *						*
+; *						*
+; *						*
+; *																										*
+; *********************************************************************************************************
+; */
+; 	
+; #if SERIAL_EN > 0
+; 
+; 	char SERIAL_BUFFER;
+; 	void SERIAL_timer2_Init(){
+
+	RSEG  ?PR?SERIAL_timer2_Init?DRIVE
+SERIAL_timer2_Init:
+			; SOURCE LINE # 149
+; 		uint temp;
+; 		temp = (65536 - SYS_FREQ / (SERIAL_BAUD_RATE * 32));
+			; SOURCE LINE # 151
+;---- Variable 'temp?040' assigned to Register 'R4/R5' ----
+	MOV  	A,#0FFH
+; 		TH2 = RCAP2H = temp >> 8;
+			; SOURCE LINE # 152
+	MOV  	RCAP2H,A
+	MOV  	TH2,A
+; 		TL2 = RCAP2L = temp;
+			; SOURCE LINE # 153
+	MOV  	RCAP2L,A
+	MOV  	TL2,A
+; 		T2MOD = 0X00;
+			; SOURCE LINE # 154
+	CLR  	A
+	MOV  	T2MOD,A
+; 		T2CON = 0X34;
+			; SOURCE LINE # 155
+	MOV  	T2CON,#034H
+; 		SCON = 0X50;
+			; SOURCE LINE # 156
+	MOV  	SCON,#050H
+; 	}
+			; SOURCE LINE # 157
+	RET  	
+; END OF SERIAL_timer2_Init
+
+; 	
+; 	char SERIAL_Receive(){
+
+	RSEG  ?PR?SERIAL_Receive?DRIVE
+SERIAL_Receive:
+	USING	0
+			; SOURCE LINE # 159
+?C0002:
+; 		while(!RI);
+			; SOURCE LINE # 160
+	JNB  	RI,?C0002
+?C0003:
+; 		RI = 0;
+			; SOURCE LINE # 161
+	CLR  	RI
+; 		return SBUF;
+			; SOURCE LINE # 162
+	MOV  	R7,SBUF
+; 	}
+			; SOURCE LINE # 163
+?C0004:
+	RET  	
+; END OF SERIAL_Receive
+
+CSEG	AT	00023H
+	LJMP	SERIAL_Receive_INT
+
+; 	
+; 	void SERIAL_Receive_INT() interrupt 4{
+
+	RSEG  ?PR?SERIAL_Receive_INT?DRIVE
+	USING	0
+SERIAL_Receive_INT:
+			; SOURCE LINE # 165
+; 		if(RI){
+			; SOURCE LINE # 166
+	JNB  	RI,?C0006
+; 			RI = 0;
+			; SOURCE LINE # 167
+	CLR  	RI
+; 			SERIAL_BUFFER = SBUF;
+			; SOURCE LINE # 168
+	MOV  	SERIAL_BUFFER,SBUF
+; 		}
+			; SOURCE LINE # 169
+; 	}
+			; SOURCE LINE # 170
+?C0006:
+	RETI 	
+; END OF SERIAL_Receive_INT
+
+; 	
+; 	void SERIAL_Send_Char(char dat){
+
+	RSEG  ?PR?_SERIAL_Send_Char?DRIVE
+_SERIAL_Send_Char:
+			; SOURCE LINE # 172
+;---- Variable 'dat?341' assigned to Register 'R7' ----
+; 		SBUF = dat;
+			; SOURCE LINE # 173
+	MOV  	SBUF,R7
+?C0007:
+; 		while(!TI);
+			; SOURCE LINE # 174
+	JNB  	TI,?C0007
+?C0008:
+; 		TI = 0;
+			; SOURCE LINE # 175
+	CLR  	TI
+; 	}
+			; SOURCE LINE # 176
+	RET  	
+; END OF _SERIAL_Send_Char
+
+; 	
+; 	void SERIAL_Print(char *dat){
+
+	RSEG  ?PR?_SERIAL_Print?DRIVE
+_SERIAL_Print:
+	USING	0
+			; SOURCE LINE # 178
+;---- Variable 'dat?442' assigned to Register 'R1/R2/R3' ----
+?C0010:
+; 		while(*dat){
+			; SOURCE LINE # 179
+	LCALL	?C?CLDPTR
+	MOV  	R7,A
+	JZ   	?C0012
+; 			SERIAL_Send_Char(*dat);
+			; SOURCE LINE # 180
+	LCALL	_SERIAL_Send_Char
+; 			dat++;
+			; SOURCE LINE # 181
+	MOV  	A,#01H
+	ADD  	A,R1
+	MOV  	R1,A
+	CLR  	A
+	ADDC 	A,R2
+	MOV  	R2,A
+; 		}
+			; SOURCE LINE # 182
+	SJMP 	?C0010
+; 	}
+			; SOURCE LINE # 183
+?C0012:
+	RET  	
+; END OF _SERIAL_Print
+
+; 	
+; #endif
+; 	
+; 	
+; #if LED_EN > 0
+; 	
+; 	const uchar LED_Num[] = {0x50,0x5f,0x38,0x19,0x17,0x91,0x90,0x5d,0x10,0x11,0xef};//0~9
+; 
+; 	void LED_Display_Num(uchar num, uchar pos){
+
+	RSEG  ?PR?_LED_Display_Num?DRIVE
+_LED_Display_Num:
+	USING	0
+			; SOURCE LINE # 192
+;---- Variable 'pos?544' assigned to Register 'R5' ----
+;---- Variable 'num?543' assigned to Register 'R7' ----
+; 		num %= 10;
+			; SOURCE LINE # 193
+	MOV  	A,R7
+	MOV  	B,#0AH
+	DIV  	AB
+	MOV  	R7,B
+; 		pos %= 8;
+			; SOURCE LINE # 194
+	ANL  	AR5,#07H
+; 		LED_CONTROL = 0XFF;
+			; SOURCE LINE # 195
+	MOV  	P1,#0FFH
+; 		LED_DATA = 0X00;
+			; SOURCE LINE # 196
+	CLR  	A
+	MOV  	P0,A
+; 		LED_CONTROL = ~(0X01 << pos);
+			; SOURCE LINE # 197
+	MOV  	R6,AR5
+	INC  	A
+	MOV  	R0,AR6
+	INC  	R0
+	SJMP 	?C0048
+?C0047:
+	CLR  	C
+	RLC  	A
+?C0048:
+	DJNZ 	R0,?C0047
+	CPL  	A
+	MOV  	P1,A
+; 		LED_DATA = LED_Num[num];
+			; SOURCE LINE # 198
+	MOV  	A,#LOW (LED_Num)
+	ADD  	A,R7
+	MOV  	R0,A
+	MOV  	A,@R0
+	MOV  	P0,A
+; 	}
+			; SOURCE LINE # 199
+	RET  	
+; END OF _LED_Display_Num
+
+; 	
+; 	void LED_Display(ulong num){
+
+	RSEG  ?PR?_LED_Display?DRIVE
+_LED_Display:
+	USING	0
+			; SOURCE LINE # 201
+	MOV  	num?645+03H,R7
+	MOV  	num?645+02H,R6
+	MOV  	num?645+01H,R5
+	MOV  	num?645,R4
+; 		uchar pos = 0, level = 0;
+			; SOURCE LINE # 202
+	CLR  	A
+	MOV  	pos?646,A
+	MOV  	level?647,A
+; 		ulong temp = num;
+			; SOURCE LINE # 203
+; 		for(; temp > 0; temp /= 10){
+			; SOURCE LINE # 204
+	SJMP 	?C0051
+?C0014:
+	CLR  	A
+	MOV  	R7,A
+	MOV  	R6,A
+	MOV  	R5,A
+	MOV  	R4,A
+	MOV  	R3,temp?648+03H
+	MOV  	R2,temp?648+02H
+	MOV  	R1,temp?648+01H
+	MOV  	R0,temp?648
+	SETB 	C
+	LCALL	?C?ULCMP
+	JC   	?C0017
+; 			level++;
+			; SOURCE LINE # 205
+	INC  	level?647
+; 		}
+			; SOURCE LINE # 206
+	MOV  	R7,temp?648+03H
+	MOV  	R6,temp?648+02H
+	MOV  	R5,temp?648+01H
+	MOV  	R4,temp?648
+	CLR  	A
+	MOV  	R3,#0AH
+	MOV  	R2,A
+	MOV  	R1,A
+	MOV  	R0,A
+	LCALL	?C?ULDIV
+?C0051:
+	MOV  	temp?648+03H,R7
+	MOV  	temp?648+02H,R6
+	MOV  	temp?648+01H,R5
+	MOV  	temp?648,R4
+	SJMP 	?C0014
+; 		for(; pos < level; pos++){
+			; SOURCE LINE # 207
+?C0017:
+	MOV  	A,pos?646
+	CLR  	C
+	SUBB 	A,level?647
+	JNC  	?C0020
+; 			LED_Display_Num(num % 10, pos);
+			; SOURCE LINE # 208
+	CLR  	A
+	MOV  	R3,#0AH
+	MOV  	R2,A
+	MOV  	R1,A
+	MOV  	R0,A
+	MOV  	R7,num?645+03H
+	MOV  	R6,num?645+02H
+	MOV  	R5,num?645+01H
+	MOV  	R4,num?645
+	LCALL	?C?ULDIV
+	MOV  	R7,AR3
+	MOV  	R5,pos?646
+	LCALL	_LED_Display_Num
+; 			num /= 10;
+			; SOURCE LINE # 209
+	MOV  	R7,num?645+03H
+	MOV  	R6,num?645+02H
+	MOV  	R5,num?645+01H
+	MOV  	R4,num?645
+	CLR  	A
+	MOV  	R3,#0AH
+	MOV  	R2,A
+	MOV  	R1,A
+	MOV  	R0,A
+	LCALL	?C?ULDIV
+	MOV  	num?645+03H,R7
+	MOV  	num?645+02H,R6
+	MOV  	num?645+01H,R5
+	MOV  	num?645,R4
+; 		}
+			; SOURCE LINE # 210
+	INC  	pos?646
+	SJMP 	?C0017
+; 	}
+			; SOURCE LINE # 211
+?C0020:
+	RET  	
+; END OF _LED_Display
+
+; 	
+; #endif
+; 
+; 	
+; #if	DS18B20_EN > 0
+; 	
+; 	bit DS18B20_Reset(){
+
+	RSEG  ?PR?DS18B20_Reset?DRIVE
+DS18B20_Reset:
+	USING	0
+			; SOURCE LINE # 218
+; 		bit precence;
+; 		DS18B20_DQ = 0;
+			; SOURCE LINE # 220
+	CLR  	P3_7
+; 		delay_us(480);
+			; SOURCE LINE # 221
+	MOV  	R7,#0E0H
+	LCALL	_delay_us
+; 		DS18B20_DQ = 1;
+			; SOURCE LINE # 222
+	SETB 	P3_7
+; 		delay_us(480);
+			; SOURCE LINE # 223
+	MOV  	R7,#0E0H
+	LCALL	_delay_us
+; 		precence = DS18B20_DQ;
+			; SOURCE LINE # 224
+	MOV  	C,P3_7
+	MOV  	precence?749,C
+?C0021:
+; 		while(!DS18B20_DQ);
+			; SOURCE LINE # 225
+	JNB  	P3_7,?C0021
+?C0022:
+; 		return precence;
+			; SOURCE LINE # 226
+	MOV  	C,precence?749
+; 	}
+			; SOURCE LINE # 227
+?C0023:
+	RET  	
+; END OF DS18B20_Reset
+
+; 	
+; 	void DS18B20_Write(char dat){
+
+	RSEG  ?PR?_DS18B20_Write?DRIVE
+_DS18B20_Write:
+	USING	0
+			; SOURCE LINE # 229
+	MOV  	dat?850,R7
+; 		uchar i;
+; 		for(i = 0; i < 8; i++){
+			; SOURCE LINE # 231
+	CLR  	A
+	MOV  	i?851,A
+?C0024:
+; 			DS18B20_DQ = 0;
+			; SOURCE LINE # 232
+	CLR  	P3_7
+; 			delay_us(2);
+			; SOURCE LINE # 233
+	MOV  	R7,#02H
+	LCALL	_delay_us
+; 			DS18B20_DQ = (dat >> i) & 0x01;
+			; SOURCE LINE # 234
+	MOV  	R7,i?851
+	MOV  	A,dat?850
+	MOV  	R0,AR7
+	INC  	R0
+	SJMP 	?C0050
+?C0049:
+	MOV  	C,ACC.7
+	RRC  	A
+?C0050:
+	DJNZ 	R0,?C0049
+	RRC  	A
+	MOV  	P3_7,C
+; 			delay_us(50);
+			; SOURCE LINE # 235
+	MOV  	R7,#032H
+	LCALL	_delay_us
+; 			DS18B20_DQ = 1;
+			; SOURCE LINE # 236
+	SETB 	P3_7
+; 			delay_us(1);
+			; SOURCE LINE # 237
+	MOV  	R7,#01H
+	LCALL	_delay_us
+; 		}
+			; SOURCE LINE # 238
+	INC  	i?851
+	MOV  	A,i?851
+	CLR  	C
+	SUBB 	A,#08H
+	JC   	?C0024
+; 	}
+			; SOURCE LINE # 239
+?C0027:
+	RET  	
+; END OF _DS18B20_Write
+
+; 	
+; 	void DS18B20_Config(char TempH, char TempL, char config){
+
+	RSEG  ?PR?_DS18B20_Config?DRIVE
+_DS18B20_Config:
+	USING	0
+			; SOURCE LINE # 241
+	MOV  	TempH?952,R7
+	MOV  	TempL?953,R5
+	MOV  	config?954,R3
+; 		DS18B20_Write(DS18B20_WRITE_SCRACHPAD);
+			; SOURCE LINE # 242
+	MOV  	R7,#04EH
+	LCALL	_DS18B20_Write
+; 		DS18B20_Write(TempH);
+			; SOURCE LINE # 243
+	MOV  	R7,TempH?952
+	LCALL	_DS18B20_Write
+; 		DS18B20_Write(TempL);
+			; SOURCE LINE # 244
+	MOV  	R7,TempL?953
+	LCALL	_DS18B20_Write
+; 		DS18B20_Write(config);
+			; SOURCE LINE # 245
+	MOV  	R7,config?954
+	LJMP 	_DS18B20_Write
+; END OF _DS18B20_Config
+
+; 	}
+; 	
+; 	void DS18B20_Init(char TempH, char TempL, char config){
+
+	RSEG  ?PR?_DS18B20_Init?DRIVE
+_DS18B20_Init:
+	USING	0
+			; SOURCE LINE # 248
+	MOV  	TempH?1055,R7
+	MOV  	TempL?1056,R5
+	MOV  	config?1057,R3
+; 		if(DS18B20_Reset() == 0){
+			; SOURCE LINE # 249
+	LCALL	DS18B20_Reset
+	JC   	?C0030
+; 			DS18B20_Config(TempH, TempL, config);
+			; SOURCE LINE # 250
+	MOV  	R3,config?1057
+	MOV  	R5,TempL?1056
+	MOV  	R7,TempH?1055
+	LCALL	_DS18B20_Config
+; 			DS18B20_Reset();
+			; SOURCE LINE # 251
+	LCALL	DS18B20_Reset
+; 			DS18B20_Write(DS18B20_SKIP_ROM);
+			; SOURCE LINE # 252
+	MOV  	R7,#0CCH
+	LCALL	_DS18B20_Write
+; 			SERIAL_Print("config ok");
+			; SOURCE LINE # 253
+	MOV  	R3,#0FFH
+	MOV  	R2,#HIGH (?SC_0)
+	MOV  	R1,#LOW (?SC_0)
+	LCALL	_SERIAL_Print
+; 		}
+			; SOURCE LINE # 254
+; 	}
+			; SOURCE LINE # 255
+?C0030:
+	RET  	
+; END OF _DS18B20_Init
+
+; 	
+; 	void DS18B20_ConvertT(){
+
+	RSEG  ?PR?DS18B20_ConvertT?DRIVE
+DS18B20_ConvertT:
+	USING	0
+			; SOURCE LINE # 257
+; 		DS18B20_Write(DS18B20_CONVERT_T);
+			; SOURCE LINE # 258
+	MOV  	R7,#044H
+	LJMP 	_DS18B20_Write
+; END OF DS18B20_ConvertT
+
+; 	}
+; 	
+; 	uchar DS18B20_Read(){
+
+	RSEG  ?PR?DS18B20_Read?DRIVE
+DS18B20_Read:
+	USING	0
+			; SOURCE LINE # 261
+?C0032:
+; 		uchar i, temp;
+; 		while(!DS18B20_DQ);
+			; SOURCE LINE # 263
+	JNB  	P3_7,?C0032
+?C0033:
+; 		for(i = 0; i < 8; i++){
+			; SOURCE LINE # 264
+	CLR  	A
+	MOV  	i?1258,A
+?C0034:
+; 			DS18B20_DQ = 0;
+			; SOURCE LINE # 265
+	CLR  	P3_7
+; 			delay_us(1);
+			; SOURCE LINE # 266
+	MOV  	R7,#01H
+	LCALL	_delay_us
+; 			DS18B20_DQ = 1;
+			; SOURCE LINE # 267
+	SETB 	P3_7
+; 			delay_us(15);
+			; SOURCE LINE # 268
+	MOV  	R7,#0FH
+	LCALL	_delay_us
+; 			if(DS18B20_DQ == 1){
+			; SOURCE LINE # 269
+	JNB  	P3_7,?C0037
+; 				temp |= 0x80;
+			; SOURCE LINE # 270
+	ORL  	temp?1259,#080H
+; 			}
+			; SOURCE LINE # 271
+?C0037:
+; 			delay_us(30);
+			; SOURCE LINE # 272
+	MOV  	R7,#01EH
+	LCALL	_delay_us
+; 			temp >>= 1;
+			; SOURCE LINE # 273
+	MOV  	A,temp?1259
+	CLR  	C
+	RRC  	A
+	MOV  	temp?1259,A
+?C0038:
+; 			while(!DS18B20_DQ);
+			; SOURCE LINE # 274
+	JNB  	P3_7,?C0038
+?C0039:
+; 		}
+			; SOURCE LINE # 275
+?C0036:
+	INC  	i?1258
+	MOV  	A,i?1258
+	CLR  	C
+	SUBB 	A,#08H
+	JC   	?C0034
+?C0035:
+; 		return temp;
+			; SOURCE LINE # 276
+	MOV  	R7,temp?1259
+; 	}
+			; SOURCE LINE # 277
+?C0040:
+	RET  	
+; END OF DS18B20_Read
+
+; 	
+; 	uint DS18B20_ReadT(){
+
+	RSEG  ?PR?DS18B20_ReadT?DRIVE
+DS18B20_ReadT:
+	USING	0
+			; SOURCE LINE # 279
+; 		uint temp;
+; 		DS18B20_Write(DS18B20_READ_SCRACHPAD);
+			; SOURCE LINE # 281
+	MOV  	R7,#0BEH
+	LCALL	_DS18B20_Write
+; 		temp = DS18B20_Read();
+			; SOURCE LINE # 282
+	LCALL	DS18B20_Read
+;---- Variable 'temp?1360' assigned to Register 'R6/R7' ----
+; 		temp <<= 8;
+			; SOURCE LINE # 283
+	MOV  	A,R7
+	MOV  	R7,#00H
+	MOV  	R6,A
+; 		temp = DS18B20_Read();
+			; SOURCE LINE # 284
+	LCALL	DS18B20_Read
+	MOV  	R6,#00H
+; 		return temp;
+			; SOURCE LINE # 285
+; 	}
+			; SOURCE LINE # 286
+?C0041:
+	RET  	
+; END OF DS18B20_ReadT
+
+; 	
+; 	float DS18B20_GetT(){
+
+	RSEG  ?PR?DS18B20_GetT?DRIVE
+DS18B20_GetT:
+	USING	0
+			; SOURCE LINE # 288
+; 		uchar decimal = 0;
+			; SOURCE LINE # 289
+	CLR  	A
+	MOV  	decimal?1461,A
+; 		uint temp = DS18B20_ReadT();
+			; SOURCE LINE # 290
+	LCALL	DS18B20_ReadT
+	MOV  	temp?1462,R6
+	MOV  	temp?1462+01H,R7
+; 		uchar isNegative = 0;
+			; SOURCE LINE # 291
+	CLR  	A
+	MOV  	isNegative?1463,A
+; 		if(temp >= 0){
+			; SOURCE LINE # 292
+	CLR  	C
+	MOV  	A,temp?1462
+	SUBB 	A,#00H
+	JC   	?C0042
+; 			isNegative = 0;
+			; SOURCE LINE # 293
+	CLR  	A
+	MOV  	isNegative?1463,A
+; 		}else{
+			; SOURCE LINE # 294
+	SJMP 	?C0043
+?C0042:
+; 			isNegative = 1;
+			; SOURCE LINE # 295
+	MOV  	isNegative?1463,#01H
+; 			temp = 0 - temp;
+			; SOURCE LINE # 296
+	CLR  	C
+	CLR  	A
+	SUBB 	A,temp?1462+01H
+	MOV  	temp?1462+01H,A
+	CLR  	A
+	SUBB 	A,temp?1462
+	MOV  	temp?1462,A
+; 		}
+			; SOURCE LINE # 297
+?C0043:
+; 		decimal = temp & 0x000f;
+			; SOURCE LINE # 298
+	MOV  	A,temp?1462+01H
+	ANL  	A,#0FH
+	MOV  	decimal?1461,A
+; 		temp >>= 4;
+			; SOURCE LINE # 299
+	MOV  	A,temp?1462
+	SWAP 	A
+	MOV  	R0,A
+	ANL  	A,#0F0H
+	XCH  	A,R0
+	XRL  	A,R0
+	MOV  	temp?1462,A
+	MOV  	A,temp?1462+01H
+	SWAP 	A
+	ANL  	A,#0FH
+	ORL  	A,R0
+	MOV  	temp?1462+01H,A
+; 		temp = temp + (float)decimal / 16;
+			; SOURCE LINE # 300
+	MOV  	R4,decimal?1461
+	CLR  	A
+	LCALL	?C?FCASTC
+	CLR  	A
+	MOV  	R3,A
+	MOV  	R2,A
+	MOV  	R1,#080H
+	MOV  	R0,#041H
+	LCALL	?C?FPDIV
+	PUSH 	AR4
+	PUSH 	AR5
+	PUSH 	AR6
+	PUSH 	AR7
+	MOV  	R4,temp?1462
+	MOV  	R5,temp?1462+01H
+	CLR  	A
+	LCALL	?C?FCASTI
+	POP  	AR3
+	POP  	AR2
+	POP  	AR1
+	POP  	AR0
+	LCALL	?C?FPADD
+	LCALL	?C?CASTF
+	MOV  	temp?1462,R6
+	MOV  	temp?1462+01H,R7
+; 		if(isNegative){
+			; SOURCE LINE # 301
+	MOV  	A,isNegative?1463
+	JZ   	?C0044
+; 			return -temp;
+			; SOURCE LINE # 302
+	CLR  	C
+	CLR  	A
+	SUBB 	A,temp?1462+01H
+	MOV  	R5,A
+	CLR  	A
+	SUBB 	A,temp?1462
+	MOV  	R4,A
+	SJMP 	?C0052
+; 		}else{
+			; SOURCE LINE # 303
+?C0044:
+; 			return temp;
+			; SOURCE LINE # 304
+	MOV  	R4,temp?1462
+	MOV  	R5,temp?1462+01H
+?C0052:
+	CLR  	A
+	LCALL	?C?FCASTI
+; 		}
+			; SOURCE LINE # 305
+; 	}
+			; SOURCE LINE # 306
+?C0045:
+	RET  	
+; END OF DS18B20_GetT
+
+	END
