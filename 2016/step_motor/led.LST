@@ -1,0 +1,253 @@
+C51 COMPILER V9.52.0.0   LED                                                               03/09/2016 14:58:09 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "led.h";
+   2          #include<regx52.h>
+   3          
+   4          #define LED P0
+   5          
+   6          //#define LED_DIG1 P3_4
+   7          //#define LED_DIG2 P3_5
+   8          //#define LED_DIG3 P3_6
+   9          //#define LED_DIG4 P3_7
+  10          
+  11          
+  12          //char code number[] = {//0,1,2,3,4,5,6,7,8,9
+  13          //      0xfa, 0x22, 0xb9, 0xab, 0x63, 0xcb, 0xdb, 0xa2, 0xfb, 0xeb
+  14          //};
+  15          
+  16          //char code letter[] = {//D,C,E,R,space,g,o,d
+  17          //      0xfa, 0xd8, 0xd9, 0xf3, 0x00, 0xeb, 0xe1, 0x3b
+  18          //};
+  19          
+  20          //开发板测试********************************************
+  21          #define LED_DIG1 P1_3
+  22          #define LED_DIG2 P1_2
+  23          #define LED_DIG3 P1_1
+  24          #define LED_DIG4 P1_0
+  25          
+  26          
+  27          char code number[] = {//0,1,2,3,4,5,6,7,8,9
+  28                  0x50,0x5f,0x38,0x19,0x17,0x91,0x90,0x5d,0x10,0x11
+  29          };
+  30          
+  31          char code letter[] = {//D,C,E,R,space
+  32                  0xfa, 0xd8, 0xd9, 0xf3, 0xff
+  33          };
+  34          //**************************************************************
+  35          
+  36          
+  37          char char_code[4];
+  38          
+  39          
+  40          void LED_stop(){
+  41   1              LED = 0X00;
+  42   1              LED_DIG1 = 1;
+  43   1              LED_DIG2 = 1;
+  44   1              LED_DIG3 = 1;
+  45   1              LED_DIG4 = 1;
+  46   1              
+  47   1      //      LED = 0X00;
+  48   1      //      LED_DIG1 = 0;
+  49   1      //      LED_DIG2 = 0;
+  50   1      //      LED_DIG3 = 0;
+  51   1      //      LED_DIG4 = 0;
+  52   1      }
+  53          
+  54          
+  55          void chanslate(char* str){//将字符串翻译成可以显示的code
+C51 COMPILER V9.52.0.0   LED                                                               03/09/2016 14:58:09 PAGE 2   
+
+  56   1              unsigned char _j;
+  57   1              for(_j = 0; _j < 4; _j++){
+  58   2                      if(*str == '1'){
+  59   3                              char_code[_j] = number[1];
+  60   3                      }
+  61   2                      else if(*str == '2'){
+  62   3                              char_code[_j] = number[2];
+  63   3                      }
+  64   2                      else if(*str == '3'){
+  65   3                              char_code[_j] = number[3];
+  66   3                      }
+  67   2                      else if(*str == '4'){
+  68   3                              char_code[_j] = number[4];
+  69   3                      }
+  70   2                      else if(*str == '5'){
+  71   3                              char_code[_j] = number[5];
+  72   3                      }
+  73   2                      else if(*str == '6'){
+  74   3                              char_code[_j] = number[6];
+  75   3                      }
+  76   2                      else if(*str == '7'){
+  77   3                              char_code[_j] = number[7];
+  78   3                      }
+  79   2                      else if(*str == '8'){
+  80   3                              char_code[_j] = number[8];
+  81   3                      }
+  82   2                      else if(*str == '9'){
+  83   3                              char_code[_j] = number[9];
+  84   3                      }
+  85   2                      else if(*str == '0'){
+  86   3                              char_code[_j] = number[0]; // 如果0显示有问题，在这里**************
+  87   3                      }
+  88   2                      else if(*str == 'D'){
+  89   3                              char_code[_j] = letter[0];
+  90   3                      }
+  91   2                      else if(*str == 'C'){
+  92   3                              char_code[_j] = letter[1];
+  93   3                      }
+  94   2                      else if(*str == 'E'){
+  95   3                              char_code[_j] = letter[2];
+  96   3                      }
+  97   2                      else if(*str == 'R'){
+  98   3                              char_code[_j] = letter[3];
+  99   3                      }
+ 100   2                      else if(*str == ' '){
+ 101   3                              char_code[_j] = letter[4];
+ 102   3                      }
+ 103   2                      else if(*str == 'g'){
+ 104   3                              char_code[_j] = letter[5];
+ 105   3                      }
+ 106   2                      else if(*str == 'o'){
+ 107   3                              char_code[_j] = letter[6];
+ 108   3                      }
+ 109   2                      else{
+ 110   3                              char_code[0] = letter[2];
+ 111   3                              char_code[1] = letter[3];
+ 112   3                              char_code[2] = letter[3];
+ 113   3                              char_code[3] = letter[0];
+ 114   3                              return;
+ 115   3                      }
+ 116   2                      str++;
+ 117   2              }
+C51 COMPILER V9.52.0.0   LED                                                               03/09/2016 14:58:09 PAGE 3   
+
+ 118   1      }
+ 119          
+ 120          void display(char* dis_data){//显示
+ 121   1      
+ 122   1              unsigned int _i;
+ 123   1      
+ 124   1              chanslate(dis_data);
+ 125   1              LED_stop();
+ 126   1              
+ 127   1              LED = char_code[0];
+ 128   1              LED_DIG1 = 0;
+ 129   1              for(_i = 10; _i > 0; _i--);
+ 130   1              LED_DIG1 = 1;
+ 131   1              LED = 0X00;
+ 132   1              
+ 133   1              LED = char_code[1];
+ 134   1              LED_DIG2 = 0;
+ 135   1              for(_i = 10; _i > 0; _i--);
+ 136   1              LED_DIG2 = 1;
+ 137   1              LED = 0X00;
+ 138   1              
+ 139   1              LED = char_code[2];
+ 140   1              LED_DIG3 = 0;
+ 141   1              for(_i = 10; _i > 0; _i--);
+ 142   1              LED_DIG3 = 1;
+ 143   1              LED = 0X00;
+ 144   1              
+ 145   1              LED = char_code[3];
+ 146   1              LED_DIG4 = 0;
+ 147   1              for(_i = 10; _i > 0; _i--);
+ 148   1              LED_DIG4 = 1;
+ 149   1              LED = 0X00;
+ 150   1      }
+ 151          
+ 152          void LED_init(){//LED初始化
+ 153   1              int led_init_time = 500;
+ 154   1              P3 = (P3 && 0X0F);
+ 155   1              P0 = 0X00;
+ 156   1              while(led_init_time--);
+ 157   1      }
+ 158          
+ 159          void welcome(){
+ 160   1              unsigned int welcome_i = 0, welcome_j = 0;
+ 161   1              
+ 162   1              LED_stop();
+ 163   1              
+ 164   1              for(welcome_i = 0; welcome_i < 3; welcome_i++){
+ 165   2                                      
+ 166   2                      LED = letter[5];
+ 167   2                      LED_DIG1 = 0;
+ 168   2                      for(welcome_j = 15000; welcome_j > 0; welcome_j--);
+ 169   2                      LED_DIG1 = 1;
+ 170   2                      LED = 0X00;
+ 171   2                      
+ 172   2                      LED = letter[6];
+ 173   2                      LED_DIG2 = 0;
+ 174   2                      for(welcome_j = 15000; welcome_j > 0; welcome_j--);
+ 175   2                      LED_DIG2 = 1;
+ 176   2                      LED = 0X00;
+ 177   2                      
+ 178   2                      LED = letter[6];
+ 179   2                      LED_DIG3 = 0;
+C51 COMPILER V9.52.0.0   LED                                                               03/09/2016 14:58:09 PAGE 4   
+
+ 180   2                      for(welcome_j = 15000; welcome_j > 0; welcome_j--);
+ 181   2                      LED_DIG3 = 1;
+ 182   2                      LED = 0X00;
+ 183   2                      
+ 184   2                      LED = letter[7];
+ 185   2                      LED_DIG4 = 0;
+ 186   2                      for(welcome_j = 15000; welcome_j > 0; welcome_j--);
+ 187   2                      LED_DIG4 = 1;
+ 188   2                      LED = 0X00;
+ 189   2                      for(welcome_j = 30000; welcome_j > 0; welcome_j--);
+ 190   2                      }
+ 191   1      
+ 192   1                                      
+ 193   1      //              LED = number[1];
+ 194   1      //              LED_DIG1 = 0;
+ 195   1      //              for(welcome_j = 15000; welcome_j > 0; welcome_j--);
+ 196   1      //              LED_DIG1 = 1;
+ 197   1      //              LED = 0Xff;
+ 198   1      //              
+ 199   1      //              LED = number[2];
+ 200   1      //              LED_DIG2 = 0;
+ 201   1      //              for(welcome_j = 15000; welcome_j > 0; welcome_j--);
+ 202   1      //              LED_DIG2 = 1;
+ 203   1      //              LED = 0Xff;
+ 204   1      //              
+ 205   1      //              LED = number[3];
+ 206   1      //              LED_DIG3 = 0;
+ 207   1      //              for(welcome_j = 15000; welcome_j > 0; welcome_j--);
+ 208   1      //              LED_DIG3 = 1;
+ 209   1      //              LED = 0Xff;
+ 210   1      //              
+ 211   1      //              LED = number[4];
+ 212   1      //              LED_DIG4 = 0;
+ 213   1      //              for(welcome_j = 15000; welcome_j > 0; welcome_j--);
+ 214   1      //              LED_DIG4 = 1;
+ 215   1      //              LED = 0Xff;
+ 216   1      //              
+ 217   1      //              for(welcome_j = 30000; welcome_j > 0; welcome_j--);
+ 218   1      //      }
+ 219   1              
+ 220   1              
+ 221   1              
+ 222   1              display("    ");
+ 223   1      
+ 224   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    528    ----
+   CONSTANT SIZE    =     20    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

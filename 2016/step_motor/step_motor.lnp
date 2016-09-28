@@ -1,0 +1,4 @@
+"main.obj",
+"key.obj",
+"led.obj" 
+TO "step_motor" 
